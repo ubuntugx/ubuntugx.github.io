@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Tech Daily</title>
+    <link rel="stylesheet" href="css/myStyle.css" />
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="header-title">
+            My Tech Daily
+        </div>
+    </div>
+    <div class="content">
+        <p>Thu 07 January 2016<a href="./daily/20160107.html">学习fastClick的编写</a></p>
+        <p>Wed 06 January 2016<a href="./daily/20160106.html">响应式设计-2</a></p>
+        <p>Tue 05 January 2016
+            <a href="./daily/20160105.html">js中(function(){xxx})()<br/>js中函数的几种定义方式<br/>JavaScript Scope (作用域)<br/>JavaScript Best Practices (最佳实践)</a>
+        </p>
+        <p>Mon 04 January 2016<a href="./daily/20160104.html">响应式设计</a></p>
+        <p>Thu 31 December 2015<a href="./daily/20151231.html">匹配正则表达式</a></p>
+        <p>Tue 29 December 2015
+            <a href="./daily/20151229.html">jQuery height()<br/>IScroll用法<br/>iScroll的Click事件<br/>自己练习游戏</a></p>
+        <p>Mon 28 December 2015<a href="./daily/20151228.html">IScroll 用法<br/>Math.Random()<br/>missing number</a></p>
+    </div>
+    <div class="footer"></div>
+</div>
+</body>
+</html>
