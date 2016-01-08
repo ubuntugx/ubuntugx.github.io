@@ -1,0 +1,119 @@
+<!DOCTYPE html><html><head><title>20151229</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-1" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-2" class="wmd-preview-section preview-content">
+
+<h1 id="20151229">20151229</h1>
+
+</div><div id="wmd-preview-section-3" class="wmd-preview-section preview-content">
+
+<h2 id="jquery-height">jQuery height()</h2>
+
+<p><strong>Description:</strong> <em>Get the current computed height for the first element in the set of matched elements.</em> <br>
+<strong>描述：</strong> <em>获得匹配元素集合中的第一个元素的高度。</em></p>
+
+<p>The difference between .css( “height” ) and .height() is that the latter returns a unit-less pixel value (for example, 400) while the former returns a value with units intact (for example, 400px). The .height() method is recommended when an element’s height needs to be used in a mathematical calculation. <br>
+.height() 返回不带单位的像素值（如：400），在数学计算时使用 <br>
+.css( “height” )返回带单位的像素值（如：400px）</p>
+
+<p>Note that .height() will always return the content height, regardless of the value of the CSS box-sizing property. As of jQuery 1.8, this may require retrieving the CSS height plus box-sizing property and then subtracting any potential border and padding on each element when the element has box-sizing: border-box. To avoid this penalty, use .css( “height” ) rather than .height(). <br>
+ jQuery 1.8后可能会减去border和padding值，为了避免这个，用.css( “height” )更好。</p>
+
+<blockquote>
+  <p>Note: Although style and script tags will report a value for .width() or height() when absolutely positioned and given display:block, it is strongly discouraged to call those methods on these tags. In addition to being a bad practice, the results may also prove unreliable. <br>
+  当元素position:absolute或者display:block时，不要用.width()和.height()，得到的值是不可靠的。</p>
+</blockquote>
+
+<p><strong>Additional Notes:</strong></p>
+
+<ul><li>The number returned by dimensions-related APIs, including .height(), may be fractional in some cases. Code should not assume it is an integer. Also, dimensions may be incorrect when the page is zoomed by the user; browsers do not expose an API to detect this condition.  .height()返回的可能是一个分数，所以不要把它返回值当作整数。当页面被用户缩放时，这个值可能是不正确的。</li>
+<li>The value reported by .height() is not guaranteed to be accurate when the element or its parent is hidden. To get an accurate value, ensure the element is visible before using .height(). jQuery will attempt to temporarily show and then re-hide an element in order to measure its dimensions, but this is unreliable and (even when accurate) can significantly impact page performance. This show-and-rehide measurement feature may be removed in a future version of jQuery.当一个元素或它的父元素是隐藏的时，.height()可能是不精确的。</li>
+</ul>
+
+</div><div id="wmd-preview-section-4" class="wmd-preview-section preview-content">
+
+<h2 id="iscroll用法">IScroll用法</h2>
+
+<p><a href="https://iiunknown.gitbooks.io/iscroll-5-api-cn/content/versions.html" target="_blank">Scroll的API</a></p>
+
+</div><div id="wmd-preview-section-5" class="wmd-preview-section preview-content">
+
+<h3 id="自定义事件">自定义事件</h3>
+
+<p>iScroll还提供额一些你可以挂靠的有用的自定义事件。 <br>
+使用on(type, fn)方法注册事件。</p>
+
+</div><div id="wmd-preview-section-6" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>myScroll = <span class="hljs-keyword">new</span> IScroll(<span class="hljs-string">'#wrapper'</span>);<br><span class="hljs-comment line-number">2.</span>myScroll.on(<span class="hljs-string">'scrollEnd'</span>, doSomething);<br></code></pre>
+
+<p>上面的代码会在每次滚动停止是执行doSomething方法。 <br>
+可以挂靠的事件如下：</p>
+
+<ul><li><strong>beforeScrollStart</strong>，在用户触摸屏幕但还没有开始滚动时触发。</li>
+<li><strong>scrollCancel</strong>，滚动初始化完成，但没有执行。</li>
+<li><strong>scrollStart</strong>，开始滚动</li>
+<li><strong>scroll</strong>，内容滚动时触发，只有在scroll-probe.js版本中有效，请参考onScroll event。</li>
+<li><strong>scrollEnd</strong>，停止滚动时触发。</li>
+<li><strong>flick</strong>，用户打开左/右。</li>
+<li><strong>zoomStart</strong>，开始缩放。</li>
+<li><strong>zoomEnd</strong>，缩放结束。</li>
+</ul>
+
+</div><div id="wmd-preview-section-7" class="wmd-preview-section preview-content">
+
+<h3 id="滚动条信息">滚动条信息</h3>
+
+<p>iScroll存储了很多有用的信息，您可以使用它们来增强您的应用。 <br>
+你可能会发现有用的：</p>
+
+<ul><li><strong>myScroll.x/y</strong>，当前位置</li>
+<li><strong>myScroll.directionX/Y</strong>，最后的方向 (-1 down/right, 0 still, 1 up/left)</li>
+<li><strong>myScroll.currentPage</strong>，当前对齐捕获点</li>
+</ul>
+
+<p>下面是关于处理时间的代码示例：</p>
+
+</div><div id="wmd-preview-section-8" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>myScroll = <span class="hljs-keyword">new</span> IScroll(<span class="hljs-string">'#wrapper'</span>);<br><span class="hljs-comment line-number">2.</span>myScroll.on(<span class="hljs-string">'scrollEnd'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">this</span>.x &lt; -<span class="hljs-number">1000</span> ) {<br><span class="hljs-comment line-number">4.</span>        <span class="hljs-comment">// do something</span><br><span class="hljs-comment line-number">5.</span>    }<br><span class="hljs-comment line-number">6.</span>});<br></code></pre>
+
+<p>我的代码：</p>
+
+</div><div id="wmd-preview-section-70" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// 在cycle的预混B里</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-comment">// whchatmeeting中有不用iScroll判断滚动位置的方法(绑定scroll事件，用scrolltop()判断)</span><br><span class="hljs-comment line-number">3.</span>pptIScroll=<span class="hljs-keyword">new</span> IScroll($ppt0Wrapper.get(<span class="hljs-number">0</span>),{<br><span class="hljs-comment line-number">4.</span>      mouseWheel: <span class="hljs-literal">true</span>,<br><span class="hljs-comment line-number">5.</span>      scrollbars: <span class="hljs-literal">false</span><br><span class="hljs-comment line-number">6.</span>});<br><span class="hljs-comment line-number">7.</span>pptIScroll.on(<span class="hljs-string">'scrollEnd'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">8.</span>      <span class="hljs-keyword">var</span> ppt0Height = $ppt0Div.height();<br><span class="hljs-comment line-number">9.</span>      <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">this</span>.y &lt;-~~ppt0Height*<span class="hljs-number">9</span> ) {<br><span class="hljs-comment line-number">10.</span>          $moveToPPTContent.show();<br><span class="hljs-comment line-number">11.</span>      }<span class="hljs-keyword">else</span>{<br><span class="hljs-comment line-number">12.</span>          $moveToPPTContent.hide();<br><span class="hljs-comment line-number">13.</span>      }<br><span class="hljs-comment line-number">14.</span>});<br></code></pre>
+
+<blockquote>
+  <p>iScroll初始化和绑定事件要写到一起</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-665" class="wmd-preview-section preview-content">
+
+<h2 id="iscroll的click事件">iScroll的Click事件</h2>
+
+<p><strong>options.click</strong> <br>
+为了重写原生滚动条，iScroll禁止了一些默认的浏览器行为，比如鼠标的点击。如果你想你的应用程序响应click事件，那么该设置次属性为true。请注意，建议使用自定义的tap 事件来代替它（见下面）。 <br>
+默认属性：false</p>
+
+<p>iScroll绑定fastClick并不能实现 <br>
+所以自己重写了Click事件</p>
+
+</div><div id="wmd-preview-section-1506" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>$.fn.lzjClick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">var</span> isSupportTouch = <span class="hljs-built_in">document</span>[<span class="hljs-string">"ontouchstart"</span>] === <span class="hljs-literal">null</span>;<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">var</span> startY, endY; <span class="hljs-comment">//用于模拟单击事件</span><br><span class="hljs-comment line-number">4.</span>    <span class="hljs-keyword">var</span> _this = <span class="hljs-keyword">this</span>.get(<span class="hljs-number">0</span>);<br><span class="hljs-comment line-number">5.</span>    _this.callback = callback || $.noop; <span class="hljs-comment">//为了使callback中的this指向事件绑定元素</span><br><span class="hljs-comment line-number">6.</span><br><span class="hljs-comment line-number">7.</span>    <span class="hljs-keyword">if</span> (_this.callback == <span class="hljs-literal">null</span>) {<br><span class="hljs-comment line-number">8.</span>        <span class="hljs-keyword">if</span> (isSupportTouch) {<br><span class="hljs-comment line-number">9.</span>            _this.ontouchstart = <span class="hljs-literal">null</span>;<br><span class="hljs-comment line-number">10.</span>        } <span class="hljs-keyword">else</span> {<br><span class="hljs-comment line-number">11.</span>            _this.onmousedown = <span class="hljs-literal">null</span>;<br><span class="hljs-comment line-number">12.</span>        }<br><span class="hljs-comment line-number">13.</span>        <span class="hljs-keyword">return</span>;<br><span class="hljs-comment line-number">14.</span>    }<br><span class="hljs-comment line-number">15.</span>    <span class="hljs-keyword">if</span> (isSupportTouch) {<br><span class="hljs-comment line-number">16.</span>        _this.ontouchstart = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{<br><span class="hljs-comment line-number">17.</span>            <span class="hljs-keyword">var</span> e = e || <span class="hljs-built_in">window</span>.event;<br><span class="hljs-comment line-number">18.</span>            startY = e.touches[<span class="hljs-number">0</span>].pageY;<br><span class="hljs-comment line-number">19.</span>            _this.ontouchend = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">20.</span>                <span class="hljs-keyword">var</span> e = e || <span class="hljs-built_in">window</span>.event;<br><span class="hljs-comment line-number">21.</span>                endY = e.changedTouches[<span class="hljs-number">0</span>].pageY;<br><span class="hljs-comment line-number">22.</span>                <span class="hljs-keyword">if</span> (isClickEvent()) {<br><span class="hljs-comment line-number">23.</span>                    _this.callback(e);<br><span class="hljs-comment line-number">24.</span>                }<br><span class="hljs-comment line-number">25.</span>                _this.ontouchend = <span class="hljs-literal">null</span>;<br><span class="hljs-comment line-number">26.</span>            }<br><span class="hljs-comment line-number">27.</span>        }<br><span class="hljs-comment line-number">28.</span>    } <span class="hljs-keyword">else</span> {<br><span class="hljs-comment line-number">29.</span>        _this.onmousedown = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{<br><span class="hljs-comment line-number">30.</span>            <span class="hljs-keyword">var</span> e = e || <span class="hljs-built_in">window</span>.event;<br><span class="hljs-comment line-number">31.</span>            startY = e.pageY;<br><span class="hljs-comment line-number">32.</span>            _this.onmouseup = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{<br><span class="hljs-comment line-number">33.</span>                <span class="hljs-keyword">var</span> e = e || <span class="hljs-built_in">window</span>.event;<br><span class="hljs-comment line-number">34.</span>                endY = e.pageY;<br><span class="hljs-comment line-number">35.</span>                <span class="hljs-keyword">if</span> (isClickEvent()) {<br><span class="hljs-comment line-number">36.</span>                    _this.callback(e);<br><span class="hljs-comment line-number">37.</span>                }<br><span class="hljs-comment line-number">38.</span>                _this.onmouseup = <span class="hljs-literal">null</span>;<br><span class="hljs-comment line-number">39.</span>            }<br><span class="hljs-comment line-number">40.</span>        }<br><span class="hljs-comment line-number">41.</span>    }<br><span class="hljs-comment line-number">42.</span><br><span class="hljs-comment line-number">43.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isClickEvent</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">44.</span>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.abs(startY - endY) &lt; <span class="hljs-number">10</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">45.</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><span class="hljs-comment line-number">46.</span>    }<br><span class="hljs-comment line-number">47.</span>}<br></code></pre>
+
+<p>写在了jQuery的插件里，这里只监听y轴的移动。 <br>
+.css(“”)是html中style的属性。 <br>
+.attr(“”)是style外面，就像是自定义的属性。</p></div><div id="wmd-preview-section-10" class="wmd-preview-section preview-content">
+
+<h2 id="自己练习">自己练习</h2>
+
+<ol><li rel="1">贝塞尔曲线</li>
+<li rel="2">贪吃蛇</li>
+<li rel="3">拼图（华容道）</li>
+<li rel="4">开心消消乐</li>
+<li rel="5">连连看（不能转两个wan）</li>
+<li rel="6">2048</li>
+</ol></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></body></html>
