@@ -1,0 +1,639 @@
+<!DOCTYPE html><html><head><title>20160105</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-16" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-17" class="wmd-preview-section preview-content">
+
+<h1 id="20160105">20160105</h1>
+
+<hr>
+
+<div><div class="toc"><div class="toc">
+<ul>
+<li><a href="#20160105">20160105</a><ul>
+<li><a href="#js中-functionxxx-的意思">js中 (function(){xxx})(); 的意思</a></li>
+<li><a href="#js中函数的几种定义方式">js中函数的几种定义方式</a><ul>
+<li><a href="#1-function-declarations-函数声明">1. Function Declarations (函数声明)</a></li>
+<li><a href="#2-function-expressions-函数表达式">2. Function Expressions (函数表达式)</a></li>
+<li><a href="#3-the-function-constructor-function构造函数">3. The Function() Constructor (Function()构造函数)</a></li>
+<li><a href="#4-function-hoisting-函数提升">4. Function Hoisting (函数提升？)</a></li>
+<li><a href="#5-self-invoking-functions-自调用函数">5. Self-Invoking Functions (自调用函数)</a></li>
+<li><a href="#6-functions-can-be-used-as-values-函数可以和变量一样被使用">6. Functions Can Be Used as Values (函数可以和变量一样被使用)</a></li>
+<li><a href="#7-functions-are-objects-函数可以是对象">7. Functions are Objects (函数可以是对象)</a></li>
+</ul>
+</li>
+<li><a href="#javascript-hoisting-javascript变量函数提升">JavaScript Hoisting (javascript变量/函数提升)</a><ul>
+<li><a href="#javascript-declarations-are-hoisted">JavaScript Declarations are Hoisted</a></li>
+<li><a href="#javascript-initializations-are-not-hoisted">JavaScript Initializations are Not Hoisted</a></li>
+<li><a href="#declare-your-variables-at-the-top">Declare Your Variables At the Top !</a></li>
+</ul>
+</li>
+<li><a href="#javascript-scope-作用域">JavaScript Scope (作用域)</a><ul>
+<li><a href="#javascript-scope">JavaScript Scope</a></li>
+<li><a href="#local-javascript-variables-局部变量">Local JavaScript Variables (局部变量)</a></li>
+<li><a href="#global-javascript-variables-全局变量">Global JavaScript Variables (全局变量)</a></li>
+<li><a href="#automatically-global-自动转化为全局">Automatically Global (自动转化为全局)</a></li>
+<li><a href="#the-lifetime-of-javascript-variables-变量的生存期">The Lifetime of JavaScript Variables (变量的生存期)</a></li>
+<li><a href="#function-arguments-函数参数">Function Arguments (函数参数)</a></li>
+<li><a href="#global-variables-in-html-html中的全局变量">Global Variables in HTML (HTML中的全局变量)</a></li>
+</ul>
+</li>
+<li><a href="#javascript-best-practices-最佳实践">JavaScript Best Practices (最佳实践)</a><ul>
+<li><a href="#avoid-global-variables-避免全局变量">Avoid Global Variables (避免全局变量)</a></li>
+<li><a href="#always-declare-local-variables-总是声明局部变量">Always Declare Local Variables (总是声明局部变量)</a></li>
+<li><a href="#declarations-on-top-在顶部声明">Declarations on Top (在顶部声明)</a></li>
+<li><a href="#initialize-variables">Initialize Variables</a></li>
+<li><a href="#never-declare-number-string-or-boolean-objects">Never Declare Number, String, or Boolean Objects</a></li>
+<li><a href="#dont-use-new-object">Don’t Use new Object()</a></li>
+<li><a href="#beware-of-automatic-type-conversions-注意自动类型转换">Beware of Automatic Type Conversions (注意自动类型转换)</a></li>
+<li><a href="#use-comparison">Use === Comparison</a></li>
+<li><a href="#use-parameter-defaults-使用参数默认值">Use Parameter Defaults (使用参数默认值)</a></li>
+<li><a href="#end-your-switches-with-defaults-用defaults结束switch">End Your Switches with Defaults (用Defaults结束Switch)</a></li>
+<li><a href="#avoid-using-eval">Avoid Using eval()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div><div id="wmd-preview-section-18" class="wmd-preview-section preview-content">
+
+<h2 id="js中-functionxxx-的意思">js中 (function(){xxx})(); 的意思</h2>
+
+<p><a href="http://segmentfault.com/q/1010000000135703" target="_blank">segmentfault上的问题</a> <br>
+自执行匿名函数：</p>
+
+<ul><li>常见格式：(function() { /* code */ })();</li>
+<li>解释：包围函数（function(){})的第一对括号向脚本返回未命名的函数，随后一对空括号立即执行返回的未命名函数，括号内为匿名函数的参数。</li>
+<li>作用：可以用它创建命名空间，只要把自己所有的代码都写在这个特殊的函数包装内，那么外部就不能访问，除非你允许(变量前加上window，这样该函数或变量就成为全局)。各JavaScript库的代码也基本是这种组织形式。</li>
+</ul>
+
+<p>总结一下，执行函数的作用主要为 <strong>匿名</strong> 和 <strong>自动执行</strong>,代码在被解释时就已经在运行了。</p>
+
+<ol><li rel="1">使这段代码被载入时候自动执行。</li>
+<li rel="2">避免污染全局变量。</li>
+</ol>
+
+<p>其他写法：</p>
+
+</div><div id="wmd-preview-section-19" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">/* code */</span> } ()); <br><span class="hljs-comment line-number">2.</span>!<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">/* code */</span> } ();<br><span class="hljs-comment line-number">3.</span>~<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">/* code */</span> } ();<br><span class="hljs-comment line-number">4.</span>-<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">/* code */</span> } ();<br><span class="hljs-comment line-number">5.</span>+<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">/* code */</span> } ();<br></code></pre>
+
+<p><em>来源：诺和人家30问，处理音频时，下面是子杰的源码</em></p>
+
+</div><div id="wmd-preview-section-20" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> AudioControl = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">2.</span>        <span class="hljs-keyword">var</span> myAudio = $(<span class="hljs-string">"#myAudio"</span>).get(<span class="hljs-number">0</span>);<br><span class="hljs-comment line-number">3.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setAudioSrc</span>(<span class="hljs-params">source</span>) </span>{<br><span class="hljs-comment line-number">4.</span>            myAudio.src = source;<br><span class="hljs-comment line-number">5.</span>        }<br><span class="hljs-comment line-number">6.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">play</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">7.</span>            myAudio.play();<br><span class="hljs-comment line-number">8.</span>        }<br><span class="hljs-comment line-number">9.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">pause</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">10.</span>            myAudio.pause();<br><span class="hljs-comment line-number">11.</span>        }<br><span class="hljs-comment line-number">12.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stop</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">13.</span>            myAudio.pause();<br><span class="hljs-comment line-number">14.</span>            myAudio.currentTime = <span class="hljs-number">0</span>;<br><span class="hljs-comment line-number">15.</span>        }<br><span class="hljs-comment line-number">16.</span>        <span class="hljs-keyword">return</span> {<br><span class="hljs-comment line-number">17.</span>            setAudioSrc: setAudioSrc,<br><span class="hljs-comment line-number">18.</span>            play: play,<br><span class="hljs-comment line-number">19.</span>            pause: pause,<br><span class="hljs-comment line-number">20.</span>            stop: stop<br><span class="hljs-comment line-number">21.</span>        }<br><span class="hljs-comment line-number">22.</span>    })();<br><span class="hljs-comment line-number">23.</span><span class="hljs-comment">// 调用</span><br><span class="hljs-comment line-number">24.</span>AudioControl.setAudioSrc($p.attr(<span class="hljs-string">"data-audio"</span>));<br><span class="hljs-comment line-number">25.</span>AudioControl.play();<br></code></pre>
+
+</div><div id="wmd-preview-section-21" class="wmd-preview-section preview-content">
+
+<h2 id="js中函数的几种定义方式">js中函数的几种定义方式</h2>
+
+<p><a href="http://www.w3schools.com/js/js_function_definition.asp" target="_blank">W3Schools: JavaScript Function Definitions</a></p>
+
+</div><div id="wmd-preview-section-22" class="wmd-preview-section preview-content">
+
+<h3 id="1-function-declarations-函数声明">1. Function Declarations (函数声明)</h3>
+
+<p>Earlier in this tutorial, you learned that functions are <strong>declared</strong> with the following syntax:</p>
+
+</div><div id="wmd-preview-section-23" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">functionName</span>(<span class="hljs-params">parameters</span>) </span>{<br><span class="hljs-comment line-number">2.</span>  code to be executed<br><span class="hljs-comment line-number">3.</span>}<br></code></pre>
+
+<p>Declared functions are not executed immediately. They are “saved for later use”, and will be executed later, when they are invoked (called upon). <br>
+声明的函数不会立即被执行，它们会被“保存为以后的使用”，并且将会在他们被调用时执行。</p>
+
+<blockquote>
+  <p>Semicolons are used to separate executable JavaScript statements. <br>
+  Since a function declaration is not an executable statement, it is not common to end it with a semicolon. <br>
+  分号用来执行可执行的javascript语句，因为函数声明不是一个可执行语句，所以它的结束不用分号。</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-24" class="wmd-preview-section preview-content">
+
+<h3 id="2-function-expressions-函数表达式">2. Function Expressions (函数表达式)</h3>
+
+<p>A JavaScript function can also be defined using an expression. <br>
+A function expression can be stored in a variable: <br>
+一个函数也可以用表达式来定义，一个函数表达式可以被储存在一个变量中。</p>
+
+</div><div id="wmd-preview-section-25" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> x = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{<span class="hljs-keyword">return</span> a * b};<br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> z = x(<span class="hljs-number">4</span>, <span class="hljs-number">3</span>);<br></code></pre>
+
+<p>The function above is actually an anonymous function (a function without a name). <br>
+Functions stored in variables do not need function names. They are always invoked (called) using the variable name. <br>
+上面的函数实际上是一个匿名函数 <br>
+储存在变量中的函数不需要函数名，他们总是用变量名被调用。</p>
+
+<blockquote>
+  <p>The function above ends with a semicolon because it is a part of an executable statement. <br>
+  这个函数用分号结束因为它是可执行语句的一部分。</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-26" class="wmd-preview-section preview-content">
+
+<h3 id="3-the-function-constructor-function构造函数">3. The Function() Constructor (Function()构造函数)</h3>
+
+<p>As you have seen in the previous examples, JavaScript functions are defined with the function keyword. <br>
+Functions can also be defined with a built-in JavaScript function constructor called Function(). <br>
+就像是在前面的例子中看到的，javascript的函数使用function关键字定义的。 <br>
+函数还可以用javascript的一个内置构造函数定义叫Function()。</p>
+
+</div><div id="wmd-preview-section-27" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> myFunction = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Function</span>(<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"return a * b"</span>);<br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> x = myFunction(<span class="hljs-number">4</span>, <span class="hljs-number">3</span>);<br></code></pre>
+
+<p>You actually don’t have to use the function constructor. <br>
+你实际上不需要构造函数(用函数表达式一样可以)。</p>
+
+<blockquote>
+  <p>Most of the time, you can avoid using the new keyword in JavaScript. <br>
+  大多数时候，在javascript中你要避免使用new关键字。</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-28" class="wmd-preview-section preview-content">
+
+<h3 id="4-function-hoisting-函数提升">4. Function Hoisting (函数提升？)</h3>
+
+<p>scoping（作用域） <br>
+hoisting（变量提升） <br>
+expressions （表达式）</p>
+
+<p>Earlier in this tutorial, you learned about “hoisting”. <br>
+Hoisting is JavaScript’s default behavior of moving declarations to the top of the current scope. <br>
+Hoisting applies to variable declarations and to function declarations. <br>
+Because of this, JavaScript functions can be called before they are declared:</p>
+
+<p>在这个教程的早期，你学到了变量提升。 <br>
+变量提升是javascript的默认行为：将声明提升到当前作用域的顶端。 <br>
+变量提升用在变量定义和函数的声明。 <br>
+正因为如此 ，javascript的函数可以在声明之前被调用。</p>
+
+</div><div id="wmd-preview-section-29" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>myFunction(<span class="hljs-number">5</span>);<br><span class="hljs-comment line-number">2.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunction</span>(<span class="hljs-params">y</span>) </span>{<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">return</span> y * y;<br><span class="hljs-comment line-number">4.</span>}<br></code></pre>
+
+<p>Functions defined using an expression are not hoisted. <br>
+使用函数表达式定义的函数不会被变量提升。</p>
+
+</div><div id="wmd-preview-section-30" class="wmd-preview-section preview-content">
+
+<h3 id="5-self-invoking-functions-自调用函数">5. Self-Invoking Functions (自调用函数)</h3>
+
+<p>Function expressions can be made “self-invoking”. <br>
+A self-invoking expression is invoked (started) automatically, without being called. <br>
+Function expressions will execute automatically if the expression is followed by (). <br>
+You cannot self-invoke a function declaration. <br>
+You have to add parentheses around the function to indicate that it is a function expression:</p>
+
+<p>函数表达式可以被自调用。 <br>
+一个自调用的函数表达式可以被自动执行，而不是被调用。 <br>
+函数表达式将被自动执行，如果表达式遵循() <br>
+不能自调用一个函数声明 <br>
+你必须在函数周围添加圆括号来证明这是函数表达式</p>
+
+<blockquote>
+  <p>(function () { … })最外面的括号返回一个未命名的函数 <br>
+  随后一对空括号立即执行返回的未命名函数，括号内为匿名函数的参数。 <br>
+  作用：可以用它创建命名空间，只要把自己所有的代码都写在这个特殊的函数包装内，那么外部就不能访问，除非你允许(变量前加上window，这样该函数或变量就成为全局)。各JavaScript库的代码也基本是这种组织形式。</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-31" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">var</span> x = <span class="hljs-string">"Hello!!"</span>;      <span class="hljs-comment">// I will invoke myself</span><br><span class="hljs-comment line-number">3.</span>})();<br></code></pre>
+
+<p>The function above is actually an <strong>anonymous self-invoking function</strong> (function without name). <br>
+上面的函数实际上是一个匿名的自调用函数。</p>
+
+</div><div id="wmd-preview-section-32" class="wmd-preview-section preview-content">
+
+<h3 id="6-functions-can-be-used-as-values-函数可以和变量一样被使用">6. Functions Can Be Used as Values (函数可以和变量一样被使用)</h3>
+
+<p>JavaScript functions can be used as values:</p>
+
+</div><div id="wmd-preview-section-33" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunction</span>(<span class="hljs-params">a, b</span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">return</span> a * b;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> x = myFunction(<span class="hljs-number">4</span>, <span class="hljs-number">3</span>);<br></code></pre>
+
+<p>JavaScript functions can be used in expressions:</p>
+
+</div><div id="wmd-preview-section-34" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunction</span>(<span class="hljs-params">a, b</span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">return</span> a * b;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> x = myFunction(<span class="hljs-number">4</span>, <span class="hljs-number">3</span>) * <span class="hljs-number">2</span>;<br></code></pre>
+
+</div><div id="wmd-preview-section-35" class="wmd-preview-section preview-content">
+
+<h3 id="7-functions-are-objects-函数可以是对象">7. Functions are Objects (函数可以是对象)</h3>
+
+<p>The typeof operator in JavaScript returns “function” for functions. <br>
+But, JavaScript functions can best be described as objects. <br>
+JavaScript functions have both <strong>properties</strong> and <strong>methods</strong>.</p>
+
+<p>在javascript中对函数用typeof运算符返回的是function <br>
+但是，javascript中的函数可以被描述为对象 <br>
+javascript中的函数都有自己的<strong>属性</strong>和<strong>方法</strong></p>
+
+<p>The arguments.length property returns the number of arguments received when the function was invoked: <br>
+arguments.length 返回函数在调用是的参数个数。</p>
+
+</div><div id="wmd-preview-section-36" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunction</span>(<span class="hljs-params">a, b</span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">arguments</span>.length;   <span class="hljs-comment">// 2</span><br><span class="hljs-comment line-number">3.</span>}<br></code></pre>
+
+<p>The toString() method returns the function as a string: <br>
+ toString()方法就像一个字符串一样返回一个函数</p>
+
+</div><div id="wmd-preview-section-37" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunction</span>(<span class="hljs-params">a, b</span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">return</span> a * b;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> txt = myFunction.toString();  <span class="hljs-comment">// function myFunction(a, b) { return a * b; }</span><br></code></pre>
+
+<blockquote>
+  <p>A function defined as the property of an object, is called a method to the object. <br>
+  A function designed to create new objects, is called an object constructor. <br>
+  函数定义为对象的属性，被调用为对象的方法。 <br>
+  创建新对象的函数，被称为对象构造函数。</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-38" class="wmd-preview-section preview-content">
+
+<h2 id="javascript-hoisting-javascript变量函数提升">JavaScript Hoisting (javascript变量/函数提升)</h2>
+
+<p>Hoisting is JavaScript’s default behavior of moving declarations to the top. <br>
+提升是javascript的默认行为，将声明提升到顶部。</p>
+
+</div><div id="wmd-preview-section-39" class="wmd-preview-section preview-content">
+
+<h3 id="javascript-declarations-are-hoisted">JavaScript Declarations are Hoisted</h3>
+
+<p>In JavaScript, a variable can be declared after it has been used. <br>
+In other words; a variable can be used before it has been declared. <br>
+在javascript中，一个变量可以在声明之前被使用。</p>
+
+</div><div id="wmd-preview-section-40" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>x = <span class="hljs-number">5</span>; <span class="hljs-comment">// Assign 5 to x</span><br><span class="hljs-comment line-number">2.</span>elem = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"demo"</span>); <span class="hljs-comment">// Find an element </span><br><span class="hljs-comment line-number">3.</span>elem.innerHTML = x;                     <span class="hljs-comment">// Display x in the element</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> x; <span class="hljs-comment">// Declare x</span><br></code></pre>
+
+<p>Hoisting is JavaScript’s default behavior of moving all declarations to the top of the current scope (to the top of the current script or the current function). <br>
+提升是将所有声明提到当前作用域顶部的默认行为（提升到当前脚本或当前函数的顶部）</p>
+
+</div><div id="wmd-preview-section-41" class="wmd-preview-section preview-content">
+
+<h3 id="javascript-initializations-are-not-hoisted">JavaScript Initializations are Not Hoisted</h3>
+
+<p>JavaScript only hoists declarations, not initializations. <br>
+javascript只会提升声明，不会提升初始化。 <br>
+Example 1 does not give the same result as Example 2:</p>
+
+</div><div id="wmd-preview-section-42" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// Example1</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> x = <span class="hljs-number">5</span>; <span class="hljs-comment">// Initialize x</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">var</span> y = <span class="hljs-number">7</span>; <span class="hljs-comment">// Initialize y</span><br><span class="hljs-comment line-number">4.</span>elem = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"demo"</span>); <span class="hljs-comment">// Find an element </span><br><span class="hljs-comment line-number">5.</span>elem.innerHTML = x + <span class="hljs-string">" "</span> + y;           <span class="hljs-comment">// Display x and y</span><br><span class="hljs-comment line-number">6.</span><span class="hljs-comment">// 5,7</span><br></code></pre>
+
+</div><div id="wmd-preview-section-43" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// Example2</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> x = <span class="hljs-number">5</span>; <span class="hljs-comment">// Initialize x</span><br><span class="hljs-comment line-number">3.</span>elem = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"demo"</span>); <span class="hljs-comment">// Find an element </span><br><span class="hljs-comment line-number">4.</span>elem.innerHTML = x + <span class="hljs-string">" "</span> + y;           <span class="hljs-comment">// Display x and y</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> y = <span class="hljs-number">7</span>; <span class="hljs-comment">// Initialize y</span><br><span class="hljs-comment line-number">6.</span><span class="hljs-comment">// 5,undefined</span><br></code></pre>
+
+<p>Does it make sense that y is undefined in the last example? <br>
+This is because only the declaration (var y), not the initialization (=7) is hoisted to the top. <br>
+Because of hoisting, y has been declared before it is used, but because initializations are not hoisted, the value of y is undefined. <br>
+最后一个例子中y是undefined。 <br>
+这是因为只有y的声明(var y)被提升到了顶部，而不是它的初始化(=7) <br>
+因为提升，y在使用之前被声明，但是因为初始化不会被提升，所以y的值是undefined。</p>
+
+<p>Example 2 is the same as writing:</p>
+
+</div><div id="wmd-preview-section-44" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> x = <span class="hljs-number">5</span>; <span class="hljs-comment">// Initialize x</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> y;     <span class="hljs-comment">// Declare y</span><br><span class="hljs-comment line-number">3.</span><br><span class="hljs-comment line-number">4.</span>elem = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"demo"</span>); <span class="hljs-comment">// Find an element </span><br><span class="hljs-comment line-number">5.</span>elem.innerHTML = x + <span class="hljs-string">" "</span> + y;           <span class="hljs-comment">// Display x and y</span><br><span class="hljs-comment line-number">6.</span><br><span class="hljs-comment line-number">7.</span>y = <span class="hljs-number">7</span>;    <span class="hljs-comment">// Assign 7 to y</span><br></code></pre>
+
+</div><div id="wmd-preview-section-45" class="wmd-preview-section preview-content">
+
+<h3 id="declare-your-variables-at-the-top">Declare Your Variables At the Top !</h3>
+
+<p>Hoisting is (to many developers) an unknown or overlooked behavior of JavaScript. <br>
+If a developer doesn’t understand hoisting, programs may contain bugs (errors). <br>
+To avoid bugs, always declare all variables at the beginning of every scope. <br>
+Since this is how JavaScript interprets the code, it is always a good rule. <br>
+提升对于许多开发者来说是一个未知或忽视的javascript行为 <br>
+如果不理解提升，可能会造成错误。 <br>
+去避免错误，<strong>在每一个作用域的顶部声明变量</strong>。 <br>
+因为这是javascript解释代码的方式。</p>
+
+<blockquote>
+  <p>JavaScript in strict mode does not allow variables to be used if they are not declared. <br>
+  Study “use strict” in the next chapter. <br>
+  javascript的严格模式不允许使用未声明的变量。</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-46" class="wmd-preview-section preview-content">
+
+<h2 id="javascript-scope-作用域">JavaScript Scope (作用域)</h2>
+
+</div><div id="wmd-preview-section-47" class="wmd-preview-section preview-content">
+
+<h3 id="javascript-scope">JavaScript Scope</h3>
+
+<p>In JavaScript, objects and functions are also variables. <br>
+<strong>In JavaScript, scope is the set of variables, objects, and functions you have access to.</strong> <br>
+JavaScript has function scope: The scope changes inside functions.</p>
+
+<p>在javascript中，对象和函数也是变量。 <br>
+在javascript中，作用域是变量，对象的集合，你可以访问函数。(?) <br>
+javascript有函数作用域，作用域在函数内部变化。</p>
+
+</div><div id="wmd-preview-section-48" class="wmd-preview-section preview-content">
+
+<h3 id="local-javascript-variables-局部变量">Local JavaScript Variables (局部变量)</h3>
+
+<p>Variables declared within a JavaScript function, become <strong>LOCAL</strong> to the function. <br>
+Local variables have <strong>local scope</strong>: They can only be accessed within the function.</p>
+
+<p>在函数内部声明的变量，对于函数来说是本地的。 <br>
+局部变量有局部的作用域，它们只能在函数内部被访问。</p>
+
+</div><div id="wmd-preview-section-49" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// code here can not use carName</span><br><span class="hljs-comment line-number">2.</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunction</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">4.</span>    <span class="hljs-keyword">var</span> carName = <span class="hljs-string">"Volvo"</span>;<br><span class="hljs-comment line-number">5.</span><br><span class="hljs-comment line-number">6.</span>    <span class="hljs-comment">// code here can use carName</span><br><span class="hljs-comment line-number">7.</span><br><span class="hljs-comment line-number">8.</span>}<br></code></pre>
+
+<p>Since local variables are only recognized inside their functions, variables with the same name can be used in different functions. <br>
+Local variables are created when a function starts, and deleted when the function is completed.</p>
+
+<p>因为局部变量只能在它们的函数内部被识别，所以在不同函数中可以使用相同名字的变量。 <br>
+局部变量在函数开始时产生，在函数结束时被删除。</p>
+
+</div><div id="wmd-preview-section-50" class="wmd-preview-section preview-content">
+
+<h3 id="global-javascript-variables-全局变量">Global JavaScript Variables (全局变量)</h3>
+
+<p>A variable declared outside a function, becomes <strong>GLOBAL</strong>. <br>
+A global variable has <strong>global scope</strong>: All scripts and functions on a web page can access it.  <br>
+一个变量在函数之外被声明，就变为全局的。 <br>
+一个全局变量具有全局作用域，所有的脚本和函数都可以访问它。</p>
+
+</div><div id="wmd-preview-section-51" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> carName = <span class="hljs-string">" Volvo"</span>;<br><span class="hljs-comment line-number">2.</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-comment">// code here can use carName</span><br><span class="hljs-comment line-number">4.</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunction</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">6.</span><br><span class="hljs-comment line-number">7.</span>    <span class="hljs-comment">// code here can use carName </span><br><span class="hljs-comment line-number">8.</span><br><span class="hljs-comment line-number">9.</span>}<br></code></pre>
+
+</div><div id="wmd-preview-section-52" class="wmd-preview-section preview-content">
+
+<h3 id="automatically-global-自动转化为全局">Automatically Global (自动转化为全局)</h3>
+
+<p>If you assign a value to a variable that has not been declared, it will automatically become a <strong>GLOBAL</strong> variable. <br>
+This code example will declare carName as a global variable, even if it is executed inside a function. <br>
+如果你将值付给一个未被声明的变量，它将自动被转换为全局变量。 <br>
+下面的例子在将会声明 carName 为全局变量，即使它在一个函数中被执行。</p>
+
+</div><div id="wmd-preview-section-53" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// code here can use carName</span><br><span class="hljs-comment line-number">2.</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunction</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">4.</span>    carName = <span class="hljs-string">"Volvo"</span>;<br><span class="hljs-comment line-number">5.</span><br><span class="hljs-comment line-number">6.</span>    <span class="hljs-comment">// code here can use carName</span><br><span class="hljs-comment line-number">7.</span><br><span class="hljs-comment line-number">8.</span>}<br></code></pre>
+
+</div><div id="wmd-preview-section-54" class="wmd-preview-section preview-content">
+
+<h3 id="the-lifetime-of-javascript-variables-变量的生存期">The Lifetime of JavaScript Variables (变量的生存期)</h3>
+
+<p>The lifetime of a JavaScript variable starts when it is declared. <br>
+Local variables are deleted when the function is completed. <br>
+Global variables are deleted when you close the page.</p>
+
+<p>一个变量的生存期在它被声明时开始。 <br>
+局部变量在函数完成时结束。 <br>
+全局变量在页面被关闭时结束。</p>
+
+</div><div id="wmd-preview-section-55" class="wmd-preview-section preview-content">
+
+<h3 id="function-arguments-函数参数">Function Arguments (函数参数)</h3>
+
+<p>Function arguments (parameters) work as local variables inside functions. <br>
+函数的参数作为局部变量在函数中被使用。</p>
+
+</div><div id="wmd-preview-section-56" class="wmd-preview-section preview-content">
+
+<h3 id="global-variables-in-html-html中的全局变量">Global Variables in HTML (HTML中的全局变量)</h3>
+
+<p>With JavaScript, the global scope is the complete JavaScript environment. <br>
+In HTML, the global scope is the window object: All global variables belong to the window object.</p>
+
+<p>在javascript中，全局变量在完整的javascript环境。 <br>
+在HTML中全局变量是window对象，所有全局变量属于window对象。</p>
+
+</div><div id="wmd-preview-section-57" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// code here can use window.carName</span><br><span class="hljs-comment line-number">2.</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunction</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">4.</span>    carName = <span class="hljs-string">"Volvo"</span>;<br><span class="hljs-comment line-number">5.</span>}<br></code></pre>
+
+<blockquote>
+  <p>Your global variables (or functions) can overwrite window variables (or functions). <br>
+  Any function, including the window object, can overwrite your global variables and functions. <br>
+  你的全局变量(函数)可以重写window变量(函数)。 <br>
+  任何函数，包括窗口对象，可以重写你的全局变量和函数。</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-58" class="wmd-preview-section preview-content">
+
+<h2 id="javascript-best-practices-最佳实践">JavaScript Best Practices (最佳实践)</h2>
+
+</div><div id="wmd-preview-section-59" class="wmd-preview-section preview-content">
+
+<h3 id="avoid-global-variables-避免全局变量">Avoid Global Variables (避免全局变量)</h3>
+
+<p>Minimize the use of global variables. <br>
+This includes all data types, objects, and functions. <br>
+Global variables and functions can be overwritten by other scripts. <br>
+Use local variables instead, and learn how to use closures.</p>
+
+<p><strong>减少使用全局变量。</strong> <br>
+这包括所有的数据类型，对象和函数。 <br>
+全局变量可以被其他脚本重写。 <br>
+<strong>使用局部变量，并学习如何使用闭包。</strong></p>
+
+</div><div id="wmd-preview-section-60" class="wmd-preview-section preview-content">
+
+<h3 id="always-declare-local-variables-总是声明局部变量">Always Declare Local Variables (总是声明局部变量)</h3>
+
+<p>All variables used in a function should be declared as <strong>local</strong> variables. <br>
+Local variables <strong>must</strong> be declared with the <strong>var</strong> keyword, otherwise they will become global variables.</p>
+
+<p>所有在函数里的变量应该都被声明为局部变量。 <br>
+局部变量必须用关键字 var 声明，否则它将会变为全局变量。</p>
+
+<blockquote>
+  <p>Strict mode does not allow undeclared variables. <br>
+  严格模式不允许使用未声明的变量。</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-61" class="wmd-preview-section preview-content">
+
+<h3 id="declarations-on-top-在顶部声明">Declarations on Top (在顶部声明)</h3>
+
+<p>It is a good coding practice to put all declarations at the top of each script or function. <br>
+将声明都放在脚本或函数的顶部，这是一个很棒的编码实践。 <br>
+This will:</p>
+
+<ul><li>Give cleaner code</li>
+<li>Provide a single place to look for local variables</li>
+<li>Make it easier to avoid unwanted (implied) global variables</li>
+<li>Reduce the possibility of unwanted re-declarations</li>
+</ul>
+
+<p>这将会：</p>
+
+<ul><li>有更整洁的代码。</li>
+<li>提供一个单一的地方去寻找局部变量。</li>
+<li>更容易避免不必要的(隐含的)全局变量。</li>
+<li>减少重复声明的可能性。</li>
+</ul>
+
+</div><div id="wmd-preview-section-62" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// Declare at the beginning</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> firstName, lastName, price, discount, fullPrice;<br><span class="hljs-comment line-number">3.</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-comment">// Use later</span><br><span class="hljs-comment line-number">5.</span>firstName = <span class="hljs-string">"John"</span>;<br><span class="hljs-comment line-number">6.</span>lastName = <span class="hljs-string">"Doe"</span>;<br><span class="hljs-comment line-number">7.</span><br><span class="hljs-comment line-number">8.</span>price = <span class="hljs-number">19.90</span>;<br><span class="hljs-comment line-number">9.</span>discount = <span class="hljs-number">0.10</span>;<br><span class="hljs-comment line-number">10.</span><br><span class="hljs-comment line-number">11.</span>fullPrice = price * <span class="hljs-number">100</span> / discount;<br></code></pre>
+
+<p>This also goes for loop variables:</p>
+
+</div><div id="wmd-preview-section-63" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// Declare at the beginning</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> i;<br><span class="hljs-comment line-number">3.</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-comment">// Use later</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) {<br></code></pre>
+
+<blockquote>
+  <p>By default, JavaScript moves all declarations to the top (JavaScript hoisting). <br>
+  默认情况下，javascript将所有的声明提升至顶部(javascript提升)</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-64" class="wmd-preview-section preview-content">
+
+<h3 id="initialize-variables">Initialize Variables</h3>
+
+<p>It is a good coding practice to initialize variables when you declare them. <br>
+当声明同时初始化变量 <br>
+This will:</p>
+
+<ul><li>Give cleaner code</li>
+<li>Provide a single place to initialize variables</li>
+<li>Avoid undefined values</li>
+</ul>
+
+</div><div id="wmd-preview-section-65" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// Declare and initiate at the beginning</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> firstName = <span class="hljs-string">""</span>,<br><span class="hljs-comment line-number">3.</span>    lastName = <span class="hljs-string">""</span>,<br><span class="hljs-comment line-number">4.</span>    price = <span class="hljs-number">0</span>,<br><span class="hljs-comment line-number">5.</span>    discount = <span class="hljs-number">0</span>,<br><span class="hljs-comment line-number">6.</span>    fullPrice = <span class="hljs-number">0</span>,<br><span class="hljs-comment line-number">7.</span>    myArray = [],<br><span class="hljs-comment line-number">8.</span>    myObject = {};<br></code></pre>
+
+<blockquote>
+  <p>Initializing variables provides an idea of the intended use (and intended data type). <br>
+  初始化变量提供一个使用的想法(和目标的数据类型)</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-66" class="wmd-preview-section preview-content">
+
+<h3 id="never-declare-number-string-or-boolean-objects">Never Declare Number, String, or Boolean Objects</h3>
+
+<p>不要用 Number，String，Boolean 声明对象</p>
+
+<p>Always treat numbers, strings, or booleans as primitive values. Not as objects. <br>
+Declaring these types as objects, slows down execution speed, and produces nasty side effects:</p>
+
+<p>把numbers，strings或者 booleans 作为原始值，不要作为对象。 <br>
+声明这些类型为对象，会减慢执行速度，并且产生令人厌恶的副作用。</p>
+
+</div><div id="wmd-preview-section-67" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> x = <span class="hljs-string">"John"</span>;             <br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> y = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">"John"</span>);<br><span class="hljs-comment line-number">3.</span>(x === y) <span class="hljs-comment">// is false because x is a string and y is an object.</span><br></code></pre>
+
+<p>Or even worse:</p>
+
+</div><div id="wmd-preview-section-68" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> x = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">"John"</span>);             <br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> y = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">"John"</span>);<br><span class="hljs-comment line-number">3.</span>(x == y) <span class="hljs-comment">// is false because you cannot compare objects.</span><br></code></pre>
+
+</div><div id="wmd-preview-section-69" class="wmd-preview-section preview-content">
+
+<h3 id="dont-use-new-object">Don’t Use new Object()</h3>
+
+<ul><li>Use {} instead of new Object()</li>
+<li>Use “” instead of new String()</li>
+<li>Use 0 instead of new Number()</li>
+<li>Use false instead of new Boolean()</li>
+<li>Use [] instead of new Array()</li>
+<li>Use /()/ instead of new RegExp()</li>
+<li>Use function (){} instead of new function()</li>
+</ul>
+
+</div><div id="wmd-preview-section-70" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> x1 = {};           <span class="hljs-comment">// new object</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> x2 = <span class="hljs-string">""</span>;           <span class="hljs-comment">// new primitive string</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">var</span> x3 = <span class="hljs-number">0</span>;            <span class="hljs-comment">// new primitive number</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> x4 = <span class="hljs-literal">false</span>;        <span class="hljs-comment">// new primitive boolean</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> x5 = [];           <span class="hljs-comment">// new array object</span><br><span class="hljs-comment line-number">6.</span><span class="hljs-keyword">var</span> x6 = <span class="hljs-regexp">/()/</span>;         <span class="hljs-comment">// new regexp object</span><br><span class="hljs-comment line-number">7.</span><span class="hljs-keyword">var</span> x7 = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{}; <span class="hljs-comment">// new function object</span><br></code></pre>
+
+</div><div id="wmd-preview-section-71" class="wmd-preview-section preview-content">
+
+<h3 id="beware-of-automatic-type-conversions-注意自动类型转换">Beware of Automatic Type Conversions (注意自动类型转换)</h3>
+
+<p>Beware that numbers can accidentally be converted to strings or NaN (Not a Number). <br>
+JavaScript is loosely typed. A variable can contain different data types, and a variable can change its data type:</p>
+
+<p>注意number会不小心被转换为 string 或 NaN <br>
+javascript是弱类型，一个变量可以包含不同的数据类型，并且一个变量可以改变它的数据类型</p>
+
+</div><div id="wmd-preview-section-72" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> x = <span class="hljs-string">"Hello"</span>;     <span class="hljs-comment">// typeof x is a string</span><br><span class="hljs-comment line-number">2.</span>x = <span class="hljs-number">5</span>;               <span class="hljs-comment">// changes typeof x to a number</span><br></code></pre>
+
+<p>When doing mathematical operations, JavaScript can convert numbers to strings:</p>
+
+</div><div id="wmd-preview-section-73" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> x = <span class="hljs-number">5</span> + <span class="hljs-number">7</span>;       <span class="hljs-comment">// x.valueOf() is 12,  typeof x is a number</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> x = <span class="hljs-number">5</span> + <span class="hljs-string">"7"</span>;     <span class="hljs-comment">// x.valueOf() is 57,  typeof x is a string</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">var</span> x = <span class="hljs-string">"5"</span> + <span class="hljs-number">7</span>;     <span class="hljs-comment">// x.valueOf() is 57,  typeof x is a string</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> x = <span class="hljs-number">5</span> - <span class="hljs-number">7</span>;       <span class="hljs-comment">// x.valueOf() is -2,  typeof x is a number</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> x = <span class="hljs-number">5</span> - <span class="hljs-string">"7"</span>;     <span class="hljs-comment">// x.valueOf() is -2,  typeof x is a number</span><br><span class="hljs-comment line-number">6.</span><span class="hljs-keyword">var</span> x = <span class="hljs-string">"5"</span> - <span class="hljs-number">7</span>;     <span class="hljs-comment">// x.valueOf() is -2,  typeof x is a number</span><br><span class="hljs-comment line-number">7.</span><span class="hljs-keyword">var</span> x = <span class="hljs-number">5</span> - <span class="hljs-string">"x"</span>;     <span class="hljs-comment">// x.valueOf() is NaN, typeof x is a number</span><br></code></pre>
+
+<p>Subtracting a string from a string, does not generate an error but returns NaN (Not a Number):</p>
+
+</div><div id="wmd-preview-section-74" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-string">"Hello"</span> - <span class="hljs-string">"Dolly"</span>    <span class="hljs-comment">// returns NaN</span><br></code></pre>
+
+</div><div id="wmd-preview-section-75" class="wmd-preview-section preview-content">
+
+<h3 id="use-comparison">Use === Comparison</h3>
+
+<p>The == comparison operator always converts (to matching types) before comparison. <br>
+The === operator forces comparison of values and type:</p>
+
+<p>==运算符总是在比较之前转换(去匹配数据类型) <br>
+===运算符强迫比较值和类型。</p>
+
+</div><div id="wmd-preview-section-76" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-number">0</span> == <span class="hljs-string">""</span>;        <span class="hljs-comment">// true</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-number">1</span> == <span class="hljs-string">"1"</span>;       <span class="hljs-comment">// true</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-number">1</span> == <span class="hljs-literal">true</span>;      <span class="hljs-comment">// true</span><br><span class="hljs-comment line-number">4.</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-number">0</span> === <span class="hljs-string">""</span>;       <span class="hljs-comment">// false</span><br><span class="hljs-comment line-number">6.</span><span class="hljs-number">1</span> === <span class="hljs-string">"1"</span>;      <span class="hljs-comment">// false</span><br><span class="hljs-comment line-number">7.</span><span class="hljs-number">1</span> === <span class="hljs-literal">true</span>;     <span class="hljs-comment">// false</span><br></code></pre>
+
+</div><div id="wmd-preview-section-77" class="wmd-preview-section preview-content">
+
+<h3 id="use-parameter-defaults-使用参数默认值">Use Parameter Defaults (使用参数默认值)</h3>
+
+<p>If a function is called with a missing argument, the value of the missing argument is set to undefined. <br>
+Undefined values can break your code. It is a good habit to assign default values to arguments.</p>
+
+<p>如果函数在调用时少一个参数，这个丢失的参数的值被定义为undefined <br>
+未定义的值会破坏你的代码，分配给参数默认值是一个很好的习惯。</p>
+
+</div><div id="wmd-preview-section-78" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFunction</span>(<span class="hljs-params">x, y</span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">if</span> (y === <span class="hljs-literal">undefined</span>) {<br><span class="hljs-comment line-number">3.</span>        y = <span class="hljs-number">0</span>;<br><span class="hljs-comment line-number">4.</span>    }<br><span class="hljs-comment line-number">5.</span>}<br></code></pre>
+
+</div><div id="wmd-preview-section-79" class="wmd-preview-section preview-content">
+
+<h3 id="end-your-switches-with-defaults-用defaults结束switch">End Your Switches with Defaults (用Defaults结束Switch)</h3>
+
+<p>Always end your switch statements with a default. Even if you think there is no need for it. <br>
+总是用default结束switch，即使你认为没有必要。</p>
+
+</div><div id="wmd-preview-section-80" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">switch</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getDay()) {<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:<br><span class="hljs-comment line-number">3.</span>        day = <span class="hljs-string">"Sunday"</span>;<br><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">break</span>;<br><span class="hljs-comment line-number">5.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br><span class="hljs-comment line-number">6.</span>        day = <span class="hljs-string">"Monday"</span>;<br><span class="hljs-comment line-number">7.</span>        <span class="hljs-keyword">break</span>;<br><span class="hljs-comment line-number">8.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br><span class="hljs-comment line-number">9.</span>        day = <span class="hljs-string">"Tuesday"</span>;<br><span class="hljs-comment line-number">10.</span>        <span class="hljs-keyword">break</span>;<br><span class="hljs-comment line-number">11.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br><span class="hljs-comment line-number">12.</span>        day = <span class="hljs-string">"Wednesday"</span>;<br><span class="hljs-comment line-number">13.</span>        <span class="hljs-keyword">break</span>;<br><span class="hljs-comment line-number">14.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br><span class="hljs-comment line-number">15.</span>        day = <span class="hljs-string">"Thursday"</span>;<br><span class="hljs-comment line-number">16.</span>        <span class="hljs-keyword">break</span>;<br><span class="hljs-comment line-number">17.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:<br><span class="hljs-comment line-number">18.</span>        day = <span class="hljs-string">"Friday"</span>;<br><span class="hljs-comment line-number">19.</span>        <span class="hljs-keyword">break</span>;<br><span class="hljs-comment line-number">20.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:<br><span class="hljs-comment line-number">21.</span>        day = <span class="hljs-string">"Saturday"</span>;<br><span class="hljs-comment line-number">22.</span>        <span class="hljs-keyword">break</span>;<br><span class="hljs-comment line-number">23.</span>    <span class="hljs-keyword">default</span>:<br><span class="hljs-comment line-number">24.</span>        day = <span class="hljs-string">"Unknown"</span>;<br><span class="hljs-comment line-number">25.</span>}<br></code></pre>
+
+</div><div id="wmd-preview-section-81" class="wmd-preview-section preview-content">
+
+<h3 id="avoid-using-eval">Avoid Using eval()</h3>
+
+<p>The eval() function is used to run text as code. In almost all cases, it should not be necessary to use it. <br>
+Because it allows arbitrary code to be run, it also represents a security problem.</p>
+
+<p>不要使用eval() <br>
+因为它允许任意代码运行，它也会造成安全问题。</p></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></body></html>
