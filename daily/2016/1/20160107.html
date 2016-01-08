@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head><title>20160107</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-97" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-98" class="wmd-preview-section preview-content">
+
+<h1 id="20160107">20160107</h1>
+
+</div><div id="wmd-preview-section-99" class="wmd-preview-section preview-content">
+
+<h2 id="学习fastclick的编写">学习fastClick的编写</h2>
+
+<ol start="1"><li rel="1">插件编写一般框架</li>
+</ol>
+
+</div><div id="wmd-preview-section-100" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>;(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-comment">// 内部代码</span><br><span class="hljs-comment line-number">3.</span>})();<br></code></pre>
+
+<p><strong>解释</strong>： (function(){}) 中间定义一个匿名函数，最外层的括号返回一个匿名函数，接下来的空括号立即执行返回的匿名函数。 <br>
+<strong>作用</strong>：不会污染全局变量，自动执行。</p>
+
+<ol start="2"><li rel="2">开启严格模式</li>
+</ol>
+
+</div><div id="wmd-preview-section-101" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-pi">'use strict'</span>;<br></code></pre>
+
+<ol start="3"><li rel="3">复习 &amp;&amp; 和 || 的使用</li>
+</ol>
+
+</div><div id="wmd-preview-section-102" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>options=options||{};<br></code></pre>
+
+<p><strong>解释</strong>：&amp;&amp; 遇到假则返回，|| 遇到真则返回。(&amp;&amp; 若全为假返回最后一个假，|| 若全为真返回最后一个真) <br>
+这里的代码如果传入了 options，则赋值为传入的值，否则赋值为空对象 {} 。 <br>
+javascript运算符中：0，”“，null，false，undefined，NaN 会被判定为 false。 <br>
+所以，就像</p>
+
+</div><div id="wmd-preview-section-103" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">if</span>(<span class="hljs-number">0</span>){<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"aaa"</span>)};  <span class="hljs-comment">// 不会打印值</span><br></code></pre>
+
+<ol start="4"><li rel="4">判断当前在使用的chrome版本</li>
+</ol>
+
+<p>从用户代理字符串中获取</p>
+
+</div><div id="wmd-preview-section-104" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-built_in">console</span>.log(navigator.userAgent);<br><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-built_in">console</span>.log((<span class="hljs-regexp">/Chrome\/([0-9]+)/</span>.exec(navigator.userAgent) || [,<span class="hljs-number">0</span>])[<span class="hljs-number">1</span>]);  <span class="hljs-comment">// 47</span><br></code></pre>
+
+<p>匹配Chrome 字符转义 \ 查找元字符本身时使用。这里查找字符 / 用分组来捕获版本中的数字 <br>
+如果前面匹配没有结果，在捕获第一个分组会出错，所以写 || [,0] ，在这种情况下，值将为0。</p>
+
+<p>所以写，判断chromeVersion不是0，继续执行。</p>
+
+</div><div id="wmd-preview-section-105" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>chromeVersion=(<span class="hljs-regexp">/Chrome\/([0-9]+)/</span>.exec(navigator.userAgent)||[,<span class="hljs-number">0</span>])[<span class="hljs-number">1</span>];<br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">if</span>(chromeVersion){<br><span class="hljs-comment line-number">3.</span>     <span class="hljs-comment">// do something</span><br><span class="hljs-comment line-number">4.</span>}<br></code></pre></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></body></html>
