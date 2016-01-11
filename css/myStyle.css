@@ -22,14 +22,49 @@ html,body{
 }
 
 .content{
-    padding: 100px 40%;
+    padding: 100px 0;
     font-size: 12px;
     line-height: 24px;
     color: #4b505a;
 }
 
 .content a{
-    margin-left: 20px;
     text-decoration: none;
     color: #eb2344;
+}
+
+.sub-content{
+    margin: 0 auto;
+    width: 400px;
+}
+
+.sub-content dt {
+    float: left;
+    width: 140px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sub-content dd {
+    margin-left: 160px;
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .content{
+        padding: 50px 0;
+    }
+    .header{
+        min-height: 200px;
+    }
+    .header-title{
+        padding-top: 90px;
+        font-size: 1.5em;
+    }
+    .sub-content{
+        width: 320px;
+    }
 }
