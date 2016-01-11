@@ -1,0 +1,120 @@
+<!DOCTYPE html><html><head><title>20160108</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: Open Sans, 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-2" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-3" class="wmd-preview-section preview-content">
+
+<h1 id="20160108">20160108</h1>
+
+</div><div id="wmd-preview-section-4" class="wmd-preview-section preview-content">
+
+<h2 id="继续学习fastclick">继续学习fastClick</h2>
+
+<ol start="1"><li rel="1">判断是否为 Windows Phone</li>
+</ol>
+
+</div><div id="wmd-preview-section-5" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> deviceIsWindowsPhone = navigator.userAgent.indexOf(<span class="hljs-string">"Windows Phone"</span>) &gt;= <span class="hljs-number">0</span>;<br></code></pre>
+
+<p>如果userAgent的字符串中包括 Windows Phone</p>
+
+<ol start="2"><li rel="2">判断是否为 Android</li>
+</ol>
+
+</div><div id="wmd-preview-section-6" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> deviceIsAndroid = navigator.userAgent.indexOf(<span class="hljs-string">'Android'</span>) &gt; <span class="hljs-number">0</span> &amp;&amp; !deviceIsWindowsPhone;<br></code></pre>
+
+<ol start="3"><li rel="3">判断是否为 IOS</li>
+</ol>
+
+</div><div id="wmd-preview-section-7" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> deviceIsIOS = <span class="hljs-regexp">/iP(ad|hone|od)/</span>.test(navigator.userAgent) &amp;&amp; !deviceIsWindowsPhone;<br></code></pre>
+
+<blockquote>
+  <p>因为 Windows Phone 8.1 的用户代理字符串会被误认为 Android 或 IOS 的。 <br>
+  所以在判断 Android 和 IOS 时，要判断不是 Windows Phone。</p>
+  
+  <ol><li rel="4">对于 IOS4</li>
+  </ol>
+  
+  </blockquote></div><div id="wmd-preview-section-8" class="wmd-preview-section preview-content">
+
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> deviceIsIOS4 = deviceIsIOS &amp;&amp; (<span class="hljs-regexp">/OS 4_\d(_\d)?/</span>).test(navigator.userAgent);<br></code></pre>
+
+<ol start="5"><li rel="5">对于 IOS6.0-7.*</li>
+</ol>
+
+</div><div id="wmd-preview-section-9" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> deviceIsIOSWithBadTarget = deviceIsIOS &amp;&amp; (<span class="hljs-regexp">/OS [6-7]_\d/</span>).test(navigator.userAgent);<br></code></pre>
+
+<p>IOS6.0-7.* 要求目标元素手动导出。</p>
+
+<ol start="6"><li rel="6">对于黑莓</li>
+</ol>
+
+</div><div id="wmd-preview-section-10" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> deviceIsBlackBerry10 = navigator.userAgent.indexOf(<span class="hljs-string">'BB10'</span>) &gt; <span class="hljs-number">0</span>;<br></code></pre>
+
+<ol start="7"><li rel="7">判断相应的 Chrome 是否需要 fastClick</li>
+</ol>
+
+</div><div id="wmd-preview-section-11" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">if</span> (chromeVersion) {<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">if</span> (deviceIsAndroid) {<br><span class="hljs-comment line-number">3.</span>        metaViewport = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'meta[name=viewport]'</span>);<br><span class="hljs-comment line-number">4.</span><br><span class="hljs-comment line-number">5.</span>        <span class="hljs-keyword">if</span> (metaViewport) {<br><span class="hljs-comment line-number">6.</span>            <span class="hljs-comment">// Chrome on Android with user-scalable="no" doesn't need FastClick (issue #89)</span><br><span class="hljs-comment line-number">7.</span>            <span class="hljs-keyword">if</span> (metaViewport.content.indexOf(<span class="hljs-string">'user-scalable=no'</span>) !== -<span class="hljs-number">1</span>) {<br><span class="hljs-comment line-number">8.</span>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">9.</span>            }<br><span class="hljs-comment line-number">10.</span>            <span class="hljs-comment">// Chrome 32 and above with width=device-width or less don't need FastClick</span><br><span class="hljs-comment line-number">11.</span>            <span class="hljs-keyword">if</span> (chromeVersion &gt; <span class="hljs-number">31</span> &amp;&amp; <span class="hljs-built_in">document</span>.documentElement.scrollWidth &lt;= <span class="hljs-built_in">window</span>.outerWidth) {<br><span class="hljs-comment line-number">12.</span>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">13.</span>            }<br><span class="hljs-comment line-number">14.</span>        }<br><span class="hljs-comment line-number">15.</span><br><span class="hljs-comment line-number">16.</span>    <span class="hljs-comment">// Chrome desktop doesn't need FastClick (issue #15)</span><br><span class="hljs-comment line-number">17.</span>    } <span class="hljs-keyword">else</span> {<br><span class="hljs-comment line-number">18.</span>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">19.</span>    }<br><span class="hljs-comment line-number">20.</span>}<br></code></pre>
+
+<p>对于 android 的 Chrome 等有很多限制。</p>
+
+<ol start="8"><li rel="8">设置事件处理程序</li>
+</ol>
+
+</div><div id="wmd-preview-section-12" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> methods = [<span class="hljs-string">'onMouse'</span>, <span class="hljs-string">'onClick'</span>, <span class="hljs-string">'onTouchStart'</span>, <span class="hljs-string">'onTouchMove'</span>, <span class="hljs-string">'onTouchEnd'</span>, <span class="hljs-string">'onTouchCancel'</span>];<br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> context = <span class="hljs-keyword">this</span>;<br><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, l = methods.length; i &lt; l; i++) {<br><span class="hljs-comment line-number">4.</span>    context[methods[i]] = bind(context[methods[i]], context);<br><span class="hljs-comment line-number">5.</span>}<br></code></pre>
+
+<p>将事件的名字先写在一个数组里，然后全部绑定在this上。 <br>
+对于不同的事件名称绑定不同处理时间</p>
+
+</div><div id="wmd-preview-section-13" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">if</span> (deviceIsAndroid) {<br><span class="hljs-comment line-number">2.</span>    layer.addEventListener(<span class="hljs-string">'mouseover'</span>, <span class="hljs-keyword">this</span>.onMouse, <span class="hljs-literal">true</span>);<br><span class="hljs-comment line-number">3.</span>    layer.addEventListener(<span class="hljs-string">'mousedown'</span>, <span class="hljs-keyword">this</span>.onMouse, <span class="hljs-literal">true</span>);<br><span class="hljs-comment line-number">4.</span>    layer.addEventListener(<span class="hljs-string">'mouseup'</span>, <span class="hljs-keyword">this</span>.onMouse, <span class="hljs-literal">true</span>);<br><span class="hljs-comment line-number">5.</span>}<br><span class="hljs-comment line-number">6.</span><br><span class="hljs-comment line-number">7.</span>layer.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-keyword">this</span>.onClick, <span class="hljs-literal">true</span>);<br><span class="hljs-comment line-number">8.</span>layer.addEventListener(<span class="hljs-string">'touchstart'</span>, <span class="hljs-keyword">this</span>.onTouchStart, <span class="hljs-literal">false</span>);<br><span class="hljs-comment line-number">9.</span>layer.addEventListener(<span class="hljs-string">'touchmove'</span>, <span class="hljs-keyword">this</span>.onTouchMove, <span class="hljs-literal">false</span>);<br><span class="hljs-comment line-number">10.</span>layer.addEventListener(<span class="hljs-string">'touchend'</span>, <span class="hljs-keyword">this</span>.onTouchEnd, <span class="hljs-literal">false</span>);<br><span class="hljs-comment line-number">11.</span>layer.addEventListener(<span class="hljs-string">'touchcancel'</span>, <span class="hljs-keyword">this</span>.onTouchCancel, <span class="hljs-literal">false</span>);<br></code></pre>
+
+</div><div id="wmd-preview-section-14" class="wmd-preview-section preview-content">
+
+<h2 id="addeventlistener">addEventListener()</h2>
+
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener" target="_blank">API</a></p>
+
+<ul><li>type：表示所监听事件的类型[zh-CN]的一个字符串。</li>
+<li>listener：当指定的事件类型发生时被通知到的一个对象。该参数必是实现EventListener接口的一个对象或函数。</li>
+</ul>
+
+</div><div id="wmd-preview-section-15" class="wmd-preview-section preview-content">
+
+<ul><li>useCapture  可选：如果值为true， useCapture 表示用户希望发起捕获。 在发起捕获之后， 只要Dom子树下发生了该事件类型，都会先被派发到该注册监听器，然后再被派发到Dom子树中的注册监听器中。并且向上冒泡的事件不会触发那些发起捕获的事件监听器。进一步的解释可以查看 DOM Level 3 Events 文档。 请注意该参数并不是在所有的浏览器版本中都是可选的。如果没有指定， useCapture 默认为false 。</li>
+<li></li>
+</ul>
+
+<blockquote>
+  <p>me：如果第三个参数设置为true，当发生了这类事件，就会先触发这类事件，并且向上冒泡的时间不会再触发这种发起捕获的事件。捕获和冒泡是二选一发生。如果都设置为捕获的话触发是从外向内的。</p>
+</blockquote>
+
+<p><a href="http://stackoverflow.com/questions/17564323/what-does-the-third-parameter-false-indicate-in-document-addeventlistenerdev" target="_blank">from StackOverflow</a>：</p>
+
+</div><div id="wmd-preview-section-16" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-html hljs xml"><span class="hljs-comment line-number">1.</span><span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span><br><span class="hljs-comment line-number">2.</span>    <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span><br><span class="hljs-comment line-number">3.</span>        <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#"</span>&gt;</span>Content<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><br><span class="hljs-comment line-number">4.</span>    <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span><br></code></pre>
+
+<p>If an event (e.g. a click) happens on the a element, should the ancestor elements know? It was widely accepted that they should. But the question was in what order they should be notified. The Microsoft and Netscape developers (this should give you an idea of quite how historical we’re talking!) had differing opinions.    </p>
+
+<p>One model was event <strong>capture</strong> (advocated by the Netscape developers). This notified the html element first and worked its way down the tree:  <code>html  body  a</code></p>
+
+<p>The other model was event <strong>bubbling</strong> (advocated by the Microsoft developers). This notified the target element first, and worked its way up the tree: <code>a  body  html</code></p></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></body></html>
