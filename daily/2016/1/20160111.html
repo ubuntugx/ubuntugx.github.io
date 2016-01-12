@@ -1,0 +1,183 @@
+<!DOCTYPE html><html><head><title>20160111</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div style="width:80%;margin: 0 auto;border: 1px solid rgba(0,0,0,.1);"><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-1" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-2" class="wmd-preview-section preview-content">
+
+<h1 id="20160111">20160111</h1>
+
+</div><div id="wmd-preview-section-3" class="wmd-preview-section preview-content">
+
+<h2 id="tips">Tips</h2>
+
+<ol start="1"><li rel="1">打开 .iso 文件，右键 -&gt; 资源管理器，不能解压文件！</li>
+</ol>
+
+</div><div id="wmd-preview-section-4" class="wmd-preview-section preview-content">
+
+<h2 id="typescript-学习">TypeScript 学习</h2>
+
+</div><div id="wmd-preview-section-5" class="wmd-preview-section preview-content">
+
+<h4 id="typescript-的基本类型">TypeScript 的基本类型</h4>
+
+<p>For programs to be useful, we need to be able to work with some of the simplest units of data: numbers, strings, structures, boolean values, and the like. In TypeScript, we support much the same types as you would expected in JavaScript, with a convenient enumeration type thrown in to help things along.</p>
+
+<p>我们需要一些简单的数据单位。numbers, strings, structures, boolean 值。和JavaScript提供几乎相同的数据类型，此外还提供了枚举类型方便使用。</p>
+
+<ul><li><strong>Boolean</strong> <br>
+The most basic datatype is the simple true/false value, which JavaScript and TypeScript (as well as other languages) call a ‘boolean’ value. <br>
+提供简单的 true 或者 false。</li>
+</ul>
+
+</div><div id="wmd-preview-section-6" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> isDone: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span>;<br></code></pre>
+
+<ul><li><strong>Number</strong> <br>
+As in JavaScript, all numbers in TypeScript are floating point values. These floating point numbers get the type ‘number’. <br>
+像是在 JavaScript 中，所有在 TypeScript 中的数字都是浮点型的。 除了支持十进制和十六进制字面量，Typescript还支持ECMAScript 2015中引入的二进制和八进制字面量。</li>
+</ul>
+
+</div><div id="wmd-preview-section-7" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> height: <span class="hljs-built_in">number</span> = <span class="hljs-number">6</span>;<br></code></pre>
+
+<ul><li><strong>String</strong> <br>
+Another fundamental part of creating programs in JavaScript for webpages and servers alike is working with textual data. As in other languages, we use the type ‘string’ to refer to these textual datatypes. Just like JavaScript, TypeScript also uses the double quote (“) or single quote (‘) to surround string data. <br>
+和其他语言一样，用 string 表示文本数据类型，用 “” 或 ” 包围数据。</li>
+</ul>
+
+</div><div id="wmd-preview-section-8" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> aString: <span class="hljs-built_in">string</span>=<span class="hljs-string">"hello world"</span>;<br></code></pre>
+
+<p>( <em>中文版</em> )你还可以使用模版字符串，它可以定义多行文本和内嵌表达式。 这种字符串是被反引号包围（` ），并且以${ expr }这种形式嵌入表达式</p>
+
+</div><div id="wmd-preview-section-9" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">let</span> name: <span class="hljs-built_in">string</span> = `Gene`;<br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">let</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">37</span>;<br><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">let</span> sentence: <span class="hljs-built_in">string</span> = `Hello, my name is ${ name }.<br><span class="hljs-comment line-number">4.</span><br><span class="hljs-comment line-number">5.</span>I<span class="hljs-string">'ll be ${ age + 1 } years old next month.`;</span><br></code></pre>
+
+<p>这与下面定义sentence的方式效果相同：</p>
+
+</div><div id="wmd-preview-section-10" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">let</span> sentence: <span class="hljs-built_in">string</span> = <span class="hljs-string">"Hello, my name is "</span> + name + <span class="hljs-string">".\n\n"</span> +<span class="hljs-string">"I'll be "</span> + (age + <span class="hljs-number">1</span>) + <span class="hljs-string">" years old next month."</span>;<br></code></pre>
+
+<ul><li><strong>Array</strong> <br>
+TypeScript, like JavaScript, allows you to work with arrays of values. Array types can be written in one of two ways. In the first, you use the type of the elements followed by ‘[]’ to denote an array of that element type:</li>
+</ul>
+
+</div><div id="wmd-preview-section-11" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> newArray: <span class="hljs-built_in">number</span>[]=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];<br><span class="hljs-comment line-number">2.</span><span class="hljs-comment">// 还有用 Array 构造的一种</span><br></code></pre>
+
+<ul><li><strong>Enum</strong> <br>
+A helpful addition to the standard set of datatypes from JavaScript is the ‘enum’. Like languages like C#, an enum is a way of giving more friendly names to sets of numeric values. <br>
+枚举可以为一组数值赋予友好的名字。</li>
+</ul>
+
+</div><div id="wmd-preview-section-12" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">enum</span> Color {Red, Green, Blue};  <span class="hljs-comment">// 定义了一个枚举 </span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> c: Color=Color.Green;     <span class="hljs-comment">// 将变量声明为枚举类型，并赋值</span><br></code></pre>
+
+<p>By default, enums begin numbering their members starting at 0. You can change this by manually setting the value of one its members. For example, we can start the previous example at 1 instead of 0: <br>
+默认情况下，枚举从 0 开始编号， 也可以手动改变开始的数值，下面的例子就是从 1 开始编号。</p>
+
+</div><div id="wmd-preview-section-13" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">enum</span> Color {Red=<span class="hljs-number">1</span>, Green, Blue};<br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> c: Color=Color.Green;       <span class="hljs-comment">// 2</span><br></code></pre>
+
+<p>Or, even manually set all the values in the enum: <br>
+也可以手动设置所有的枚举值</p>
+
+</div><div id="wmd-preview-section-14" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">enum</span> Color {Red=<span class="hljs-number">1</span>, Green=<span class="hljs-number">2</span>, Blue=<span class="hljs-number">4</span>};<br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> c: Color=Color.Green;<br></code></pre>
+
+<p>A handy feature of enums is that you can also go from a numeric value to the name of that value in the enum. For example, if we had the value 2 but weren’t sure which that mapped to in the Color enum above, we could look up the corresponding name: <br>
+枚举的一个便利是可以根据枚举值得到它的名字。就像下面知道值为2，但是并不确定对应的名字，我们可以得到相关的名字</p>
+
+</div><div id="wmd-preview-section-15" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">enum</span> Color {Red=<span class="hljs-number">1</span>, Green=<span class="hljs-number">2</span>, Blue=<span class="hljs-number">4</span>};<br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> c: <span class="hljs-built_in">string</span>=Color[<span class="hljs-number">2</span>];  <span class="hljs-comment">// Green</span><br></code></pre>
+
+<ul><li><strong>Any</strong> <br>
+We may need to describe the type of variables that we may not know when we are writing the application. These values may come from dynamic content, eg from the user or 3rd party library. In these cases, we want to opt-out of type-checking and let the values pass through compile-time checks. To do so, we label these with the ‘any’ type: <br>
+用来描述暂时不知道类型的变量。这些值可能来自动态的内容，比如来自用户或第三方代码库。在这些情况下，我们希望在编译时进行检查而不是用类型检查器对这些值进行检查。我们可以用 any 来标记这些变量。</li>
+</ul>
+
+</div><div id="wmd-preview-section-16" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> notSure: <span class="hljs-built_in">any</span>=<span class="hljs-number">4</span>;<br><span class="hljs-comment line-number">2.</span>notSure= <span class="hljs-string">"maybe a string instead"</span>;<br><span class="hljs-comment line-number">3.</span>notSure=<span class="hljs-literal">false</span>;  <span class="hljs-comment">// finally is a boolean</span><br></code></pre>
+
+<p>The ‘any’ type is a powerful way to work with existing JavaScript, allowing you to gradually opt-in and opt-out of type-checking during compilation. <br>
+在对现有 JavaScript 进行改写时，any 是非常有用的。它可以让你选择包含或移除类型检查 <br>
+The ‘any’ type is also handy if you know some part of the type, but perhaps not all of it. For example, you may have an array but the array has a mix of different types: <br>
+但你只知道一部分数据类型时，any 也是十分有用的，比如说你有一个数组，数组中有不同类型的变量。</p>
+
+</div><div id="wmd-preview-section-17" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> list: <span class="hljs-built_in">any</span>[]=[<span class="hljs-number">1</span>,<span class="hljs-literal">true</span>,<span class="hljs-string">"hello"</span>];<br><span class="hljs-comment line-number">2.</span>list[<span class="hljs-number">1</span>]=<span class="hljs-number">100</span>;<br></code></pre>
+
+<ul><li><strong>Void</strong> <br>
+Perhaps the opposite in some ways to ‘any’ is ‘void’, the absence of having any type at all. You may commonly see this as the return type of functions that do not return a value: <br>
+any 和 void在某种程度上相反，他没有表示任何类型。你可以看到当一个函数不返回任何值时返回的是 void 。</li>
+</ul>
+
+</div><div id="wmd-preview-section-18" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">warnUser</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span></span>{<br><span class="hljs-comment line-number">2.</span>    alert(<span class="hljs-string">"this is my warning message"</span>);<br><span class="hljs-comment line-number">3.</span>}<br></code></pre>
+
+</div><div id="wmd-preview-section-19" class="wmd-preview-section preview-content">
+
+<h4 id="interfaces">Interfaces</h4>
+
+<p>One of TypeScript’s core principles is that type-checking focuses on the ‘shape’ that values have. This is sometimes called “duck typing” or “structural subtyping”. In TypeScript, interfaces fill the role of naming these types, and are a powerful way of defining contracts within your code as well as contracts with code outside of your project.  <br>
+TypeScript的核心原则就是值所拥有的 shape 进行类型检查。这有时被称为 “duck typing” 或 “structural subtyping”。在 TypeScript 中，接口的作用就是为这些类型命名和为你的代码或第三方代码定义契约。</p>
+
+<ul><li><strong>Our First Interface</strong> <br>
+The easiest way to see how interfaces work is to start with a simple example:</li>
+</ul>
+
+</div><div id="wmd-preview-section-20" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">printLabel</span>(<span class="hljs-params">labelledObj: {label: <span class="hljs-built_in">string</span>}</span>) </span>{<br><span class="hljs-comment line-number">2.</span>  <span class="hljs-built_in">console</span>.log(labelledObj.label);<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> myObj = {size: <span class="hljs-number">10</span>, label: <span class="hljs-string">"Size 10 Object"</span>};<br><span class="hljs-comment line-number">6.</span>printLabel(myObj);<br></code></pre>
+
+<p>里面的 {label: string} 就相当于一个接口。 <br>
+然后 myObj 实现了这个接口？ <br>
+重写上面的例子：</p>
+
+</div><div id="wmd-preview-section-21" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> LabelledValue </span>{<br><span class="hljs-comment line-number">2.</span>    label :<span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">3.</span>}    <span class="hljs-comment">// 定义一个接口，里面的属性 label 是 string 类型</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">printLabel</span>(<span class="hljs-params">labelledObj: labelledValue</span>)</span>{<br><span class="hljs-comment line-number">5.</span>    <span class="hljs-built_in">console</span>.log(labelledObj.label);<br><span class="hljs-comment line-number">6.</span>}    <span class="hljs-comment">// 定义函数，参数是那个接口，输出接口中的属性值</span><br><span class="hljs-comment line-number">7.</span><span class="hljs-keyword">var</span> myObj={size: <span class="hljs-number">10</span>,label: <span class="hljs-string">"hello world"</span>};  <span class="hljs-comment">// 定义对象，实例化接口？</span><br><span class="hljs-comment line-number">8.</span>printLable(myObj);<br></code></pre>
+
+<p>类型检查器不回去检查属性的顺序。 <br>
+<strong>需要注意的是</strong>，我们在这里并不能像在其它语言里一样，说传给printLabel的对象实现了这个接口。我们只会去关注值的外形。 只要传入的对象满足上面提到的必要条件，那么它就是被允许的。</p>
+
+<ul><li><strong>Optional Properties</strong> <br>
+Not all properties of an interface may be required. Some exist under certain conditions or may not be there at all. These optional properties are popular when creating patterns like “option bags” where the user passes an object to a function that only has a couple properties filled in. <br>
+不是接口中的所有属性都是必须的。一些在特定情况下需要一些根本不存在。像给函数传入的参数对象中只有部分属性赋值的情况。</li>
+</ul>
+
+</div><div id="wmd-preview-section-47" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> SquareConfig</span>{<br><span class="hljs-comment line-number">2.</span>    color?: <span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">3.</span>    width?: <span class="hljs-built_in">number</span>;<br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createSquare</span>(<span class="hljs-params">config: SquareConfig</span>):</span>{color: <span class="hljs-built_in">string</span>,area: <span class="hljs-built_in">number</span>}{<br><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">var</span> newSquare={color:<span class="hljs-string">"white"</span>,area:<span class="hljs-number">100</span>};<br><span class="hljs-comment line-number">7.</span>    <span class="hljs-keyword">if</span>(config.color){<br><span class="hljs-comment line-number">8.</span>        newSquare.color=config.color;<br><span class="hljs-comment line-number">9.</span>    }<br><span class="hljs-comment line-number">10.</span>    <span class="hljs-keyword">if</span>(config.width){<br><span class="hljs-comment line-number">11.</span>        newSquare.area=config.width * config.width;<br><span class="hljs-comment line-number">12.</span>    }<br><span class="hljs-comment line-number">13.</span>    <span class="hljs-keyword">return</span> newSquare;<br><span class="hljs-comment line-number">14.</span>}<br><span class="hljs-comment line-number">15.</span>createSquare({color: <span class="hljs-string">"black"</span>});<br></code></pre>
+
+<p>带有可选属性的接口与普通的接口定义差不多，只是在可选属性名字定义的后面加一个 ? 符号。 <br>
+ 可选属性的好处之一是可以对可能存在的属性进行预定义，好处之二是可以捕获引用了不存在的属性时的错误。 比如，我们故意将createSquare里的color属性名拼错，就会得到一个错误提示：</p></div><div id="wmd-preview-section-23" class="wmd-preview-section preview-content">
+
+<h2 id="javascript-中函数执行例子">JavaScript 中函数执行例子</h2>
+
+</div><div id="wmd-preview-section-24" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) {<br><span class="hljs-comment line-number">2.</span>    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{<span class="hljs-built_in">console</span>.log(i); }, <span class="hljs-number">100</span> * i);<br><span class="hljs-comment line-number">3.</span>} <br><span class="hljs-comment line-number">4.</span><span class="hljs-comment">// 10 10 10 10 10 10 10 10 10 10 (有换行)</span><br></code></pre>
+
+<p>setTimeOut在若干秒之后执行一个函数，并且是在 for 循环结束后。在 for 循环结束后 i 的值为 10 ，座椅每一次打印出来的值均为 10。想让里面的函数立即执行得到想要的结果可以像下面这么写：</p>
+
+</div><div id="wmd-preview-section-25" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">10</span>;i++){<br><span class="hljs-comment line-number">2.</span>    (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i</span>)</span>{<br><span class="hljs-comment line-number">3.</span>        setTimeOut(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">4.</span>            <span class="hljs-built_in">console</span>.log(i);<br><span class="hljs-comment line-number">5.</span>        },<span class="hljs-number">100</span>*i);<br><span class="hljs-comment line-number">6.</span>    })(i);<br><span class="hljs-comment line-number">7.</span>}<br></code></pre>
+
+<p>用 (function(){})() 的形式让函数立即执行。 <br>
+用 let 来声明可以避免这个问题，直接按上面的写法就可以了。</p></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></div></body></html>
