@@ -1,0 +1,228 @@
+<!DOCTYPE html><html><head><title>20160112</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div style="width:80%;margin: 0 auto;border: 1px solid rgba(0,0,0,.1);"><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-1" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-2" class="wmd-preview-section preview-content">
+
+<h1 id="20160112">20160112</h1>
+
+</div><div id="wmd-preview-section-3" class="wmd-preview-section preview-content">
+
+<h2 id="继续学习typescript">继续学习TypeScript</h2>
+
+</div><div id="wmd-preview-section-4" class="wmd-preview-section preview-content">
+
+<h4 id="继续学习接口">继续学习接口</h4>
+
+<ul><li><strong>复习接口</strong></li>
+</ul>
+
+</div><div id="wmd-preview-section-5" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> labelledValue</span>{<br><span class="hljs-comment line-number">2.</span>    label :<span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">3.</span>}  <span class="hljs-comment">// 定义了一个接口</span><br><span class="hljs-comment line-number">4.</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">printLabel</span>(<span class="hljs-params">labelObj: labelValue</span>)</span>{<br><span class="hljs-comment line-number">6.</span>    <span class="hljs-built_in">console</span>.log(labelObj.label);<br><span class="hljs-comment line-number">7.</span>}  <span class="hljs-comment">// 参数为接口类型</span><br><span class="hljs-comment line-number">8.</span><br><span class="hljs-comment line-number">9.</span><span class="hljs-keyword">var</span> myObj = {size: <span class="hljs-number">10</span>, label: <span class="hljs-string">"hello world"</span>};  <span class="hljs-comment">// 传入一个外表看起来相似的对象</span><br><span class="hljs-comment line-number">10.</span><span class="hljs-built_in">console</span>.log(printLabel(myObj));                <span class="hljs-comment">// 执行这个接口</span><br></code></pre>
+
+<ul><li><strong>Function Types</strong> <br>
+Interfaces are capable of describing the wide range of shapes that JavaScript objects can take. In addition to describing an object with properties, interfaces are also capable of describing function types. <br>
+To describe a function type with an interface, we give the interface a call signature. This is like a function declaration with only the parameter list and return type given. <br>
+接口能够描述 JavaScript 的对象拥有各种各样的外形。接口除了可以描述带有属性的普通对象之外，还可以描述函数类型。为了让借口描述一个函数类型，需要给接口一个调用签名。这就像是一个函数的声明，只有参数列表和返回值类型。参数列表每一个参数都要有名字和类型。</li>
+</ul>
+
+</div><div id="wmd-preview-section-6" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> SearchFunc</span>{<br><span class="hljs-comment line-number">2.</span>    (source: <span class="hljs-built_in">string</span>, subString: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">boolean</span>;<br><span class="hljs-comment line-number">3.</span>}   <span class="hljs-comment">// (参数名: 参数类型): 返回值类型;</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> mySearch: SearchFunc;<br><span class="hljs-comment line-number">5.</span>mySearch = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">source: <span class="hljs-built_in">string</span>,subString: <span class="hljs-built_in">string</span></span>)</span>{<br><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">var</span> result=source.search(subString);   <br><span class="hljs-comment line-number">7.</span>    <span class="hljs-comment">// search() 方法执行一个查找，看该字符串对象与一个正则表达式是否匹配。</span><br><span class="hljs-comment line-number">8.</span>    <span class="hljs-keyword">if</span>(result===-<span class="hljs-number">1</span>){<br><span class="hljs-comment line-number">9.</span>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><span class="hljs-comment line-number">10.</span>    } <span class="hljs-keyword">else</span> {<br><span class="hljs-comment line-number">11.</span>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">12.</span>    }<br><span class="hljs-comment line-number">13.</span>}<br></code></pre>
+
+<p>For function types to correctly type-check, the name of the parameters do not need to match. We could have, for example, written the above example like this: <br>
+对于函数的类型检查，参数名不一定需要与接口中的参数名完全匹配。</p>
+
+</div><div id="wmd-preview-section-7" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> SearchFunc</span>{<br><span class="hljs-comment line-number">2.</span>    (source: <span class="hljs-built_in">string</span>, subString: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">boolean</span>;<br><span class="hljs-comment line-number">3.</span>}   <span class="hljs-comment">// (参数名: 参数类型): 返回值类型;</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> mySearch: SearchFunc;<br><span class="hljs-comment line-number">5.</span>mySearch = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">source: <span class="hljs-built_in">string</span>,sub: <span class="hljs-built_in">string</span></span>)</span>{<br><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">var</span> result=source.search(sub);   <br><span class="hljs-comment line-number">7.</span>    <span class="hljs-keyword">if</span>(result===-<span class="hljs-number">1</span>){<br><span class="hljs-comment line-number">8.</span>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><span class="hljs-comment line-number">9.</span>    } <span class="hljs-keyword">else</span> {<br><span class="hljs-comment line-number">10.</span>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">11.</span>    }<br><span class="hljs-comment line-number">12.</span>}<br></code></pre>
+
+<p>会对参数类型逐个进行检查，只要对应位置的参数类型匹配就可以，不写参数类型。函数也会根据接口的定义推断出参数类型。</p>
+
+</div><div id="wmd-preview-section-8" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> SearchFunc</span>{<br><span class="hljs-comment line-number">2.</span>    (source: <span class="hljs-built_in">string</span>, subString: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">boolean</span>;<br><span class="hljs-comment line-number">3.</span>}   <span class="hljs-comment">// (参数名: 参数类型): 返回值类型;</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> mySearch: SearchFunc;<br><span class="hljs-comment line-number">5.</span>mySearch = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">src, sub</span>)</span>{<br><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">var</span> result=src.search(sub);   <br><span class="hljs-comment line-number">7.</span>    <span class="hljs-keyword">if</span>(result===-<span class="hljs-number">1</span>){<br><span class="hljs-comment line-number">8.</span>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><span class="hljs-comment line-number">9.</span>    } <span class="hljs-keyword">else</span> {<br><span class="hljs-comment line-number">10.</span>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">11.</span>    }<br><span class="hljs-comment line-number">12.</span>}<br></code></pre>
+
+<ul><li><strong>Array Types</strong> <br>
+Similarly to how we can use interfaces to describe function types, we can also describe array types. Array types have an ‘index’ type that describes the types allowed to index the object, along with the corresponding return type for accessing the index. <br>
+就像是可以用接口描述函数类型一样，我们也可以描述数组类型。数组有一个 index 描述数组的索引类型，还有一个返回值类型表示数组中的元素类型。</li>
+</ul>
+
+</div><div id="wmd-preview-section-9" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> StringArray</span>{    <span class="hljs-comment">// 接口的首字母一般大写</span><br><span class="hljs-comment line-number">2.</span>    [index: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">string</span><br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> myArray: StringArray;<br><span class="hljs-comment line-number">5.</span>myArray=[<span class="hljs-string">"Bob"</span>, <span class="hljs-string">"John"</span>];<br></code></pre>
+
+<p>支持两种索引类型：string和number。 数组可以同时使用这两种索引类型，但是有一个限制，数字索引返回值的类型必须是字符串索引返回值的类型的子类型。 <br>
+索引签名能够很好的描述数组和dictionary模式，它们也要求所有属性要与返回值类型相匹配。 因为字符串索引表明obj.property和obj[“property”]两种形式都可以。 下面的例子里，name的类型与字符串索引类型不匹配，所以类型检查器给出一个错误提示：</p>
+
+</div><div id="wmd-preview-section-10" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> Dictionary </span>{<br><span class="hljs-comment line-number">2.</span>  [index: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">3.</span>  length: <span class="hljs-built_in">number</span>;    <span class="hljs-comment">// error, the type of 'length' is not a subtype of the indexer</span><br><span class="hljs-comment line-number">4.</span>} <br></code></pre>
+
+<ul><li><strong>Class Types</strong> <br>
+Implementing an interface <br>
+One of the most common uses of interfaces in languages like C# and Java, that of explicitly enforcing that a class meets a particular contract, is also possible in TypeScript. <br>
+就像是 C# 和 Java，接口的一大作用是强制一个类去符合某种契约。</li>
+</ul>
+
+</div><div id="wmd-preview-section-11" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> ClockInterface</span>{<br><span class="hljs-comment line-number">2.</span>    currentTime: <span class="hljs-built_in">Date</span>;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">class</span> Clock <span class="hljs-keyword">implements</span> ClockInterface{<br><span class="hljs-comment line-number">5.</span>    currentTime: <span class="hljs-built_in">Date</span>;<br><span class="hljs-comment line-number">6.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(h: number,m: number);<br><span class="hljs-comment line-number">7.</span>}</span><br></code></pre>
+
+<p>You can also describe methods in an interface that are implemented in the class, as we do with ‘setTime’ in the below example: <br>
+你也可以在接口中描述一个方法，在类里实现它，就像下面的 setTime 方法一样。</p>
+
+</div><div id="wmd-preview-section-12" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> ClockInterface</span>{<br><span class="hljs-comment line-number">2.</span>    currentTime:　<span class="hljs-built_in">Date</span>;<br><span class="hljs-comment line-number">3.</span>    setTime(d: <span class="hljs-built_in">Date</span>);<br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">class</span> Clock <span class="hljs-keyword">implements</span> ClockInterface{<br><span class="hljs-comment line-number">6.</span>    currentTime: <span class="hljs-built_in">Date</span>;<br><span class="hljs-comment line-number">7.</span>    setTime(d: <span class="hljs-built_in">Date</span>){<br><span class="hljs-comment line-number">8.</span>        <span class="hljs-keyword">this</span>.currentTime = d;<br><span class="hljs-comment line-number">9.</span>    }<br><span class="hljs-comment line-number">10.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(h: number,m: number);<br><span class="hljs-comment line-number">11.</span>}</span><br></code></pre>
+
+<p>Interfaces describe the public side of the class, rather than both the public and private side. This prohibits you from using them to check that a class also has particular types for the private side of the class instance. <br>
+接口描述了类的公用部分，而不是公用部分和私有部分。它不会帮你检查类是否有某些私有成员。</p>
+
+<ul><li><strong>Difference between static/instance side of class</strong> <strong>1（待完善）？？？</strong> <br>
+When working with classes and interfaces, it helps to keep in mind that a class has two types: the type of the static side and the type of the instance side. You may notice that if you create an interface with a construct signature and try to create a class that implements this interface you get an error: <br>
+当你去操作类和接口时，你要清楚类是有两个类型的：静态类型和实例类型。你会注意到，当你用构造器签名来定义一个接口并试图创建另一个类去实现这个接口是会有错误。</li>
+</ul>
+
+</div><div id="wmd-preview-section-13" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> ClockInterface</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">new</span>(hour: <span class="hljs-built_in">number</span>,minute: <span class="hljs-built_in">number</span>);<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">class</span> Clock <span class="hljs-keyword">implements</span> ClockInterface {<br><span class="hljs-comment line-number">6.</span>    currentTime: <span class="hljs-built_in">Date</span>;<br><span class="hljs-comment line-number">7.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(h: number,m: number)</span>{}<br><span class="hljs-comment line-number">8.</span>}<br></code></pre>
+
+<p>This is because when a class implements an interface, only the instance side of the class is checked. Since the constructor sits in the static side, it is not included in this check. <br>
+Instead, you would need to work with the ‘static’ side of the class directly. In this example, we work with the class directly: <br>
+ 这里因为当一个类实现了一个接口时，只对其实例部分进行类型检查。 constructor存在于类的静态部分，所以不在检查的范围内。 <br>
+Instead, you would need to work with the ‘static’ side of the class directly. In this example, we work with the class directly: <br>
+因此，你需要去直接操作类中的静态部分。在这个例子里，我们直接操作类。</p>
+
+</div><div id="wmd-preview-section-14" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> ClockStatic</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">new</span>(hour: <span class="hljs-built_in">number</span>,minute: <span class="hljs-built_in">number</span>);<br><span class="hljs-comment line-number">3.</span>}   <span class="hljs-comment">// 用构造器签名声明了一个接口</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">class</span> Clock {   <span class="hljs-comment">// 定义了一个类，并没有用类去实现接口</span><br><span class="hljs-comment line-number">5.</span>    currentTime: <span class="hljs-built_in">Date</span>;   <span class="hljs-comment">// 类的属性 currentTime 是 Date 类型</span><br><span class="hljs-comment line-number">6.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(h: number. m:number)</span>{ }  <span class="hljs-comment">// constructor 在类的静态部分</span><br><span class="hljs-comment line-number">7.</span>}<br><span class="hljs-comment line-number">8.</span><span class="hljs-keyword">var</span> cs: ClockStatic = Clock;    <span class="hljs-comment">// 定义一个变量，是接口类型，给变量赋值为这个类，他们的结构相似</span><br><span class="hljs-comment line-number">9.</span><span class="hljs-keyword">var</span> newClock = <span class="hljs-keyword">new</span> cs(<span class="hljs-number">7</span>, <span class="hljs-number">30</span>);   <span class="hljs-comment">// 定义一个变量，值为这个类</span><br></code></pre>
+
+<ul><li><strong>Extending Interfaces</strong> <br>
+Like classes, interfaces can extend each other. This handles the task of copying the members of one interface into another, allowing you more freedom in how you separate your interfaces into reusable components. <br>
+和类一样，接口也可以相互扩展，这个功能让我们可以将成员从一个接口复制到另一个接口里，可以灵活地将分割到可重用的模块里。</li>
+</ul>
+
+</div><div id="wmd-preview-section-15" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> Shape</span>{<br><span class="hljs-comment line-number">2.</span>    color: <span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> Square <span class="hljs-keyword">extends</span> Shape</span>{<br><span class="hljs-comment line-number">5.</span>    sideLength: <span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">6.</span>}   <span class="hljs-comment">//用这个接口扩展 Shape 接口</span><br><span class="hljs-comment line-number">7.</span><span class="hljs-keyword">var</span> square = &lt;Square&gt;{};   <span class="hljs-comment">// 这是什么？？？？？？</span><br><span class="hljs-comment line-number">8.</span>square.color = <span class="hljs-string">"blue"</span>;<br><span class="hljs-comment line-number">9.</span>square.sideLength = <span class="hljs-number">10</span>;<br></code></pre>
+
+<p>An interface can extend multiple interfaces, creating a combination of all of the interfaces. <br>
+一个接口可以扩展多个接口，创建一个所有接口的组合。</p>
+
+</div><div id="wmd-preview-section-16" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> Shape</span>{<br><span class="hljs-comment line-number">2.</span>    color: <span class="hljs-built_in">String</span>;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> PenStroke</span>{<br><span class="hljs-comment line-number">5.</span>    penWidth: <span class="hljs-built_in">number</span>;<br><span class="hljs-comment line-number">6.</span>}<br><span class="hljs-comment line-number">7.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> Square <span class="hljs-keyword">extends</span> Shape, PenStroke </span>{<br><span class="hljs-comment line-number">8.</span>    sideLength: <span class="hljs-built_in">number</span>;<br><span class="hljs-comment line-number">9.</span>}<br><span class="hljs-comment line-number">10.</span><span class="hljs-keyword">var</span> square=&lt;Square&gt;{};<br><span class="hljs-comment line-number">11.</span>square.color= <span class="hljs-string">"blue"</span>;<br><span class="hljs-comment line-number">12.</span>square.sidelength= <span class="hljs-number">10</span>;<br><span class="hljs-comment line-number">13.</span>square.penWidth= <span class="hljs-number">5.0</span>;<br></code></pre>
+
+<ul><li><strong>Hybrid Types</strong>（混合类型）？？？ <br>
+As we mentioned earlier, interfaces can describe the rich types present in real world JavaScript. Because of JavaScript’s dynamic and flexible nature, you may occasionally encounter an object that works as a combination of some of the types described above.  <br>
+One such example is an object that acts as both a function and an object, with additional properties: <br>
+一个对象可以同时有上面提到的多种类型。一个对象可以同时作为函数和对象使用。</li>
+</ul>
+
+</div><div id="wmd-preview-section-17" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> Counter </span>{<br><span class="hljs-comment line-number">2.</span>    (start: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">string</span>;  <span class="hljs-comment">// ？？？</span><br><span class="hljs-comment line-number">3.</span>    interval: <span class="hljs-built_in">number</span>;<br><span class="hljs-comment line-number">4.</span>    reset(): <span class="hljs-built_in">void</span>;<br><span class="hljs-comment line-number">5.</span>}<br><span class="hljs-comment line-number">6.</span><span class="hljs-keyword">var</span> c: Counter;<br><span class="hljs-comment line-number">7.</span>c(<span class="hljs-number">10</span>);<br><span class="hljs-comment line-number">8.</span>c.reset();<br><span class="hljs-comment line-number">9.</span>c.interval= <span class="hljs-number">5.0</span>;<br></code></pre>
+
+<p>当使用第三方库的时候，可能需要向上面一样完整的定义类型。</p>
+
+</div><div id="wmd-preview-section-18" class="wmd-preview-section preview-content">
+
+<h4 id="classes">Classes</h4>
+
+<p>Traditional JavaScript focuses on functions and prototype-based inheritance as the basic means of building up reusable components, but this may feel a bit awkward to programmers more comfortable with an object-oriented approach, where classes inherit functionality and objects are built from these classes. Starting with ECMAScript 6, the next version of JavaScript, JavaScript programmers will be able to build their applications using this object-oriented class-based approach. In TypeScript, we allow developers to use these techniques now, and compile them down to JavaScript that works across all major browsers and platforms, without having to wait for the next version of JavaScript. <br>
+传统的 JavaScript 使用函数和基于原型的继承来写可重用的组件，但是这对于习惯面向对象的程序员有些棘手，因为它是基于类的继承并且类是由对象创建出来的。从 ECMAScript 6，我们允许 JavaScript 程序员写这种基于类的面向对象方法。</p>
+
+<ul><li><strong>Classes</strong> <br>
+Let’s take a look at a simple class-based example:</li>
+</ul>
+
+</div><div id="wmd-preview-section-19" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">class</span> Greeter {<br><span class="hljs-comment line-number">2.</span>    greeting: <span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(message: string)</span>{<br><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">this</span>.greeting = message;<br><span class="hljs-comment line-number">5.</span>    }   <span class="hljs-comment">// constructor ？？？</span><br><span class="hljs-comment line-number">6.</span>    greet(){<br><span class="hljs-comment line-number">7.</span>        <span class="hljs-keyword">return</span> <span class="hljs-string">"Hello"</span> + <span class="hljs-keyword">this</span>.greeting;<br><span class="hljs-comment line-number">8.</span>    }<br><span class="hljs-comment line-number">9.</span>}<br><span class="hljs-comment line-number">10.</span><span class="hljs-keyword">var</span> greeter = <span class="hljs-keyword">new</span> Greeter(<span class="hljs-string">"world"</span>);<br></code></pre>
+
+<p>The syntax should look very familiar if you’ve used C# or Java before. We declare a new class ‘Greeter’. This class has three members, a property called ‘greeting’, a constructor, and a method ‘greet’.  <br>
+You’ll notice that in the class when we refer to one of the members of the class we prepend ‘this.’. This denotes that it’s a member access. <br>
+In the last line we construct an instance of the Greeter class using ‘new’. This calls into the constructor we defined earlier, creating a new object with the Greeter shape, and running the constructor to initialize it. <br>
+如果你使用过 C# 或者 Java ，应该对这种语法非常熟悉。 <br>
+我们声明一个 Greeter类，类中有3个成员，一个叫 greeting 的属性，一个构造函数，一个叫 Greeter的方法。 <br>
+我们在引用其中一个类成员时用了 this ，表示我们访问的是类的成员。 <br>
+最后一行，我们用 new 构造了一个 Greeter 的实例，它会调用之前的构造函数，创建一个 Greeter 类型的新对象， 并执行构造函数初始化它。</p>
+
+<ul><li><strong>Inheritance</strong>（继承） <br>
+In TypeScript, we can use common object-oriented patterns. Of course, one of the most fundamental patterns in class-based programming is being able to extend existing classes to create new ones using inheritance. <br>
+在 TypeScript 中，我们可以使用常用的面向对象模式，当然基于类的程序设计最基本的模式是允许用继承来扩展一个类。</li>
+</ul>
+
+</div><div id="wmd-preview-section-20" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">class</span> Animal {<br><span class="hljs-comment line-number">2.</span>    name: <span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(theName: string)</span>{ <span class="hljs-keyword">this</span>.name = theName };<br><span class="hljs-comment line-number">4.</span>    move(meters: <span class="hljs-built_in">number</span> = <span class="hljs-number">0</span>){<br><span class="hljs-comment line-number">5.</span>        alert(<span class="hljs-keyword">this</span>.name + <span class="hljs-string">"moved"</span> + meters + <span class="hljs-string">"m"</span>);<br><span class="hljs-comment line-number">6.</span>    }<br><span class="hljs-comment line-number">7.</span>}<br><span class="hljs-comment line-number">8.</span><span class="hljs-keyword">class</span> Snake extends Animal {<br><span class="hljs-comment line-number">9.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(name: string)</span>{ <span class="hljs-keyword">super</span>(name); }  <span class="hljs-comment">// 派生类的构造函数，必须调用基类的？</span><br><span class="hljs-comment line-number">10.</span>    move(meters = <span class="hljs-number">5</span>) {           <span class="hljs-comment">// 派生类重写 move 函数</span><br><span class="hljs-comment line-number">11.</span>        alert(<span class="hljs-string">"Slithering..."</span>);  <br><span class="hljs-comment line-number">12.</span>        <span class="hljs-keyword">super</span>.move(meters);      <span class="hljs-comment">// 调用基类的 move 函数</span><br><span class="hljs-comment line-number">13.</span>    }<br><span class="hljs-comment line-number">14.</span>}<br><span class="hljs-comment line-number">15.</span><span class="hljs-keyword">class</span> Horse extends Animal {<br><span class="hljs-comment line-number">16.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(name: string)</span>{ <span class="hljs-keyword">super</span>(name) }<br><span class="hljs-comment line-number">17.</span>    move(meters = <span class="hljs-number">45</span>){<br><span class="hljs-comment line-number">18.</span>        alert(<span class="hljs-string">"Galloping..."</span>);<br><span class="hljs-comment line-number">19.</span>        <span class="hljs-keyword">super</span>.move(meters);<br><span class="hljs-comment line-number">20.</span>    }<br><span class="hljs-comment line-number">21.</span>}<br><span class="hljs-comment line-number">22.</span><span class="hljs-keyword">var</span> sam = <span class="hljs-keyword">new</span> Snake(<span class="hljs-string">"Sammy the Python"</span>);<br><span class="hljs-comment line-number">23.</span><span class="hljs-keyword">var</span> tom : Animal = <span class="hljs-keyword">new</span> Horse(<span class="hljs-string">"Tommy the Palomino"</span>);<br><span class="hljs-comment line-number">24.</span><br><span class="hljs-comment line-number">25.</span>sam.move();<br><span class="hljs-comment line-number">26.</span><span class="hljs-comment">// Slithering...</span><br><span class="hljs-comment line-number">27.</span><span class="hljs-comment">// Sammy the Python moved 5m.</span><br><span class="hljs-comment line-number">28.</span>tom.move(<span class="hljs-number">34</span>);<br><span class="hljs-comment line-number">29.</span><span class="hljs-comment">// Galloping...</span><br><span class="hljs-comment line-number">30.</span><span class="hljs-comment">// Tommy the Palomino moved 34m.</span><br></code></pre>
+
+<p>这个例子可以看到 TypeScript 的一些特征，和其他语言类似，我们使用 extends 来创建子类，Horse 和 Shake 是 Animal 的子类，并可以访问其属性和方法。 <br>
+The example also shows off being able to override methods in the base class with methods that are specialized for the subclass. Here both ‘Snake’ and ‘Horse’ create a ‘move’ method that overrides the ‘move’ from ‘Animal’, giving it functionality specific to each class. <br>
+这个例子也写了子类如何重写父类的方法，这里子类都重写了父类的 move 方法，使 move 方法根据不同的类有不同的功能。注意，即使 Horse 被声明为 Animal 类型，但是它的值是 Horse，tom.move(34) 也会调用 Horse 中的重写方法。 <br>
+包含 constructor 函数的派生类必须调用 super，它会执行基类的构造方法。</p>
+
+<ul><li><strong>Private/Public modifiers</strong>（公有/私有修饰符） <br>
+<ol>
+<li rel="1">Public by default <br>
+You may have noticed in the above examples we haven’t had to use the word ‘public’ to make any of the members of the class visible. Languages like C# require that each member be explicitly labelled ‘public’ to be visible. In TypeScript, each member is public by default.  <br>
+You may still mark members a private, so you control what is publicly visible outside of your class. We could have written the ‘Animal’ class from the previous section like so: <br>
+默认是 public <br>
+你可以看到，我们没有用任何 public 修饰符，在像 C# 这样的语言里，public 修饰符需要时可见的，但是在 TypeScript 中， public 是默认的。 <br>
+你也可以明确的将一个成员标记为 public。我们可以用下面的方式重写 Animal 类。</li></ol></li>
+</ul>
+
+</div><div id="wmd-preview-section-21" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">class</span> Animal{<br><span class="hljs-comment line-number">2.</span>   <span class="hljs-keyword">public</span> name: <span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">3.</span>   <span class="hljs-keyword">public</span> <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(thisName: string)</span>{ <span class="hljs-keyword">this</span>.name = thisName; }<br><span class="hljs-comment line-number">4.</span>   move(meters: <span class="hljs-built_in">number</span>){<br><span class="hljs-comment line-number">5.</span>       alert(<span class="hljs-keyword">this</span>.name+ <span class="hljs-string">" moved "</span>+ meters + <span class="hljs-string">"m."</span>);<br><span class="hljs-comment line-number">6.</span>   }<br><span class="hljs-comment line-number">7.</span>}<br></code></pre>
+
+<ol start="2"><li rel="2">Understanding private <br>
+当成员被标记为 private 时，不能在声明它的类外部被访问 <br>
+TypeScript is a structural type system. When we compare two different types, regardless of where they came from, if the types of each member are compatible, then we say the types themselves are compatible.  <br>
+When comparing types that have ‘private’ members, we treat these differently. For two types to be considered compatible, if one of them has a private member, then the other must have a private member that originated in the same declaration.  <br>
+Let’s look at an example to better see how this plays out in practice: <br>
+TypeScript 是结构化类型系统。当我们比较两个类型时，并不在意它们从哪儿来，如果所有成员的类型都是兼容的，那么我们就说他们的类型是兼容的。 <br>
+当比较有 private 类型的时候，我们用不同的方式对待。如果一个类型中包含 private 成员，那么只有另一个类型中也<strong>包含 private 类型的成员</strong>并且它们<strong>来自同一处声明</strong>时，我们才认为这两个类型是兼容的。</li>
+</ol>
+
+</div><div id="wmd-preview-section-22" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">class</span> Animal{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">private</span> name: <span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(theName: string)</span>{<span class="hljs-keyword">this</span>.name = theName};<br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">class</span> Rhino extends Animal{<br><span class="hljs-comment line-number">6.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>()</span>{ <span class="hljs-keyword">super</span>(<span class="hljs-string">"Rhino"</span>); }<br><span class="hljs-comment line-number">7.</span>}<br><span class="hljs-comment line-number">8.</span><span class="hljs-keyword">class</span> Employee {<br><span class="hljs-comment line-number">9.</span>    <span class="hljs-keyword">private</span> name: <span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">10.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(theName: string)</span>{<span class="hljs-keyword">this</span>.name = theName};<br><span class="hljs-comment line-number">11.</span>}<br><span class="hljs-comment line-number">12.</span><span class="hljs-keyword">var</span> animal = <span class="hljs-keyword">new</span> Animal(<span class="hljs-string">"Goat"</span>);<br><span class="hljs-comment line-number">13.</span><span class="hljs-keyword">var</span> rhino = <span class="hljs-keyword">new</span> Rhino();<br><span class="hljs-comment line-number">14.</span><span class="hljs-keyword">var</span> employee = <span class="hljs-keyword">new</span> Employee(<span class="hljs-string">"Bob"</span>);<br><span class="hljs-comment line-number">15.</span><br><span class="hljs-comment line-number">16.</span>animal = rhino;<br><span class="hljs-comment line-number">17.</span>animal = employee;  <span class="hljs-comment">// error: Animal and Employee are not compatible</span><br></code></pre>
+
+<p>In this example, we have an ‘Animal’ and a ‘Rhino’, with ‘Rhino’ being a subclass of ‘Animal’. We also have a new class ‘Employee’ that looks identical to ‘Animal’ in terms of shape. We create some instances of these classes and then try to assign them to each other to see what will happen. Because ‘Animal’ and ‘Rhino’ share the private side of their shape from the same declaration of ‘private name: string’ in ‘Animal’, they are compatible. However, this is not the case for ‘Employee’. When we try to assign from an ‘Employee’ to ‘Animal’ we get an error that these types are not compatible. Even though ‘Employee’ also has a private member called ‘name’, it is not the same one as the one created in ‘Animal’. </p>
+
+<p>这个例子中有Animal和Rhino两个类，Rhino是Animal类的子类。 还有一个Employee类，其类型看上去与Animal是相同的。 我们创建了几个这些类的实例，并相互赋值来看看会发生什么。 因为Animal和Rhino共享了来自Animal里的私有成员定义private name: string，因此它们是兼容的。 然而Employee却不是这样。当把Employee赋值给Animal的时候，得到一个错误，说它们的类型不兼容。 尽管Employee里也有一个私有成员name，但它明显不是Animal里面定义的那个。</p>
+
+<blockquote>
+  <p>Employee 中的 name 和 Animal 中的不是来自同一处声明，即使它们看起来一样。</p>
+</blockquote>
+
+<ol start="3"><li rel="3">Parameter properties(参数属性) <br>
+The keywords ‘public’ and ‘private’ also give you a shorthand for creating and initializing members of your class, by creating parameter properties. The properties let you can create and initialize a member in one step. Here’s a further revision of the previous example. Notice how we drop ‘theName’ altogether and just use the shortened ‘private name: string’ parameter on the constructor to create and initialize the ‘name’ member. <br>
+这个关键字 public 和 private 用来在类中声明和初始化会有缺点，通过创建参数属性，可以在一个步骤创建并初始化成员。</li>
+</ol>
+
+</div><div id="wmd-preview-section-437" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">class</span> Animal{<br><span class="hljs-comment line-number">2.</span>    constuctor(<span class="hljs-keyword">private</span> name: <span class="hljs-built_in">string</span>){}<br><span class="hljs-comment line-number">3.</span>    move(meters: <span class="hljs-built_in">number</span>){<br><span class="hljs-comment line-number">4.</span>        alert(<span class="hljs-keyword">this</span>.name + <span class="hljs-string">"moved"</span> + meters + <span class="hljs-string">"m."</span>);<br><span class="hljs-comment line-number">5.</span>    }<br><span class="hljs-comment line-number">6.</span>}<br></code></pre>
+
+<p>Using ‘private’ in this way creates and initializes a private member, and similarly for ‘public’.  <br>
+用 private 去声明并初始化一个私有成员，并且和 public 类似。</p>
+
+<ol start="4"><li rel="4">Accessors（存取器） <br>
+TypeScript supports getters/setters as a way of intercepting accesses to a member of an object. This gives you a way of having finer-grained control over how a member is accessed on each object. <br>
+Let’s convert a simple class to use ‘get’ and ‘set’. First, let’s start with an example without getters and setters. <br>
+TypeScript 支持用 getter / setter 来截取对对象成员的访问，它能帮助你有效控制对对象成员的访问。看看把一个类改为用 get 和 set 的。</li>
+</ol>
+
+</div><div id="wmd-preview-section-4230" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">class</span> Employee{<br><span class="hljs-comment line-number">2.</span>    fullName: <span class="hljs-built_in">string</span>;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> employee = <span class="hljs-keyword">new</span> Employee();<br><span class="hljs-comment line-number">5.</span>employee.fullName = <span class="hljs-string">"Bob Smith"</span>;<br><span class="hljs-comment line-number">6.</span><span class="hljs-keyword">if</span>(employee.fullName){<br><span class="hljs-comment line-number">7.</span>    alert(employee.fullName);<br><span class="hljs-comment line-number">8.</span>}<br></code></pre>
+
+<p>While allowing people to randomly set fullName directly is pretty handy, this might get us in trouble if we people can change names on a whim.  <br>
+我们可以随意的设置 fullname ，这是非常方便的，也有可能带来麻烦。</p>
+
+<p>In this version, we check to make sure the user has a secret passcode available before we allow them to modify the employee. We do this by replacing the direct access to fullName with a ‘set’ that will check the passcode. We add a corresponding ‘get’ to allow the previous example to continue to work seamlessly. <br>
+在这个例子里，在允许修改 employee 之前，我们先检查密码是否正确。我们把 fullname 的直接访问变成了检查密码的 set 方法。我们也加了一个 get 方法，上述例子仍然可以工作。</p></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></div></body></html>
