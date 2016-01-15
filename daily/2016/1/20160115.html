@@ -1,0 +1,119 @@
+<!DOCTYPE html><html><head><title>20160115</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div style="width:80%;margin: 0 auto;border: 1px solid rgba(0,0,0,.1);"><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-37" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-50" class="wmd-preview-section preview-content">
+
+<h1 id="20160115">20160115</h1></div><div id="wmd-preview-section-92" class="wmd-preview-section preview-content">
+
+<h2 id="学习sass教程">学习sass教程</h2>
+
+</div><div id="wmd-preview-section-193" class="wmd-preview-section preview-content">
+
+<h4 id="变量以-号开头">变量（以 $ 号开头）</h4>
+
+</div><div id="wmd-preview-section-659" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-variable">$blue</span> <span class="hljs-value">: <span class="hljs-hexcolor">#1875e7</span>;</span>  <span class="hljs-comment">/*中间用 : 号*/</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-tag">div</span>{<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-attribute">color</span><span class="hljs-value">: <span class="hljs-variable">$blue</span>;</span><br><span class="hljs-comment line-number">4.</span>}<br></code></pre>
+
+<p>在字符串中使用变量，用 #{}</p>
+
+</div><div id="wmd-preview-section-882" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-variable">$side</span> <span class="hljs-value">: left;</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-class">.rounded</span>{<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-attribute">border</span>-#{<span class="hljs-variable">$side</span>}-radius <span class="hljs-value">: <span class="hljs-number">5px</span>;</span><br><span class="hljs-comment line-number">4.</span>}<br></code></pre>
+
+</div><div id="wmd-preview-section-1072" class="wmd-preview-section preview-content">
+
+<h4 id="计算功能">计算功能</h4>
+
+<p>sass允许在代码中使用算式</p>
+
+</div><div id="wmd-preview-section-1337" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span>body{<br><span class="hljs-comment line-number">2.</span>    margin: (<span class="hljs-number">14</span>px/<span class="hljs-number">2</span>);<br><span class="hljs-comment line-number">3.</span>    top: <span class="hljs-number">50</span>px + <span class="hljs-number">100</span>px;<br><span class="hljs-comment line-number">4.</span>    right: $<span class="hljs-keyword">var</span> * <span class="hljs-number">10</span>%;<br><span class="hljs-comment line-number">5.</span>}<br></code></pre>
+
+</div><div id="wmd-preview-section-1599" class="wmd-preview-section preview-content">
+
+<h4 id="嵌套">嵌套</h4>
+
+<p>sass允许选择器嵌套</p>
+
+</div><div id="wmd-preview-section-3710" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-tag">div</span> <span class="hljs-tag">h1</span>{   <span class="hljs-comment">/*这个选择 div 的所有后代中的 h1*/</span><br><span class="hljs-comment line-number">2.</span>    <span class="hljs-attribute">color</span><span class="hljs-value">: red;</span><br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-comment">/*sass 允许写成嵌套形式*/</span><br><span class="hljs-comment line-number">5.</span><span class="hljs-tag">div</span> {<br><span class="hljs-comment line-number">6.</span>    <span class="hljs-tag">h1</span> {<br><span class="hljs-comment line-number">7.</span>        <span class="hljs-attribute">color</span><span class="hljs-value">: red;</span><br><span class="hljs-comment line-number">8.</span>    }<br><span class="hljs-comment line-number">9.</span>}<br><span class="hljs-comment line-number">10.</span><span class="hljs-comment">/*属性也可以嵌套*/</span><br><span class="hljs-comment line-number">11.</span><span class="hljs-tag">div</span>{<br><span class="hljs-comment line-number">12.</span>    <span class="hljs-attribute">border</span><span class="hljs-value">: {   <br><span class="hljs-comment line-number">13.</span>        color: red;</span> <span class="hljs-comment">/*相当于 border-color，注意 border 后面一定要有 : */</span><br><span class="hljs-comment line-number">14.</span>    }<br><span class="hljs-comment line-number">15.</span>}<br><span class="hljs-comment line-number">16.</span><span class="hljs-comment">/*嵌套的代码块内，使用 &amp; 可以引用父元素*/</span><br><span class="hljs-comment line-number">17.</span><span class="hljs-tag">a</span>{<br><span class="hljs-comment line-number">18.</span>    &amp;<span class="hljs-pseudo">:hover</span>{ <span class="hljs-attribute">color</span><span class="hljs-value">: <span class="hljs-hexcolor">#ffb3ff</span>;</span> }<br><span class="hljs-comment line-number">19.</span>}<br></code></pre>
+
+</div><div id="wmd-preview-section-3843" class="wmd-preview-section preview-content">
+
+<h4 id="注释">注释</h4>
+
+</div><div id="wmd-preview-section-4600" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">/* 标准的 css 注释，会保留在编译后的 css 中 */</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-comment">// 单行注释，只会保留在 sass 中。</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-comment">/*! 重要注释，即使是压缩模式，也会保留，一般用来声明版权信息。 */</span><br></code></pre>
+
+</div><div id="wmd-preview-section-5134" class="wmd-preview-section preview-content">
+
+<h4 id="继承">继承</h4>
+
+<p>sass 允许一个选择器，继承另一个选择器。用 @extend 命令</p>
+
+</div><div id="wmd-preview-section-6045" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-class">.class1</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-attribute">border-radius</span><span class="hljs-value">: <span class="hljs-number">1px</span> solid <span class="hljs-hexcolor">#ddd</span>;</span><br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-class">.class2</span>{<br><span class="hljs-comment line-number">5.</span>    <span class="hljs-at_rule">@<span class="hljs-keyword">extend</span><span class="hljs-preprocessor"> .class1</span>;</span>   <span class="hljs-comment">// 重用 class1 的代码</span><br><span class="hljs-comment line-number">6.</span>    <span class="hljs-attribute">font-size</span><span class="hljs-value">: <span class="hljs-number">120%</span>;</span><br><span class="hljs-comment line-number">7.</span>}<br></code></pre>
+
+</div><div id="wmd-preview-section-11601" class="wmd-preview-section preview-content">
+
+<h4 id="mixin">mixin</h4>
+
+<p>Mixin 有点像 C 语言中的宏，是可以重用的代码块。用 @mixin 命令，定义一个代码块。使用 @include 命令，调用这个 mixin。</p></div><div id="wmd-preview-section-9086" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-at_rule">@<span class="hljs-keyword">mixin</span><span class="hljs-preprocessor"> left</span>{</span><br><span class="hljs-comment line-number">2.</span>    <span class="hljs-attribute">float</span><span class="hljs-value">: left;</span><br><span class="hljs-comment line-number">3.</span>    <span class="hljs-attribute">margin-left</span><span class="hljs-value">: <span class="hljs-number">10px</span>;</span><br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-comment">/*使用 @include 命令，调用这个 mixin*/</span><br><span class="hljs-comment line-number">6.</span><span class="hljs-tag">div</span>{<br><span class="hljs-comment line-number">7.</span>    <span class="hljs-at_rule">@<span class="hljs-keyword">include</span><span class="hljs-preprocessor"> left</span>;</span><br><span class="hljs-comment line-number">8.</span>}<br><span class="hljs-comment line-number">9.</span><span class="hljs-comment">/*mixin 的强大之处，在于可以设置参数和缺省值*/</span><br><span class="hljs-comment line-number">10.</span><span class="hljs-at_rule">@<span class="hljs-keyword">mixin</span><span class="hljs-preprocessor"> left</span>(<span class="hljs-variable">$value</span>:<span class="hljs-preprocessor"> 10px</span>){</span><br><span class="hljs-comment line-number">11.</span>    <span class="hljs-attribute">float</span><span class="hljs-value">: left;</span><br><span class="hljs-comment line-number">12.</span>    <span class="hljs-attribute">margin-right</span><span class="hljs-value">: <span class="hljs-variable">$value</span>;</span><br><span class="hljs-comment line-number">13.</span>}<br><span class="hljs-comment line-number">14.</span><span class="hljs-comment">/*使用的时候，根据需要传入参数*/</span><br><span class="hljs-comment line-number">15.</span><span class="hljs-tag">div</span>{<br><span class="hljs-comment line-number">16.</span>    <span class="hljs-at_rule">@<span class="hljs-keyword">include</span><span class="hljs-preprocessor"> left</span>(<span class="hljs-number">20px</span>);</span><br><span class="hljs-comment line-number">17.</span>}<br></code></pre>
+
+<p>下面是一个 mixin 的实例，用来生成浏览器前缀</p>
+
+</div><div id="wmd-preview-section-12419" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-at_rule">@<span class="hljs-keyword">mixin</span><span class="hljs-preprocessor"> rounded</span>(<span class="hljs-variable">$vert</span>, <span class="hljs-variable">$horz</span>, <span class="hljs-variable">$radius</span>:<span class="hljs-preprocessor"> 10px</span>){</span><br><span class="hljs-comment line-number">2.</span>      <span class="hljs-attribute">border</span>-#{<span class="hljs-variable">$vert</span>}-#{<span class="hljs-variable">$horz</span>}-radius<span class="hljs-value">: <span class="hljs-variable">$radius</span>;</span><br><span class="hljs-comment line-number">3.</span>      moz-<span class="hljs-attribute">border</span>-#{<span class="hljs-variable">$vert</span>}-#{<span class="hljs-variable">$horz</span>}-radius<span class="hljs-value">: <span class="hljs-variable">$radius</span>;</span><br><span class="hljs-comment line-number">4.</span>      -webkit-<span class="hljs-attribute">border</span>-#{<span class="hljs-variable">$vert</span>}-#{<span class="hljs-variable">$horz</span>}-radius<span class="hljs-value">: <span class="hljs-variable">$radius</span>;</span><br><span class="hljs-comment line-number">5.</span>}<br><span class="hljs-comment line-number">6.</span><span class="hljs-comment">// 使用的时候，可以像下面这样调用</span><br><span class="hljs-comment line-number">7.</span><span class="hljs-id">#navbar</span> <span class="hljs-tag">li</span>{ <span class="hljs-at_rule">@<span class="hljs-keyword">include</span><span class="hljs-preprocessor"> rounded</span>(top,<span class="hljs-preprocessor"> left</span>);</span> }<br><span class="hljs-comment line-number">8.</span><span class="hljs-id">#footer</span>{ <span class="hljs-at_rule">@<span class="hljs-keyword">include</span><span class="hljs-preprocessor"> rounded</span>(top,<span class="hljs-preprocessor"> left</span>,<span class="hljs-preprocessor"> 5px</span>);</span> }<br></code></pre>
+
+</div><div id="wmd-preview-section-13086" class="wmd-preview-section preview-content">
+
+<h4 id="颜色函数">颜色函数</h4>
+
+<p>sass 内置了一些颜色函数，以便生成系列颜色</p>
+
+</div><div id="wmd-preview-section-13296" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function">lighten</span>(<span class="hljs-id">#cc3</span>, 10%) <span class="hljs-comment">// #d6d65c</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-function">darken</span>(<span class="hljs-id">#cc3</span>, 10%)  <span class="hljs-comment">// #a3a329</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-function">grayscale</span>(<span class="hljs-id">#cc3</span>)    <span class="hljs-comment">// #808080</span><br><span class="hljs-comment line-number">4.</span><span class="hljs-function">complement</span>(<span class="hljs-id">#cc3</span>)   <span class="hljs-comment">// #33c</span><br></code></pre></div><div id="wmd-preview-section-14136" class="wmd-preview-section preview-content">
+
+<h4 id="插入文件">插入文件</h4>
+
+<p>用 @import 命令，来插入外部文件</p>
+
+</div><div id="wmd-preview-section-15124" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-at_rule">@<span class="hljs-keyword">import</span> <span class="hljs-string">"path/filename.scss"</span><br><span class="hljs-comment line-number">2.</span>/*如果插入的是<span class="hljs-preprocessor"> css</span> 文件，等同于<span class="hljs-preprocessor"> css</span> 中的 @<span class="hljs-keyword">import</span> 命令*/<br><span class="hljs-comment line-number">3.</span>@<span class="hljs-keyword">import</span> <span class="hljs-string">"foo.css"</span>;</span><br></code></pre></div><div id="wmd-preview-section-17345" class="wmd-preview-section preview-content">
+
+<h4 id="条件语句">条件语句</h4>
+
+<p>if 可以用来进行条件判断，配套的的还有 @else</p>
+
+</div><div id="wmd-preview-section-19117" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-tag">p</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-at_rule">@<span class="hljs-keyword">if</span><span class="hljs-preprocessor"> 1</span> +<span class="hljs-preprocessor"> 1</span> ==<span class="hljs-preprocessor"> 2</span> {</span> <span class="hljs-attribute">border</span><span class="hljs-value">: <span class="hljs-number">1px</span> solid }<br><span class="hljs-comment line-number">3.</span>    @if <span class="hljs-number">5</span> &lt; <span class="hljs-number">3</span> {border: <span class="hljs-number">2px</span> dotted}<br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span>// 配套的还有 @else 命令<br><span class="hljs-comment line-number">6.</span>@if <span class="hljs-function">lightless</span>(<span class="hljs-variable">$color</span>) &gt; <span class="hljs-number">30%</span>{<br><span class="hljs-comment line-number">7.</span>    background-color: <span class="hljs-hexcolor">#000</span>;</span> <br><span class="hljs-comment line-number">8.</span>}<span class="hljs-at_rule">@<span class="hljs-keyword">else</span>{</span><br><span class="hljs-comment line-number">9.</span>    <span class="hljs-attribute">background-color</span><span class="hljs-value">: <span class="hljs-hexcolor">#FFF</span>;</span><br><span class="hljs-comment line-number">10.</span>}<br></code></pre></div><div id="wmd-preview-section-19992" class="wmd-preview-section preview-content">
+
+<h4 id="循环语句">循环语句</h4>
+
+<p>sass 语句支持 for 循环，用 @for写</p></div><div id="wmd-preview-section-25793" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-at_rule">@<span class="hljs-keyword">for</span> <span class="hljs-variable">$i</span><span class="hljs-preprocessor"> from</span><span class="hljs-preprocessor"> 1</span><span class="hljs-preprocessor"> to</span><span class="hljs-preprocessor"> 10</span>{</span><br><span class="hljs-comment line-number">2.</span>    <span class="hljs-class">.border-</span>#{<span class="hljs-variable">$i</span>}{<br><span class="hljs-comment line-number">3.</span>        <span class="hljs-attribute">border</span><span class="hljs-value">: #{<span class="hljs-variable">$i</span>}px solid blue;</span> <br><span class="hljs-comment line-number">4.</span>    }<br><span class="hljs-comment line-number">5.</span>}<br><span class="hljs-comment line-number">6.</span><span class="hljs-comment">// 还可以用 while 循环</span><br><span class="hljs-comment line-number">7.</span><span class="hljs-variable">$i</span><span class="hljs-value">: <span class="hljs-number">6</span>;</span><br><span class="hljs-comment line-number">8.</span><span class="hljs-at_rule">@<span class="hljs-keyword">while</span><span class="hljs-preprocessor"> i</span> &gt;<span class="hljs-preprocessor"> 0</span>{</span><br><span class="hljs-comment line-number">9.</span>    <span class="hljs-class">.item-</span>#{<span class="hljs-variable">$i</span>}{ <span class="hljs-attribute">width</span><span class="hljs-value">: <span class="hljs-number">2em</span> * <span class="hljs-variable">$i</span>;</span> }<br><span class="hljs-comment line-number">10.</span>    <span class="hljs-variable">$i</span> = <span class="hljs-variable">$i</span> - 2;<br><span class="hljs-comment line-number">11.</span>}<br><span class="hljs-comment line-number">12.</span><span class="hljs-comment">// 还可以用@each(相当于在集合中查找，这里是不同的文件名)</span><br><span class="hljs-comment line-number">13.</span><span class="hljs-at_rule">@<span class="hljs-keyword">each</span> <span class="hljs-variable">$member</span><span class="hljs-preprocessor"> in</span><span class="hljs-preprocessor"> a</span>,<span class="hljs-preprocessor"> b</span>,<span class="hljs-preprocessor"> c</span>,<span class="hljs-preprocessor"> d</span>{</span><br><span class="hljs-comment line-number">14.</span>    .#{<span class="hljs-variable">$member</span>}{<br><span class="hljs-comment line-number">15.</span>        <span class="hljs-attribute">background-image</span><span class="hljs-value">: <span class="hljs-function">url</span>(<span class="hljs-string">"/image/#{$member}.jpg"</span>);</span><br><span class="hljs-comment line-number">16.</span>    }<br><span class="hljs-comment line-number">17.</span>}<br></code></pre></div><div id="wmd-preview-section-26651" class="wmd-preview-section preview-content">
+
+<h4 id="自定义函数">自定义函数</h4>
+
+<p>sass 允许用户编写自定义函数 @function @return</p>
+
+</div><div id="wmd-preview-section-27975" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-scss hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-at_rule">@function<span class="hljs-preprocessor"> double</span>(<span class="hljs-variable">$n</span>){</span><br><span class="hljs-comment line-number">2.</span>    <span class="hljs-at_rule">@return <span class="hljs-variable">$n</span> *<span class="hljs-preprocessor"> 2</span>;</span> <br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-id">#sidebar</span> {<br><span class="hljs-comment line-number">5.</span>    <span class="hljs-attribute">width</span><span class="hljs-value">: <span class="hljs-function">double</span>(<span class="hljs-number">5px</span>);</span><br><span class="hljs-comment line-number">6.</span>}<br></code></pre></div><div id="wmd-preview-section-28678" class="wmd-preview-section preview-content">
+
+<h2 id="mvcmvp-和-mvvm-的图示">MVC，MVP 和 MVVM 的图示</h2>
+
+<p><a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank">来自阮一峰的博客</a></p></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></div></body></html>
