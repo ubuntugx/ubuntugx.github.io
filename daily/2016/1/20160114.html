@@ -1,0 +1,291 @@
+<!DOCTYPE html><html><head><title>20160114</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div style="width:80%;margin: 0 auto;border: 1px solid rgba(0,0,0,.1);"><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-28679" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-28680" class="wmd-preview-section preview-content">
+
+<h1 id="20160114">20160114</h1>
+
+</div><div id="wmd-preview-section-28681" class="wmd-preview-section preview-content">
+
+<h2 id="最后一天看-typescript-教程">最后一天看 TypeScript 教程</h2>
+
+<p>英文版：<a href="http://www.typescriptlang.org/Handbook" target="_blank">http://www.typescriptlang.org/Handbook</a> <br>
+中文版： <a href="https://www.gitbook.com/book/zhongsp/typescript-handbook/details" target="_blank">https://www.gitbook.com/book/zhongsp/typescript-handbook/details</a> <br>
+TypeScript 转 JavaScript：<a href="http://www.typescriptlang.org/Playground" target="_blank">http://www.typescriptlang.org/Playground</a></p>
+
+<blockquote>
+  <p>每天都会发现很多有意思的写法，对新东西充满好奇，然后做出东西来~</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-28682" class="wmd-preview-section preview-content">
+
+<h4 id="generics泛型">Generics（泛型）</h4>
+
+<p>A major part of software engineering is building components that not only have well-defined and consistent APIs, but are also reusable. Components that are capable of working on the data of today as well as the data of tomorrow will give you the most flexible capabilities for building up large software systems. <br>
+In languages like C# and Java, one of the main tools in the toolbox for creating reusable components is ‘generics’, that is, being able to create a component that can work over a variety of types rather than a single one. This allows users to consume these components and use their own types. <br>
+软件工程中，我们不仅要创建一致的定义良好的API，同时也要考虑可重用性。 组件不仅能够支持当前的数据类型，同时也能支持未来的数据类型，这在创建大型系统时为你提供了十分灵活的功能。 <br>
+在像C#和Java这样的语言中，可以使用泛型来创建可重用的组件，一个组件可以支持多种类型的数据。 这样用户就可以以自己的数据类型来使用组件。</p>
+
+<ul><li>Hello World of Generics</li>
+<li>To start off, let’s do the “hello world” of generics: the identity function. The identity function is a function that will return back whatever is passed in. You can think of this in a similar way to the ‘echo’ command.  <br>
+创建一个使用泛型的 helloworld 返回任何传入它的参数，可以和 echo 相似。 <br>
+不用泛型：</li>
+</ul>
+
+</div><div id="wmd-preview-section-28683" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// 参数和返回值是 number 类型</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arg: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">number</span></span>{<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">return</span> arg;<br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-comment">// 参数和返回值是 any 类型</span><br><span class="hljs-comment line-number">6.</span><span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">arg: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">any</span></span>{<br><span class="hljs-comment line-number">7.</span>    <span class="hljs-keyword">return</span> arg;<br><span class="hljs-comment line-number">8.</span>}<br><span class="hljs-comment line-number">9.</span><span class="hljs-comment">// 用 any 已经能接收到各种类型的参数，但是不能保证传入类型和返回类型相同</span><br><span class="hljs-comment line-number">10.</span><span class="hljs-comment">// 如果传入一个数字，任何类型的值都有可能被返回。</span><br></code></pre>
+
+<p>因此，我们需要一种方法使用返回值的类型与传入参数的类型是相同的。 这里，我们使用了<em>类型变量</em>，它是一种特殊的变量，只用于表示类型而不是值。</p>
+
+</div><div id="wmd-preview-section-28684" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identity</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">arg: T</span>):<span class="hljs-title">T</span></span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">return</span> arg;<br><span class="hljs-comment line-number">3.</span>}<br></code></pre>
+
+<p>这样可以保证传入的类型的返回的类型相同。 <br>
+用的时候可以。</p>
+
+</div><div id="wmd-preview-section-28685" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> output = identity&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">"myString"</span>);<br><span class="hljs-comment line-number">2.</span><span class="hljs-comment">// 也可以不指定泛型，可以根据传入的参数推断类型</span><br><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">var</span> output = identity(<span class="hljs-string">"myString"</span>);<br><span class="hljs-comment line-number">4.</span><span class="hljs-comment">// 注意我们并没用&lt;&gt;明确的指定类型，编译器看到了myString，把T设置为此类型。 类型推论帮助我们保持代码精简和高可读性。如果编译器不能够自动地推断出类型的话，只能像上面那样明确的传入T的类型，在一些复杂的情况下，这是可能出现的。</span><br></code></pre>
+
+<ul><li>使用泛型变量 <br>
+使用泛型创建像identity这样的泛型函数时，编译器要求你在函数体必须正确的使用这个通用的类型。 换句话说，你必须把这些参数当做是任意或所有类型。</li>
+</ul>
+
+</div><div id="wmd-preview-section-28686" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loggingIdentity</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">arg: T[]</span>): <span class="hljs-title">T</span>[]</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(arg.length);   <span class="hljs-comment">// 如果在前面没有写参数为数组类型的话，不会有 length 属性</span><br><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">return</span> arg;<br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-comment">// 也可以这么写</span><br><span class="hljs-comment line-number">6.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loggingIdentity</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">arg: <span class="hljs-built_in">Array</span>&lt;T&gt;</span>): <span class="hljs-title">Array</span>&lt;<span class="hljs-title">T</span>&gt;</span>{<br><span class="hljs-comment line-number">7.</span>    <span class="hljs-built_in">console</span>.log(arg.length);<br><span class="hljs-comment line-number">8.</span>    <span class="hljs-keyword">return</span> arg;<br><span class="hljs-comment line-number">9.</span>}<br></code></pre>
+
+<ul><li>泛型类型</li>
+</ul>
+
+</div><div id="wmd-preview-section-28687" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identity</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">arg: T</span>):<span class="hljs-title">T</span></span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">return</span> arg;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> myIdentity : &lt;T&gt;(arg: T) =&gt; T = identity; <br><span class="hljs-comment line-number">5.</span><span class="hljs-comment">// 也可以使用不同的名字</span><br><span class="hljs-comment line-number">6.</span><span class="hljs-keyword">var</span> myIdentity : &lt;U&gt;(arg: U) =&gt; U = identity; <br><span class="hljs-comment line-number">7.</span><span class="hljs-comment">// 还可以使用带有调用签名的对象字面量来定义泛型函数</span><br><span class="hljs-comment line-number">8.</span><span class="hljs-keyword">var</span> myIdentity : {&lt;T&gt;(arg: T) =&gt; T} = identity;<br><span class="hljs-comment line-number">9.</span><span class="hljs-comment">// 把对象字面量拿出来定义一个接口</span><br><span class="hljs-comment line-number">10.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> GenericIdentityFn</span>{<br><span class="hljs-comment line-number">11.</span>    &lt;T&gt;(arg: T) =&gt; T;<br><span class="hljs-comment line-number">12.</span>}<br><span class="hljs-comment line-number">13.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identity</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">arg: T</span>): <span class="hljs-title">T</span></span>{<br><span class="hljs-comment line-number">14.</span>    <span class="hljs-keyword">return</span> arg;<br><span class="hljs-comment line-number">15.</span>}<br><span class="hljs-comment line-number">16.</span><span class="hljs-keyword">var</span> myIdentity : GenericdentityFn = identity;<br><span class="hljs-comment line-number">17.</span><span class="hljs-comment">// 可以把泛型参数写在外面</span><br><span class="hljs-comment line-number">18.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> GenericIdentityFn&lt;T&gt;</span>{<br><span class="hljs-comment line-number">19.</span>    (arg: T): T;<br><span class="hljs-comment line-number">20.</span>}<br><span class="hljs-comment line-number">21.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">identity</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">arg: T</span>):<span class="hljs-title">T</span></span>{<br><span class="hljs-comment line-number">22.</span>    <span class="hljs-keyword">return</span> arg;<br><span class="hljs-comment line-number">23.</span>}<br><span class="hljs-comment line-number">24.</span><span class="hljs-keyword">var</span> myIdentity: GenericIdentityFn&lt;<span class="hljs-built_in">number</span>&gt; = identity;<br></code></pre>
+
+<p>对于描述哪部分类型属于泛型部分来说，理解何时把参数放在调用签名里和何时放在接口上是很有帮助的。</p>
+
+<ul><li>泛型类 <br>
+泛型类看上去与泛型接口差不多。 泛型类使用（&lt;&gt;）括起泛型类型，跟在类名后面。</li>
+</ul>
+
+</div><div id="wmd-preview-section-28688" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">class</span> GenericNumber&lt;T&gt;{<br><span class="hljs-comment line-number">2.</span>    zeroValue: T;<br><span class="hljs-comment line-number">3.</span>    add: (x: T,y: T) =&gt; T;<br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> myGenericNumber = <span class="hljs-keyword">new</span> GenericNumber&lt;<span class="hljs-built_in">number</span>&gt;();<br><span class="hljs-comment line-number">6.</span>myGenericNumber.zeroValue = <span class="hljs-number">0</span>;<br><span class="hljs-comment line-number">7.</span>myGenericNumber.add = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x, y</span>)</span>{ <span class="hljs-keyword">return</span> x + y; }<br></code></pre>
+
+<p>与接口一样，直接把泛型类型放在类后面，可以帮助我们确认类的所有属性都在使用相同的类型。 <br>
+我们在类那节说过，类有两部分：静态部分和实例部分。 泛型类指的是实例部分的类型，所以<strong>类的静态属性不能使用这个泛型类型</strong>。</p>
+
+<ul><li>Generic Constraints（泛型约束） <br>
+If you remember from an earlier example, you may sometimes want to write a generic function that works on a set of types where you have some knowledge about what capabilities that set of types will have. In our ‘loggingIdentity’ example, we wanted to be able access the “.length” property of ‘arg’, but the compiler could not prove that every type had a “.length” property, so it warns us that we can’t make this assumption. <br>
+希望处理带有 length 属性的所有类型。用泛型约束。</li>
+</ul>
+
+</div><div id="wmd-preview-section-28689" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> Lengthwise</span>{<br><span class="hljs-comment line-number">2.</span>    length: <span class="hljs-built_in">number</span>;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loggingIdentity</span>&lt;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">Lengthwise</span>&gt;(<span class="hljs-params">args: T</span>): <span class="hljs-title">T</span></span>{<br><span class="hljs-comment line-number">5.</span>    <span class="hljs-built_in">console</span>.log(arg.length);   <span class="hljs-comment">// 必须有一个 length 属性才会被选取</span><br><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">return</span> arg;<br><span class="hljs-comment line-number">7.</span>}<br><span class="hljs-comment line-number">8.</span>loggingIdentity({length: <span class="hljs-number">10</span>,value: <span class="hljs-number">3</span>});   <span class="hljs-comment">// Thats all right</span><br></code></pre>
+
+<ul><li>Using Type Parameters in Generic Constraints(在泛型约束中使用类型参数) <br>
+In some cases, it may be useful to declare a type parameter that is constrained by another type parameter. For example, <br>
+有时候，我们需要使用类型参数去约束另一个类型参数。比如，</li>
+</ul>
+
+</div><div id="wmd-preview-section-28690" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">n: T, s: Findable&lt;T&gt;</span>) </span>{<br><span class="hljs-comment line-number">2.</span>  <span class="hljs-comment">// ...</span><br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span>find(giraffe, myAnimals);<br><span class="hljs-comment line-number">5.</span><span class="hljs-comment">// 参数 s 的类型不能定义在泛型的 &lt;&gt; 里。</span><br></code></pre>
+
+<ul><li>Using Class Types in Generics(在泛型里使用类类型)（待完善） <br>
+When creating factories in TypeScript using generics, it is necessary to refer to class types by their constructor functions. For example, <br>
+在TypeScript使用泛型创建工厂函数时，需要引用构造函数的类类型。比如，</li>
+</ul>
+
+</div><div id="wmd-preview-section-28691" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">c: {<span class="hljs-keyword">new</span>(</span>): <span class="hljs-title">T</span></span>; }): T { <br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> c();<br><span class="hljs-comment line-number">3.</span>}<br></code></pre>
+
+<p>一个更高级的例子，使用原型属性推断并约束构造函数与类实例的关系。</p>
+
+</div><div id="wmd-preview-section-28692" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">class</span> BeeKeeper {<br><span class="hljs-comment line-number">2.</span>    hasMask: <span class="hljs-built_in">boolean</span>;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">class</span> ZooKeeper {<br><span class="hljs-comment line-number">5.</span>    nametag: <span class="hljs-built_in">string</span>; <br><span class="hljs-comment line-number">6.</span>}<br><span class="hljs-comment line-number">7.</span><span class="hljs-keyword">class</span> Animal {<br><span class="hljs-comment line-number">8.</span>    numLegs: <span class="hljs-built_in">number</span>;<br><span class="hljs-comment line-number">9.</span>}<br><span class="hljs-comment line-number">10.</span><span class="hljs-keyword">class</span> Bee extends Animal {<br><span class="hljs-comment line-number">11.</span>    keeper: BeeKeeper;<br><span class="hljs-comment line-number">12.</span>}<br><span class="hljs-comment line-number">13.</span><span class="hljs-keyword">class</span> Lion extends Animal {<br><span class="hljs-comment line-number">14.</span>    keeper: ZooKeeper;<br><span class="hljs-comment line-number">15.</span>}<br><span class="hljs-comment line-number">16.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findKeeper</span>&lt;<span class="hljs-title">A</span> <span class="hljs-title">extends</span> <span class="hljs-title">Animal</span>, <span class="hljs-title">K</span>&gt; (<span class="hljs-params">a: {<span class="hljs-keyword">new</span>(</span>): <span class="hljs-title">A</span></span>; <br><span class="hljs-comment line-number">17.</span>    prototype: {keeper: K}}): K {<br><span class="hljs-comment line-number">18.</span>    <span class="hljs-keyword">return</span> a.prototype.keeper;<br><span class="hljs-comment line-number">19.</span>}<br><span class="hljs-comment line-number">20.</span>findKeeper(Lion).nametag;  <span class="hljs-comment">// typechecks!</span><br></code></pre>
+
+</div><div id="wmd-preview-section-28693" class="wmd-preview-section preview-content">
+
+<h4 id="common-errors">Common Errors</h4>
+
+<p>The list below captures some of the commonly confusing error messages that you may encounter when using the TypeScript language and Compiler <br>
+下面列出了一些在使用TypeScript语言和编译器过程中常见的容易让人感到困惑的错误信息。</p>
+
+<ol><li rel="1">“tsc.exe” exited with error code 1 <br>
+<em>Fixes:</em> <br>
+check file-encoding is UTF-8 （检查文件编码，确保为UTF-8 ）- <a href="https://typescript.codeplex.com/workitem/1587" target="_blank">https://typescript.codeplex.com/workitem/1587</a></li>
+<li rel="2">external module XYZ cannot be resolved <br>
+Fixes: <br>
+check if module path is case-sensitive （检查模块路径是否大小写敏感）- <a href="https://typescript.codeplex.com/workitem/2134" target="_blank">https://typescript.codeplex.com/workitem/2134</a></li>
+</ol>
+
+</div><div id="wmd-preview-section-28694" class="wmd-preview-section preview-content">
+
+<h4 id="mixins待完善">Mixins(待完善)</h4>
+
+<p>Along with traditional OO hierarchies, another popular way of building up classes from reusable components is to build them by combining simpler partial classes. You may be familiar with the idea of mixins or traits for languages like Scala, and the pattern has also reached some popularity in the JavaScript community. <br>
+除了传统的面向对象继承方式，还流行一种通过可重用组件创建类的方式，就是联合另一个简单类的代码。 你可能在Scala等语言里对mixins及其特性已经很熟悉了，但它在JavaScript中也是很流行的。</p>
+
+<ul><li>Mixin sample <br>
+In the code below, we show how you can model mixins in TypeScript. After the code, we’ll break down how it works.</li>
+</ul>
+
+</div><div id="wmd-preview-section-28695" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// Disposable Mixin</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">class</span> Disposable {<br><span class="hljs-comment line-number">3.</span>    isDisposed: <span class="hljs-built_in">boolean</span>;<br><span class="hljs-comment line-number">4.</span>    dispose() {<br><span class="hljs-comment line-number">5.</span>        <span class="hljs-keyword">this</span>.isDisposed = <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">6.</span>    }<br><span class="hljs-comment line-number">7.</span><br><span class="hljs-comment line-number">8.</span>}<br><span class="hljs-comment line-number">9.</span><br><span class="hljs-comment line-number">10.</span><span class="hljs-comment">// Activatable Mixin</span><br><span class="hljs-comment line-number">11.</span><span class="hljs-keyword">class</span> Activatable {<br><span class="hljs-comment line-number">12.</span>    isActive: <span class="hljs-built_in">boolean</span>;<br><span class="hljs-comment line-number">13.</span>    activate() {<br><span class="hljs-comment line-number">14.</span>        <span class="hljs-keyword">this</span>.isActive = <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">15.</span>    }<br><span class="hljs-comment line-number">16.</span>    deactivate() {<br><span class="hljs-comment line-number">17.</span>        <span class="hljs-keyword">this</span>.isActive = <span class="hljs-literal">false</span>;<br><span class="hljs-comment line-number">18.</span>    }<br><span class="hljs-comment line-number">19.</span>}<br><span class="hljs-comment line-number">20.</span><br><span class="hljs-comment line-number">21.</span><span class="hljs-keyword">class</span> SmartObject <span class="hljs-keyword">implements</span> Disposable, Activatable {<br><span class="hljs-comment line-number">22.</span>    <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>() </span>{<br><span class="hljs-comment line-number">23.</span>        setInterval(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.isActive + <span class="hljs-string">" : "</span> + <span class="hljs-keyword">this</span>.isDisposed), <span class="hljs-number">500</span>);<br><span class="hljs-comment line-number">24.</span>    }<br><span class="hljs-comment line-number">25.</span><br><span class="hljs-comment line-number">26.</span>    interact() {<br><span class="hljs-comment line-number">27.</span>        <span class="hljs-keyword">this</span>.activate();<br><span class="hljs-comment line-number">28.</span>    }<br><span class="hljs-comment line-number">29.</span><br><span class="hljs-comment line-number">30.</span>    <span class="hljs-comment">// Disposable</span><br><span class="hljs-comment line-number">31.</span>    isDisposed: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span>;<br><span class="hljs-comment line-number">32.</span>    dispose: () =&gt; <span class="hljs-built_in">void</span>;<br><span class="hljs-comment line-number">33.</span>    <span class="hljs-comment">// Activatable</span><br><span class="hljs-comment line-number">34.</span>    isActive: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span>;<br><span class="hljs-comment line-number">35.</span>    activate: () =&gt; <span class="hljs-built_in">void</span>;<br><span class="hljs-comment line-number">36.</span>    deactivate: () =&gt; <span class="hljs-built_in">void</span>;<br><span class="hljs-comment line-number">37.</span>}<br><span class="hljs-comment line-number">38.</span>applyMixins(SmartObject, [Disposable, Activatable])<br><span class="hljs-comment line-number">39.</span><br><span class="hljs-comment line-number">40.</span><span class="hljs-keyword">var</span> smartObj = <span class="hljs-keyword">new</span> SmartObject();<br><span class="hljs-comment line-number">41.</span>setTimeout(() =&gt; smartObj.interact(), <span class="hljs-number">1000</span>);<br><span class="hljs-comment line-number">42.</span><br><span class="hljs-comment line-number">43.</span><span class="hljs-comment">////////////////////////////////////////</span><br><span class="hljs-comment line-number">44.</span><span class="hljs-comment">// In your runtime library somewhere</span><br><span class="hljs-comment line-number">45.</span><span class="hljs-comment">////////////////////////////////////////</span><br><span class="hljs-comment line-number">46.</span><br><span class="hljs-comment line-number">47.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">applyMixins</span>(<span class="hljs-params">derivedCtor: <span class="hljs-built_in">any</span>, baseCtors: <span class="hljs-built_in">any</span>[]</span>) </span>{<br><span class="hljs-comment line-number">48.</span>    baseCtors.forEach(baseCtor =&gt; {<br><span class="hljs-comment line-number">49.</span>        <span class="hljs-built_in">Object</span>.getOwnPropertyNames(baseCtor.prototype).forEach(name =&gt; {<br><span class="hljs-comment line-number">50.</span>            derivedCtor.prototype[name] = baseCtor.prototype[name];<br><span class="hljs-comment line-number">51.</span>        })<br><span class="hljs-comment line-number">52.</span>    }); <br><span class="hljs-comment line-number">53.</span>}<br></code></pre>
+
+<p>理解这个例子 <br>
+代码里首先定义了两个类，它们将做为mixins。 可以看到每个类都只定义了一个特定的行为或功能。 稍后我们使用它们来创建一个新类，同时具有这两种功能。</p>
+
+</div><div id="wmd-preview-section-28696" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// Disposable Mixin</span><br><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">class</span> Disposable {<br><span class="hljs-comment line-number">3.</span>    isDisposed: <span class="hljs-built_in">boolean</span>;<br><span class="hljs-comment line-number">4.</span>    dispose() {<br><span class="hljs-comment line-number">5.</span>        <span class="hljs-keyword">this</span>.isDisposed = <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">6.</span>    }<br><span class="hljs-comment line-number">7.</span><br><span class="hljs-comment line-number">8.</span>}<br><span class="hljs-comment line-number">9.</span><br><span class="hljs-comment line-number">10.</span><span class="hljs-comment">// Activatable Mixin</span><br><span class="hljs-comment line-number">11.</span><span class="hljs-keyword">class</span> Activatable {<br><span class="hljs-comment line-number">12.</span>    isActive: <span class="hljs-built_in">boolean</span>;<br><span class="hljs-comment line-number">13.</span>    activate() {<br><span class="hljs-comment line-number">14.</span>        <span class="hljs-keyword">this</span>.isActive = <span class="hljs-literal">true</span>;<br><span class="hljs-comment line-number">15.</span>    }<br><span class="hljs-comment line-number">16.</span>    deactivate() {<br><span class="hljs-comment line-number">17.</span>        <span class="hljs-keyword">this</span>.isActive = <span class="hljs-literal">false</span>;<br><span class="hljs-comment line-number">18.</span>    }<br><span class="hljs-comment line-number">19.</span>}<br></code></pre>
+
+<p>Finally, we mix our mixins into the class, creating the full implementation. <br>
+下面创建一个类，结合了这两个mixins。 下面来看一下具体是怎么操作的：</p>
+
+</div><div id="wmd-preview-section-28697" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">class</span> SmartObject <span class="hljs-keyword">implements</span> Disposable, Activatable {<br></code></pre>
+
+<p>首先应该注意到的是，没使用extends而是使用implements。 把类当成了接口，仅使用Disposable和Activatable的类型而非其实现。 这意味着我们需要在类里面实现接口。 但是这是我们在用mixin时想避免的。+ <br>
+我们可以这么做来达到目的，为将要mixin进来的属性方法创建出占位属性。 这告诉编译器这些成员在运行时是可用的。 这样就能使用mixin带来的便利，虽说需要提前定义一些占位属性。</p>
+
+</div><div id="wmd-preview-section-28698" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">// Disposable</span><br><span class="hljs-comment line-number">2.</span>isDisposed: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span>;<br><span class="hljs-comment line-number">3.</span>dispose: () =&gt; <span class="hljs-built_in">void</span>;<br><span class="hljs-comment line-number">4.</span><span class="hljs-comment">// Activatable</span><br><span class="hljs-comment line-number">5.</span>isActive: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span>;<br><span class="hljs-comment line-number">6.</span>activate: () =&gt; <span class="hljs-built_in">void</span>;<br><span class="hljs-comment line-number">7.</span>deactivate: () =&gt; <span class="hljs-built_in">void</span>;<br></code></pre>
+
+<p>最后，把mixins混入定义的类，完成全部实现部分。</p>
+
+</div><div id="wmd-preview-section-28699" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span>applyMixins(SmartObject, [Disposable, Activatable]);<br></code></pre>
+
+<p>最后，创建这个帮助函数，帮我们做混入操作。 它会遍历mixins上的所有属性，并复制到目标上去，把之前的占位属性替换成真正的实现代码。</p>
+
+</div><div id="wmd-preview-section-28700" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">applyMixins</span>(<span class="hljs-params">derivedCtor: <span class="hljs-built_in">any</span>, baseCtors: <span class="hljs-built_in">any</span>[]</span>) </span>{<br><span class="hljs-comment line-number">2.</span>    baseCtors.forEach(baseCtor =&gt; {<br><span class="hljs-comment line-number">3.</span>        <span class="hljs-built_in">Object</span>.getOwnPropertyNames(baseCtor.prototype).forEach(name =&gt; {<br><span class="hljs-comment line-number">4.</span>            derivedCtor.prototype[name] = baseCtor.prototype[name];<br><span class="hljs-comment line-number">5.</span>        })<br><span class="hljs-comment line-number">6.</span>    });<br><span class="hljs-comment line-number">7.</span>}<br></code></pre>
+
+<ul><li>合并接口 <br>
+各接口内的顺序保持不变。</li>
+</ul>
+
+</div><div id="wmd-preview-section-28701" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> Box </span>{<br><span class="hljs-comment line-number">2.</span>    height: <span class="hljs-built_in">number</span>;<br><span class="hljs-comment line-number">3.</span>    width: <span class="hljs-built_in">number</span>;<br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> Box </span>{<br><span class="hljs-comment line-number">6.</span>    scale: <span class="hljs-built_in">number</span>;<br><span class="hljs-comment line-number">7.</span>}<br><span class="hljs-comment line-number">8.</span><span class="hljs-keyword">var</span> box: Box = {height: <span class="hljs-number">5</span>, width: <span class="hljs-number">6</span>, scale: <span class="hljs-number">10</span>};<br></code></pre>
+
+<p>接口中的非函数成员名必须是唯一的 <br>
+函数成员：同名的函数声明会被当做一个重载，每组接口中的顺序不变，只是靠后的接口声明会在靠前的接口之前。</p>
+
+<ul><li>合并命名空间 <br>
+与接口相似，同名的命名空间也会合并其成员。 命名空间会创建出命名空间和值，我们需要知道这两者都是怎么合并的。 <br>
+命名空间的合并，模块导出的同名接口进行合并，构成单一命名空间内含合并后的接口。 <br>
+值的合并，如果当前已经存在给定名字的命名空间，那么后来的命名空间的导出成员会被加到已经存在的那个模块里。 <br>
+除了这些合并外，你还需要了解非导出成员是如何处理的。 非导出成员仅在其原始存在于的命名空间（未合并的）之内可见。这就是说合并之后，从其它命名空间合并进来的成员无法访问非导出成员。（没有 export）</li>
+</ul>
+
+<p>除了内部类的模式，你在JavaScript里，创建一个函数稍后扩展它增加一些属性也是很常见的。 Typescript使用声明合并来达到这个目的并保证类型安全。</p>
+
+</div><div id="wmd-preview-section-28702" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildLabel</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">string</span> </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">return</span> buildLabel.prefix + name + buildLabel.suffix;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">namespace</span> buildLabel {<br><span class="hljs-comment line-number">5.</span>    <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> suffix = <span class="hljs-string">""</span>;<br><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> prefix = <span class="hljs-string">"Hello, "</span>;<br><span class="hljs-comment line-number">7.</span>}<br><span class="hljs-comment line-number">8.</span>alert(buildLabel(<span class="hljs-string">"Sam Smith"</span>));<br></code></pre>
+
+<p>相似的，命名空间可以用来扩展枚举型：</p>
+
+</div><div id="wmd-preview-section-28703" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">enum</span> Color {<br><span class="hljs-comment line-number">2.</span>    red = <span class="hljs-number">1</span>,<br><span class="hljs-comment line-number">3.</span>    green = <span class="hljs-number">2</span>,<br><span class="hljs-comment line-number">4.</span>    blue = <span class="hljs-number">4</span><br><span class="hljs-comment line-number">5.</span>}<br><span class="hljs-comment line-number">6.</span><br><span class="hljs-comment line-number">7.</span><span class="hljs-keyword">namespace</span> Color {<br><span class="hljs-comment line-number">8.</span>    <span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mixColor</span>(<span class="hljs-params">colorName: <span class="hljs-built_in">string</span></span>) </span>{<br><span class="hljs-comment line-number">9.</span>        <span class="hljs-keyword">if</span> (colorName == <span class="hljs-string">"yellow"</span>) {<br><span class="hljs-comment line-number">10.</span>            <span class="hljs-keyword">return</span> Color.red + Color.green;<br><span class="hljs-comment line-number">11.</span>        }<br><span class="hljs-comment line-number">12.</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (colorName == <span class="hljs-string">"white"</span>) {<br><span class="hljs-comment line-number">13.</span>            <span class="hljs-keyword">return</span> Color.red + Color.green + Color.blue;<br><span class="hljs-comment line-number">14.</span>        }<br><span class="hljs-comment line-number">15.</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (colorName == <span class="hljs-string">"magenta"</span>) {<br><span class="hljs-comment line-number">16.</span>            <span class="hljs-keyword">return</span> Color.red + Color.blue;<br><span class="hljs-comment line-number">17.</span>        }<br><span class="hljs-comment line-number">18.</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (colorName == <span class="hljs-string">"cyan"</span>) {<br><span class="hljs-comment line-number">19.</span>            <span class="hljs-keyword">return</span> Color.green + Color.blue;<br><span class="hljs-comment line-number">20.</span>        }<br><span class="hljs-comment line-number">21.</span>    }<br><span class="hljs-comment line-number">22.</span>}<br></code></pre>
+
+<ul><li>非法的合并 <br>
+并不是所有的合并都被允许。 现在，类不能与类合并，变量与类型不能合并，接口与类不能合并。 想要模仿类的合并，请参考 <a href="https://typescript.codeplex.com/wikipage?title=Mixins%20in%20TypeScript&amp;referringTitle=Declaration%20Merging" target="_blank">https://typescript.codeplex.com/wikipage?title=Mixins%20in%20TypeScript&amp;referringTitle=Declaration%20Merging</a></li>
+</ul>
+
+</div><div id="wmd-preview-section-28704" class="wmd-preview-section preview-content">
+
+<h4 id="type-inference">Type Inference</h4>
+
+<p>In this section, we will cover type inference in TypeScript. Namely, we’ll discuss where and how types are inferred. <br>
+介绍类型在哪里被如何推断的。 <br>
+当需要从几个表达式中推断类型时候，会使用这些表达式的类型来推断出一个最合适的通用类型。 <br>
+由于最终的通用类型取自候选类型，有些时候候选类型共享相同的通用类型，但是却没有一个类型能做为所有候选类型的类型。例如：</p>
+
+</div><div id="wmd-preview-section-28705" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> zoo = [<span class="hljs-keyword">new</span> Rhino(), <span class="hljs-keyword">new</span> Elephant(), <span class="hljs-keyword">new</span> Snake()];<br></code></pre>
+
+<p>这里，我们想让zoo被推断为Animal[]类型，但是这个数组里没有对象是Animal类型的，因此不能推断出这个结果。 为了更正，当候选类型不能使用的时候我们需要明确的指出类型：</p>
+
+</div><div id="wmd-preview-section-28706" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> zoo: Animal[] = [<span class="hljs-keyword">new</span> Rhino(), <span class="hljs-keyword">new</span> Elephant(), <span class="hljs-keyword">new</span> Snake()];<br></code></pre>
+
+<p>如果没有找到最佳通用类型的话，类型推论的结果是空对象类型，{}。 因为这个类型没有任何成员，所以访问其成员的时候会报错。</p>
+
+<ul><li>上下文类型 <br>
+TypeScript类型推论也可能按照相反的方向进行。 这被叫做“按上下文归类”。按上下文归类会发生在表达式的类型与所处的位置相关时。比如： <br>
+这个例子会得到一个类型错误，TypeScript类型检查器使用Window.onmousedown函数的类型来推断右边函数表达式的类型。 因此，就能推断出mouseEvent参数的类型了。(和 onmousedown 的参数类型一致？) 如果函数表达式不是在上下文类型的位置，mouseEvent参数的类型需要指定为any，这样也不会报错了。</li>
+</ul>
+
+</div><div id="wmd-preview-section-28707" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-built_in">window</span>.onmousedown = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">mouseEvent: <span class="hljs-built_in">any</span></span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(mouseEvent.buton);  <span class="hljs-comment">//&lt;- Now, no error is given</span><br><span class="hljs-comment line-number">3.</span>};    <span class="hljs-comment">// 这里不需要从 onmousedown 来推断 mouseEvent 的类型</span><br></code></pre>
+
+<p>上下文归类会在很多情况下使用到。 通常包含函数的参数，赋值表达式的右边，类型断言，对象成员和数组字面量和返回值语句。 上下文类型也会做为最佳通用类型的候选类型。比如：</p>
+
+</div><div id="wmd-preview-section-28708" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createZoo</span>(<span class="hljs-params"></span>): <span class="hljs-title">Animal</span>[] </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">return</span> [<span class="hljs-keyword">new</span> Rhino(), <span class="hljs-keyword">new</span> Elephant(), <span class="hljs-keyword">new</span> Snake()];<br><span class="hljs-comment line-number">3.</span>}<br></code></pre>
+
+<p>这个例子里，最佳通用类型有4个候选者：Animal，Rhino，Elephant和Snake。 当然，Animal会被做为最佳通用类型。</p>
+
+</div><div id="wmd-preview-section-28709" class="wmd-preview-section preview-content">
+
+<h4 id="type-compatibility类型兼容性">Type Compatibility（类型兼容性）</h4>
+
+<p>从函数赋值判断函数是否兼容 <br>
+参数：少的赋给多的可以 <br>
+返回值：多的赋给少的可以</p>
+
+<ul><li>函数参数双向协变 <br>
+当比较函数参数类型时，只有当源函数参数能够赋值给目标函数或者反过来时才能赋值成功。 这是不稳定的，因为调用者可能传入了一个具有更精确类型信息的函数，但是调用这个传入的函数的时候却使用了不是那么精确的类型信息。 实际上，这极少会发生错误，并且能够实现很多JavaScript里的常见模式。</li>
+</ul>
+
+<p>枚举类型与数字类型兼容，并且数字类型与枚举类型兼容。<strong>不同枚举类型之间是不兼容的</strong>。比如，</p>
+
+<p>类与对象字面量和接口差不多，但有一点不同：类有静态部分和实例部分的类型。 <strong>比较两个类类型的对象时，只有实例的成员会被比较。 静态成员和构造函数不在比较的范围内</strong>。</p>
+
+<p><strong>私有成员会影响兼容性判断</strong>。 当类的实例用来检查兼容时，如果它包含一个私有成员，那么目标类型必须包含来自同一个类的这个私有成员。 这允许子类赋值给父类，但是不能赋值给其它有同样类型的类。</p>
+
+<p>泛型</p>
+
+</div><div id="wmd-preview-section-28710" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> Empty&lt;T&gt; </span>{<br><span class="hljs-comment line-number">2.</span>}<br><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">var</span> x: Empty&lt;<span class="hljs-built_in">number</span>&gt;;<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> y: Empty&lt;<span class="hljs-built_in">string</span>&gt;;<br><span class="hljs-comment line-number">5.</span><br><span class="hljs-comment line-number">6.</span>x = y;  <span class="hljs-comment">// okay, y matches structure of x</span><br><span class="hljs-comment line-number">7.</span><span class="hljs-comment">// 对于没指定泛型类型的泛型参数时，会把所有泛型参数当成any比较。</span><br></code></pre>
+
+<p>增加一个成员</p>
+
+</div><div id="wmd-preview-section-28711" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-typescript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-interface"><span class="hljs-keyword">interface</span> NotEmpty&lt;T&gt; </span>{<br><span class="hljs-comment line-number">2.</span>    data: T;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> x: NotEmpty&lt;<span class="hljs-built_in">number</span>&gt;;<br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> y: NotEmpty&lt;<span class="hljs-built_in">string</span>&gt;;<br><span class="hljs-comment line-number">6.</span><br><span class="hljs-comment line-number">7.</span>x = y;  <span class="hljs-comment">// error, x and y are not compatible</span><br></code></pre>
+
+<ul><li>高级主题 <br>
+子类型与赋值 <br>
+目前为止，我们使用了兼容性，它在语言规范里没有定义。 在TypeScript里，有两种类型的兼容性：子类型与赋值。 它们的不同点在于，赋值扩展了子类型兼容，允许给any赋值或从any取值和允许数字赋值给枚举类型或枚举类型赋值给数字。 <br>
+语言里的不同地方分别使用了它们之中的机制。 实际上，类型兼容性是由赋值兼容性来控制的甚至在implements和extends语句里。 更多信息，请参阅<a href="http://./TypeScript Language Specification.docx" target="_blank">TypeScript语言规范</a></li>
+</ul>
+
+</div><div id="wmd-preview-section-28712" class="wmd-preview-section preview-content">
+
+<h4 id="writing-dts-files书写-dts-文件">Writing .d.ts files（书写 .d.ts 文件）</h4>
+
+<p>When using an external JavaScript library, or new host API, you’ll need to use a declaration file (.d.ts) to describe the shape of that library. This guide covers a few high-level concepts specific to writing definition files, then proceeds with a number of examples that show how to transcribe various concepts to their matching definition file descriptions. <br>
+当使用外部JavaScript库或新的宿主API时，你需要一个声明文件（.d.ts）定义程序库的shape。 这个手册包含了写.d.ts文件的高级概念，并带有一些例子，告诉你怎么去写一个声明文件。 <br>
+<a href="http://www.typescriptlang.org/Handbook#writing-dts-files" target="_blank">http://www.typescriptlang.org/Handbook#writing-dts-files</a></p></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></div></body></html>
