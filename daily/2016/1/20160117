@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><title>20160117</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div style="width:80%;margin: 0 auto;border: 1px solid rgba(0,0,0,.1);"><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-1" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-2" class="wmd-preview-section preview-content">
+
+<h1 id="20160117">20160117</h1>
+
+<blockquote>
+  <p>送给自己个生日礼物，canvas 小画板 ~</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-3" class="wmd-preview-section preview-content">
+
+<h2 id="box-sizing">box-sizing</h2>
+
+<p>参考：<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing" target="_blank">MDN</a> &amp;&amp; <a href="http://zh.learnlayout.com/box-sizing.html" target="_blank">learnlayout.com</a></p>
+
+<p>The box-sizing property is used to alter the default CSS box model used to calculate width and height of the elements. It is possible to use this property to emulate the behavior of browsers that do not correctly support the CSS box model specification.</p>
+
+<p>box-sizing 属性用于计算元素宽度和高度，可以用这个方法来控制不正确支持 css 盒模型规范的浏览器。</p>
+
+<blockquote>
+  <p><strong>content-box</strong>(默认属性)：width 和 height 只包含内容部分，不包括 padding border 和 margin，这三个将在盒子的外部 <br>
+  <strong>e.g.</strong> IF .box {width: 350px}; THEN you apply {border: 10px solid black;} RESULT {rendered in the browser} .box {width: 370px;} <br>
+  <strong>border-box</strong>：width 和 height 属性将包括 padding 与 border，但是没有 margin。 <br>
+  <strong>e.g.</strong>  .box {width: 350px; border: 10px solid black;} leads to a box rendered in the browser of width: 350px. </p>
+</blockquote></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></div></body></html>
