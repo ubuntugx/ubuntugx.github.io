@@ -1,0 +1,108 @@
+<!DOCTYPE html><html><head><title>20160119</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div style="width:80%;margin: 0 auto;border: 1px solid rgba(0,0,0,.1);"><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-1" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-2" class="wmd-preview-section preview-content">
+
+<h1 id="20160119">20160119</h1>
+
+</div><div id="wmd-preview-section-3" class="wmd-preview-section preview-content">
+
+<h2 id="you-dont-know-js-this">you dont know js ( this )</h2>
+
+<blockquote>
+  <p>this 在函数调用时绑定值，值取决于函数的调用方式 <br>
+  我们需要检查和确定这 4 种调用方式，我们首先独立解释这 4 种规则，然后我们将说明它们的优先顺序，当多个规则可以适用于这一次调用时。</p>
+</blockquote>
+
+</div><div id="wmd-preview-section-4" class="wmd-preview-section preview-content">
+
+<h4 id="1-default-binding缺省绑定">1. Default Binding(缺省绑定)</h4>
+
+<p>第一条规则我们将检查最常见的函数调用：独立的函数调用，当没有其他规则适用时，这个是默认规则。</p>
+
+</div><div id="wmd-preview-section-5" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log( <span class="hljs-keyword">this</span>.a );  <span class="hljs-comment">// 这里 this 为 Global Object</span><br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;    <span class="hljs-comment">// a 是全局变量，也相当于 global-object 的属性，像是硬币的两面</span><br><span class="hljs-comment line-number">5.</span>foo();        <span class="hljs-comment">// 2</span><br></code></pre>
+
+<p>这里 this.a 指向了全局变量 a ，因为这里适用于函数变量的默认绑定。 <br>
+因为 foo() 以一种简单的方式被调用，没有其他函数的参考，所以没有其他规则来应用。</p>
+
+<p>If strict mode is in effect, the global object is not eligible for the default binding, so the this is instead set to undefined. <br>
+在严格模式下，全局对象不是默认的绑定方式，所以 this 的值为 undefined</p>
+
+</div><div id="wmd-preview-section-6" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span><span class="hljs-pi">    "use strict"</span>;<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);   <span class="hljs-comment">// this 值为 undefined</span><br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;<br><span class="hljs-comment line-number">6.</span>foo();           <span class="hljs-comment">// TypeError: `this` is `undefined`</span><br></code></pre>
+
+<p>一个微妙而重要的细节是，虽然整体绑定完全基于调用，但是如果 foo() 的内容没有在全局模式下运行，还是可以用 global object，在调用 foo() 时使用严格模式是无关紧要的。</p>
+
+</div><div id="wmd-preview-section-7" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>(<span class="hljs-keyword">this</span>.a);<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;<br><span class="hljs-comment line-number">5.</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">6.</span><span class="hljs-pi">    "use strict"</span>;<br><span class="hljs-comment line-number">7.</span>    foo();         <span class="hljs-comment">// 2</span><br><span class="hljs-comment line-number">8.</span>})<br></code></pre>
+
+<blockquote>
+  <p>所以在严格模式下，只要不在定义 this 时，使用全局模式，this 的值就是 global object。 <br>
+  调用有 this 的函数时使用全局模式没有关系</p>
+</blockquote>
+
+<p>故意混合严格模式和非严格模式是不被允许的，你的整个程序需要时严格模式或者非严格模式。但是，有时包含一个第三库使用了不同于你的代码的严格模式或非严格模式，你需要注意这些微妙的细节兼容性。</p>
+
+</div><div id="wmd-preview-section-8" class="wmd-preview-section preview-content">
+
+<h4 id="2-implicit-binding隐式绑定">2. Implicit Binding(隐式绑定)</h4>
+
+<p>另一个需要考虑的是：调用上下文对象，也称为拥有或包含对象，虽然这些代替点可能稍有误导。</p>
+
+</div><div id="wmd-preview-section-9" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> obj={<br><span class="hljs-comment line-number">5.</span>    a: <span class="hljs-number">2</span>,<br><span class="hljs-comment line-number">6.</span>    foo: foo<br><span class="hljs-comment line-number">7.</span>}<br><span class="hljs-comment line-number">8.</span>obj.foo();  <span class="hljs-comment">// 2    </span><br></code></pre>
+
+<p>注意 foo() 首先被声明，然后作为 obj 的一个属性被引用，不去管 foo 是不是在 obj 中被声明，还是他稍后被引用在 obj 上，无论 obj 对象是 “拥有” 或者 “包含” 这个函数。</p>
+
+<blockquote>
+  <p>与函数在哪里声明无关</p>
+</blockquote>
+
+<p>无论你使用哪种模式，在 foo() 函数被调用，是一个对象 obj 的引用，当这个上下文对象调用函数引用，<em>隐式绑定</em>的规则说明调用的对象将会被用于 this。 <br>
+ 因为 foo() 被调用时，obj 是 this，所以 this.a 和 obj.a 意义相同。 <br>
+ 只有调用链的最后一个对象调用。</p>
+
+</div><div id="wmd-preview-section-10" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);<br><span class="hljs-comment line-number">3.</span> }<br><span class="hljs-comment line-number">4.</span> <span class="hljs-keyword">var</span> obj2 = {<br><span class="hljs-comment line-number">5.</span>     a: <span class="hljs-number">42</span>,<br><span class="hljs-comment line-number">6.</span>     foo: foo<br><span class="hljs-comment line-number">7.</span> };<br><span class="hljs-comment line-number">8.</span> <span class="hljs-keyword">var</span> obj1 = {<br><span class="hljs-comment line-number">9.</span>     a: <span class="hljs-number">2</span>,<br><span class="hljs-comment line-number">10.</span>     obj2: obj2<br><span class="hljs-comment line-number">11.</span> };<br><span class="hljs-comment line-number">12.</span> <span class="hljs-comment">// 关联的是最近的 a</span><br><span class="hljs-comment line-number">13.</span> obj1.obj2.foo();    <span class="hljs-comment">// 42</span><br></code></pre>
+
+</div><div id="wmd-preview-section-11" class="wmd-preview-section preview-content">
+
+<h5 id="隐式绑定失去">隐式绑定失去</h5>
+
+<p>这个绑定最常见的失败之一是一个隐式绑定函数失去了绑定，这通常意味着它返回到默认绑定，this 值为 global object 或 undefined， 这取决于是否为严格模式。</p>
+
+</div><div id="wmd-preview-section-12" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> obj = {<br><span class="hljs-comment line-number">5.</span>    a: <span class="hljs-number">2</span>,<br><span class="hljs-comment line-number">6.</span>    foo: foo<br><span class="hljs-comment line-number">7.</span>};<br><span class="hljs-comment line-number">8.</span><span class="hljs-keyword">var</span> bar = obj.foo;   <span class="hljs-comment">// 只是 foo 函数的又一次引用</span><br><span class="hljs-comment line-number">9.</span><span class="hljs-keyword">var</span> a=<span class="hljs-string">"oops global"</span>  <br><span class="hljs-comment line-number">10.</span>bar();               <span class="hljs-comment">// // "oops, global"</span><br></code></pre>
+
+<p>尽管 bar 似乎引用了 obj.foo，事实上，它是 foo 函数自己的一个引用，此外，调用 bar 的方式是重要的，这里是一个简单，无装饰的调用所以应用默认的绑定方式。</p>
+
+<p>更常见，更微妙，更难以置信的方式，当我们考虑一个回调函数。</p>
+
+</div><div id="wmd-preview-section-13" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>    condole.log(<span class="hljs-keyword">this</span>.a);<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doFoo</span>(<span class="hljs-params">fn</span>)</span>{  <span class="hljs-comment">// `fn` is just another reference to `foo`</span><br><span class="hljs-comment line-number">5.</span>    fn();            <span class="hljs-comment">// &lt;-- call-site!</span><br><span class="hljs-comment line-number">6.</span>}<br><span class="hljs-comment line-number">7.</span><span class="hljs-keyword">var</span> obj={<br><span class="hljs-comment line-number">8.</span>    a: <span class="hljs-number">2</span>,<br><span class="hljs-comment line-number">9.</span>    foo: foo<br><span class="hljs-comment line-number">10.</span>}<br><span class="hljs-comment line-number">11.</span><span class="hljs-keyword">var</span> a=<span class="hljs-string">"oops global"</span>;<br><span class="hljs-comment line-number">12.</span>doFoo(obj.foo);     <span class="hljs-comment">// "oops, global"</span><br></code></pre>
+
+<p>参数通过隐式的方式传递，因为我们传递一个函数，通过隐式的方式，所以这个片段的结果和前面的例子相同。</p>
+
+<p>如果这个回调函数并不是你自己的，但是嵌入了你的语言之中，没有区别，相同的结果。</p>
+
+</div><div id="wmd-preview-section-14" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> obj={<br><span class="hljs-comment line-number">5.</span>    a: <span class="hljs-number">2</span>,<br><span class="hljs-comment line-number">6.</span>    foo: foo<br><span class="hljs-comment line-number">7.</span>};<br><span class="hljs-comment line-number">8.</span><span class="hljs-keyword">var</span> a = <span class="hljs-string">"oops global"</span>;<br><span class="hljs-comment line-number">9.</span>setTimeout(obj.foo,<span class="hljs-number">100</span>); <span class="hljs-comment">// "oops, global"</span><br></code></pre>
+
+<p>思考一下这个天然的理论，javascript 提供了一个内置对象。</p>
+
+</div><div id="wmd-preview-section-15" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setTimeout</span>(<span class="hljs-params">fn,delay</span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-comment">// wait (somehow) for `delay` milliseconds</span><br><span class="hljs-comment line-number">3.</span>    fn(); <span class="hljs-comment">// &lt;-- call-site!</span><br><span class="hljs-comment line-number">4.</span>}<br></code></pre>
+
+<p>Either way the this is changed unexpectedly, you are not really in control of how your callback function reference will be executed, so you have no way (yet) of controlling the call-site to give your intended binding. We’ll see shortly a way of “fixing” that problem by fixing the this. <br>
+这个变化不是我们所期望的，并没有控制回调函数执行时的引用，我们很快可以见到一种修复方式，用来修复这个问题。</p></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></div></body></html>
