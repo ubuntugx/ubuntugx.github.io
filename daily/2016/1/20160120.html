@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head><title>20160120</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div style="width:80%;margin: 0 auto;border: 1px solid rgba(0,0,0,.1);"><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-1" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-2" class="wmd-preview-section preview-content">
+
+<h1 id="20160120">20160120</h1>
+
+</div><div id="wmd-preview-section-3" class="wmd-preview-section preview-content">
+
+<h2 id="you-dont-know-jsthis">you dont know js(this)</h2>
+
+</div><div id="wmd-preview-section-4" class="wmd-preview-section preview-content">
+
+<h4 id="3-explicit-binding显示绑定">3. Explicit Binding(显示绑定)</h4>
+
+<p>用 call() 或者 apply() 的第一个参数是 this，可以用来显示绑定 this。</p>
+
+</div><div id="wmd-preview-section-5" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> obj={<br><span class="hljs-comment line-number">5.</span>    a: <span class="hljs-number">2</span>;<br><span class="hljs-comment line-number">6.</span>}<br><span class="hljs-comment line-number">7.</span>foo.call(obj);<br></code></pre>
+
+<p>用显示绑定通过 foo.call() 调用 foo，允许我们指定 this 为 obj</p>
+
+<p>If you pass a simple primitive value (of type string, boolean, or number) as the this binding, the primitive value is wrapped in its object-form (new String(..), new Boolean(..), or new Number(..), respectively). This is often referred to as “boxing”. </p>
+
+<p>如果你通过一个原始值(像是 string，boolean 或 number 类型，这个原始值包裹对象的形式((new String(..), new Boolean(..), or new Number(..))，通常被称为“boxing”</p>
+
+<p>不幸的是，显示绑定并没有解决前面提到的问题，函数失去它的目标绑定等等。</p>
+
+</div><div id="wmd-preview-section-303" class="wmd-preview-section preview-content">
+
+<h5 id="hard-binding硬式绑定">Hard Binding(硬式绑定)</h5>
+
+<p>但是变化了模式的显示绑定确实有用， 思考下面的例子：</p></div><div id="wmd-preview-section-7" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> obj={<br><span class="hljs-comment line-number">5.</span>    a: <span class="hljs-number">2</span><br><span class="hljs-comment line-number">6.</span>};<br><span class="hljs-comment line-number">7.</span><span class="hljs-keyword">var</span> bar=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">8.</span>    foo.call(obj);<br><span class="hljs-comment line-number">9.</span>}<br><span class="hljs-comment line-number">10.</span>bar();                <span class="hljs-comment">// 2</span><br><span class="hljs-comment line-number">11.</span>setTimeOut(bar,<span class="hljs-number">100</span>);  <span class="hljs-comment">// 2</span><br><span class="hljs-comment line-number">12.</span><span class="hljs-comment">// bar hard bind foos this to obj</span><br><span class="hljs-comment line-number">13.</span><span class="hljs-comment">// so it cant be overwitten</span><br><span class="hljs-comment line-number">14.</span>bar.call(<span class="hljs-built_in">window</span>);     <span class="hljs-comment">// 2</span><br></code></pre>
+
+<p>在 bar() 中调用 foo() 将 this 绑定到 obj，无论之后怎么调用 bar()，都会用 obj 调用 foo()，这个绑定明确又强烈，叫做硬式绑定。 <br>
+The most typical way to wrap a function with a hard binding creates a pass-thru of any arguments passed and any return value received:</p>
+
+</div><div id="wmd-preview-section-8" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">something</span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a + something);<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">return</span>(<span class="hljs-keyword">this</span>.a + something); <br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> obj = {<br><span class="hljs-comment line-number">6.</span>    a: <span class="hljs-number">2</span><br><span class="hljs-comment line-number">7.</span>}<br><span class="hljs-comment line-number">8.</span><span class="hljs-keyword">var</span> bar = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">9.</span>    <span class="hljs-keyword">return</span> foo.apply( obj, <span class="hljs-built_in">arguments</span> );<br><span class="hljs-comment line-number">10.</span>};<br><span class="hljs-comment line-number">11.</span><br><span class="hljs-comment line-number">12.</span><span class="hljs-comment">// 这里默认设置 this 为 2</span><br><span class="hljs-comment line-number">13.</span><span class="hljs-keyword">var</span> b = bar( <span class="hljs-number">3</span> );  <span class="hljs-comment">// 2 3</span><br><span class="hljs-comment line-number">14.</span><span class="hljs-built_in">console</span>.log( b );  <span class="hljs-comment">// 5</span><br></code></pre>
+
+<p>另一种方式是创建一个可重用的助手。</p>
+
+</div><div id="wmd-preview-section-1332" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">something</span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a,something);<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.a + something;<br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> obj = {<br><span class="hljs-comment line-number">6.</span>    a: <span class="hljs-number">2</span><br><span class="hljs-comment line-number">7.</span>}<br><span class="hljs-comment line-number">8.</span><span class="hljs-comment">// 用 biind 函数帮助绑定</span><br><span class="hljs-comment line-number">9.</span><span class="hljs-comment">// 参数：函数对象，this 需要绑定的对象</span><br><span class="hljs-comment line-number">10.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bind</span>(<span class="hljs-params">fn, obj</span>)</span>{<br><span class="hljs-comment line-number">11.</span>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">12.</span>        <span class="hljs-keyword">return</span> fn.apply( obj, <span class="hljs-built_in">arguments</span> );<br><span class="hljs-comment line-number">13.</span>    }<br><span class="hljs-comment line-number">14.</span>}<br><span class="hljs-comment line-number">15.</span><span class="hljs-keyword">var</span> bar = bind( foo,obj );  <span class="hljs-comment">// 返回绑定好的函数</span><br><span class="hljs-comment line-number">16.</span><span class="hljs-keyword">var</span> b = bar( <span class="hljs-number">3</span> );      <br><span class="hljs-comment line-number">17.</span><span class="hljs-built_in">console</span>.log( b );<br></code></pre>
+
+<p>Since hard binding is such a common pattern, it’s provided with a built-in utility as of ES5: Function.prototype.bind, and it’s used like this <br>
+因为硬绑定是一个常见的模式，它提供了一个内置的 ES5 功能：Function.prototype.bind</p>
+
+</div><div id="wmd-preview-section-2453" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">something</span>) </span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log( <span class="hljs-keyword">this</span>.a, something );<br><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.a + something;<br><span class="hljs-comment line-number">4.</span>}<br><span class="hljs-comment line-number">5.</span><br><span class="hljs-comment line-number">6.</span><span class="hljs-keyword">var</span> obj = {<br><span class="hljs-comment line-number">7.</span>    a: <span class="hljs-number">2</span><br><span class="hljs-comment line-number">8.</span>};<br><span class="hljs-comment line-number">9.</span><span class="hljs-keyword">var</span> bar = foo.bind(obj);<br><span class="hljs-comment line-number">10.</span><span class="hljs-comment">// 相当于</span><br><span class="hljs-comment line-number">11.</span><span class="hljs-comment">// var bar = function() {</span><br><span class="hljs-comment line-number">12.</span><span class="hljs-comment">//    foo.call( obj );</span><br><span class="hljs-comment line-number">13.</span><span class="hljs-comment">// };</span><br><span class="hljs-comment line-number">14.</span><span class="hljs-keyword">var</span> b = bar(<span class="hljs-number">3</span>);   <span class="hljs-comment">// 2 3</span><br><span class="hljs-comment line-number">15.</span><span class="hljs-built_in">console</span>.log(b);   <span class="hljs-comment">// 5</span><br></code></pre>
+
+<p>bind(..) returns a new function that is hard-coded to call the original function with the this context set as you specified. <br>
+bind() 返回一个新的函数是硬绑定去调用原始的函数设置 this 是你具体指定的值。</p>
+
+<blockquote>
+  <p>of ES6, the hard-bound function produced by bind(..) has a .name property that derives from the original target function. For example: bar = foo.bind(..) should have a bar.name value of “bound foo”, which is the function call name that should show up in a stack trace. <br>
+  在 ES6 中，通过 bind() 方法硬绑定的函数有一个属性是 name 来自原来的目标函数。比如 bar = foo.bind() 中出现一个属性 bar.name 值为 bound foo，这个名字出现在堆栈跟踪。</p>
+</blockquote></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></div></body></html>
