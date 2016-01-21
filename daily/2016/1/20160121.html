@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><title>20160121</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div style="width:80%;margin: 0 auto;border: 1px solid rgba(0,0,0,.1);"><div id='preview-contents' class='note-content'>
+                        <div id="wmd-preview" class="preview-content"></div>
+                    <div id="wmd-preview-section-1" class="wmd-preview-section preview-content">
+
+</div><div id="wmd-preview-section-2077" class="wmd-preview-section preview-content">
+
+<h1 id="20160121">20160121</h1>
+
+<blockquote>
+  <p>前端变化很快，新出来的框架之类的很多，我应该在打好基础的情况下自己去判断优劣势用哪个合适，绝对不能在什么都不懂的情况下为了工作乱试一气，这样对技术的提高绝对没有好处，看看人家的源码才重要。 <br>
+  阮一峰老师写了 ES6 的书，在看书的同时可以补很多 JavaScript 的漏洞，ES6 很新，解决了原来 JavaScript 的很多问题，但是我也要在学好原来的基础上了解为什么这样改变。这样才能不盲目的用新的写法 <br>
+  总之，基础最重要。JavaScript 的底层知识最重要。</p>
+</blockquote></div><div id="wmd-preview-section-3" class="wmd-preview-section preview-content">
+
+<h2 id="you-dont-know-jsthis">you dont know js(this)</h2>
+
+</div><div id="wmd-preview-section-4" class="wmd-preview-section preview-content">
+
+<h4 id="3-explicit-binding显示绑定">3. Explicit Binding(显示绑定)</h4>
+
+</div><div id="wmd-preview-section-5" class="wmd-preview-section preview-content">
+
+<h5 id="api-call-contextsapi-调用上下文">API Call “Contexts”(API 调用上下文)</h5>
+
+<p>Many libraries’ functions, and indeed many new built-in functions in the JavaScript language and host environment, provide an optional parameter, usually called “context”, which is designed as a work-around for you not having to use bind(..) to ensure your callback function uses a particular this.</p>
+
+<p>事实上许多新的内置函数在 JavaScript 语言和宿主环境，提供一个可选参数，为你设置一个变通方法，让你不需要使用 bind() 来确保你的回调函数使用一个特定的 this</p>
+
+</div><div id="wmd-preview-section-6" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log( el,<span class="hljs-keyword">this</span>.id )<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> obj={<br><span class="hljs-comment line-number">5.</span>    id = <span class="hljs-string">"awesome"</span><br><span class="hljs-comment line-number">6.</span>}<br><span class="hljs-comment line-number">7.</span><span class="hljs-comment">// 当调用 foo 是，定义 this 的值为 obj</span><br><span class="hljs-comment line-number">8.</span>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach( foo,obj );  <span class="hljs-comment">// 1 awesome 2 awesome 3 awesome</span><br></code></pre>
+
+<p>在内部，这些函数几乎确定使用显示绑定通过 call() 或者 apply()，免去你的麻烦。</p>
+
+</div><div id="wmd-preview-section-7" class="wmd-preview-section preview-content">
+
+<h4 id="4-new-binding">4. <code>new</code> Binding</h4>
+
+<p>第四个并且是最后的规则要求我们重新思考一个关于 JavaScript 的函数和对象非常常见的误解。 <br>
+在传统的以类为导向的语言，当构造函数作为特殊方法附加到类，当类被实例化为一个新的操作符，这个类的构造函数将会被调用。这通常看起来像：</p>
+
+</div><div id="wmd-preview-section-445" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span>something = <span class="hljs-keyword">new</span> myClass();<br></code></pre>
+
+<p>JavaScript 有 new 操作符，要使用的代码模式和我们看到的以类为导向的语言基本相同。大多数 JavaScript 开发人员认为 JavaScript 的机制是在做类似的事情。然而，JavaScript 中 new 的用法和以类为导向的函数没有联系。 <br>
+让我们重新定义一下什么在 JavaScript 中什么是构造函数。在 JavaScript 中，构造函数只是函数，在调用它们时，将一个 new 运算符放到他们前面。它们不是附加到类也不是实例化一个类。它们甚至不是函数的特殊类型。他们只是普通的函数，从本质上讲，被使用的 new 的调用。 <br>
+例如 <code>Number(..)</code>函数作为构造函数，引用 ES5.1 规范 <br>
+Number 作为 new 表达式的一部分被调用，它是一个构造函数，它初始化一个新创建的对象。 <br>
+几乎所有的函数，包括内置对象的函数，就像是 Number(..)，可以被用 new 调用，然后这会有调用函数和调用构造函数的区别。这里有一个重要而微妙的区别。没有真正所谓的构造函数，而是函数的构造函数调用？？？ <br>
+当函数用一个 new 关键字放到前面被调用，叫做一个构造函数调用，下面的事情会自动完成：</p>
+
+<ol><li rel="1">一个新的对象将会被生成( 即: 构造对象 )</li>
+<li rel="2">新的构造对象链接 prototype</li>
+<li rel="3">新的构造对象绑定 this 在函数调用时</li>
+<li rel="4">除非函数返回它自己的替换对象，new 执行的函数将会自动返回新的构造对象。</li>
+</ol>
+
+<p>我们现在讨论步骤 1, 3 和 4</p></div><div id="wmd-preview-section-2471" class="wmd-preview-section preview-content">
+
+<pre class="prettyprint hljs-dark"><code class="language-javascript hljs"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>{<br><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">this</span>.a = a;<br><span class="hljs-comment line-number">3.</span>}<br><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> bar = <span class="hljs-keyword">new</span> foo(<span class="hljs-number">2</span>);<br><span class="hljs-comment line-number">5.</span><span class="hljs-built_in">console</span>.log( bar.a )<br></code></pre>
+
+<blockquote>
+  <p>me: 在 new foo(2) 时传入了参数 2，并将 bar 赋给了 this。</p>
+</blockquote>
+
+<p>通过在调用 foo() 的时候，在前面写 new 关键字。我们构造了一个新对象并且设置新对象为调用 foo 时的 this 值。所以 new 是最后一个在函数调用时绑定 this 的方法。</p></div><div id="wmd-preview-section-footnotes" class="preview-content"></div></div></div></body></html>
