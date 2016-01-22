@@ -4,6 +4,11 @@
 document.addEventListener('touchmove', function (e) {
     e.preventDefault();   // 阻止即将发生的默认行为(禁止触摸移动)
 });
+if ('addEventListener' in document) {
+    document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
+}
 var canvas = document.getElementsByTagName("canvas")[0];
 var context = canvas.getContext("2d");
 var devicePixelRatio = window.devicePixelRatio || 1;
