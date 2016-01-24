@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160124</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160124-<strong>You dont know js(Chapter 2)</strong></p>
+</blockquote>
+
+
+
+<h4 id="everything-in-order"><strong>Everything In Order</strong></h4>
+
+<p>now we’ve uncovered the 4 rules for binding <code>this</code>in function calls. <br>
+现在要做的就是找到调用并检查哪种规则试用，但是，如果有符合多个条件的规则呢？这些规则一定有一个优先级。下面我们将演示这些规则的顺序。 <br>
+首先要说明 default binding 在四种方式中优先级最低。 <br>
+那么是隐式绑定还是显示绑定优先级更高？</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>{</span>
+    console.log(<span class="hljs-keyword">this</span>.a)
+}
+<span class="hljs-keyword">var</span> obj1 = {
+    a: <span class="hljs-number">2</span>,
+    foo: foo
+}
+<span class="hljs-keyword">var</span> obj2 = {
+   a: <span class="hljs-number">2</span>,
+   foo: foo
+}
+obj1.foo();  <span class="hljs-comment">// 2</span>
+obj2.foo();  <span class="hljs-comment">// 3</span>
+
+obj1.foo.call(obj2);  <span class="hljs-comment">// 3</span>
+obj2.foo.call(obj1);  <span class="hljs-comment">// 2</span></code></pre>
+
+<p>所以，显示绑定的优先级高于隐式绑定，这意味着你在调用显示绑定之前先要检查是否有隐式绑定。 <br>
+现在，只需要找出 <em>new binding</em> 的优先级</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(something)</span>{</span>
+    <span class="hljs-keyword">this</span>.a = something;
+}
+<span class="hljs-keyword">var</span> obj1 = {
+    foo: foo
+}
+<span class="hljs-keyword">var</span> obj2 = {};
+obj1.foo( <span class="hljs-number">2</span> );
+console.log( obj1.a );    <span class="hljs-comment">// 2</span>
+obj1.foo.call( obj2, <span class="hljs-number">3</span> );
+console.log( obj2.a );    <span class="hljs-comment">// 3</span>
+
+<span class="hljs-keyword">var</span> bar = <span class="hljs-keyword">new</span> obj1.foo( <span class="hljs-number">4</span> );
+console.log( obj1.a );    <span class="hljs-comment">// 2</span>
+console.log( bar.a );     <span class="hljs-comment">// 4</span></code></pre>
+
+<p>所以，<em>new binding</em> 的优先级比隐式绑定高 <br>
+<code>new</code>和<code>call</code>/<code>apply</code>不能被用到一起，但是可以用<em>hard binding</em>来测试优先级。</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(something)</span>{</span>
+    <span class="hljs-keyword">this</span>.a = something;
+}
+<span class="hljs-keyword">var</span> obj1 = {};
+<span class="hljs-comment">// 将 foo 函数给 bar，this 绑定为 obj1</span>
+<span class="hljs-keyword">var</span> bar = foo.bind(obj1);
+bar(<span class="hljs-number">2</span>);
+console.log(obj1.a);   <span class="hljs-comment">// 2</span>
+
+<span class="hljs-comment">// 将 bar 函数给 baz,但因为 bar 中的 this 是显示绑定，所以bar中的 this 值不会变，而用 new binding 方式的 baz 中 this 值为 baz（可能有问题）</span>
+<span class="hljs-keyword">var</span> baz = <span class="hljs-keyword">new</span> bar(<span class="hljs-number">3</span>);
+console.log(obj1.a);   <span class="hljs-comment">// 2</span>
+console.log(baz.a);    <span class="hljs-comment">// 3</span></code></pre>
+
+
+
+<h4 id="determining-this"><strong>Determining  <code>this</code></strong></h4>
+
+<p>现在，我们可以总结函数的调用和其优先顺序。<strong>检查它们的调用方式，每次问这些问题知道有一个问题适用为止</strong>： <br>
+1. is the function called with <code>new</code>( <strong>new binding</strong> ), if so, <code>this</code> is thw newly constructed object.</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> bar = <span class="hljs-keyword">new</span> foo()</code></pre>
+
+<p>2.is the function called with <code>call</code> or <code>apply</code>( <strong>explicit binding</strong> ), even hidden inside a <code>bind</code> <em>hard binding</em>, if so, <code>this</code> is the explicitly specified object.</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> bar = foo.call(obj2)</code></pre>
+
+<p>3.if function called with a context( <strong>implicit binding</strong> ), otherwise known as an owning or containing object, otherwise? if so, <code>this</code> is that context object.</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "> <span class="hljs-keyword">var</span> bar = obj1.foo()</code></pre>
+
+<ol>
+<li>otherwise, default the <code>this</code>( <strong>default binding</strong> ), If in <code>strict mode</code>, pick <code>undefined</code>, otherwise pick the global object.</li>
+</ol>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> bar = foo();</code></pre>
+
+<p>That’s it. That’s all it takes to understand the rules of <code>this</code> binding for normal function calls. Well… almost.</p>
+
+
+
+<h4 id="binding-exceptions"><strong>Binding Exceptions</strong></h4>
+
+<p>As usual, there are some <em>exceptions</em> to the “rules”. <br>
+可能绑定的行为会出现一些意外，你想用其他的绑定方式最后结果是全局绑定。（像前面提到的：赋给全局变量、传进参数用全局的函数调用，setTimeOut）</p>
+
+
+
+<h5 id="ignored-this"><strong>Ignored <code>this</code></strong></h5>
+
+<p>当你将 null 或者 undefined 作为参数传入 call 或者 apply 或者 bind 时，这些值被忽略，<em>default binding</em> 被用于这个调用。（可能有问题）</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>{</span>
+    console.log(<span class="hljs-keyword">this</span>.a);
+}
+<span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;
+<span class="hljs-comment">// 这里 this 默认到 global object</span>
+foo.call(<span class="hljs-literal">null</span>);  <span class="hljs-comment">// 2</span></code></pre>
+
+<p>为什么故意把参数赋为 null？ <br>
+这在用 apply(..) 传参数是非常常见，相似的 bind() 可以预设值这将非常有用。</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(a,b)</span> {</span>
+    console.log( <span class="hljs-string">"a:"</span> + a + <span class="hljs-string">", b:"</span> + b );
+}
+
+<span class="hljs-comment">// spreading out array as parameters</span>
+foo.apply( <span class="hljs-literal">null</span>, [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>] ); <span class="hljs-comment">// a:2, b:3</span>
+
+<span class="hljs-comment">// currying with `bind(..)`</span>
+<span class="hljs-keyword">var</span> bar = foo.bind( <span class="hljs-literal">null</span>, <span class="hljs-number">2</span> );
+bar( <span class="hljs-number">3</span> ); <span class="hljs-comment">// a:2, b:3</span></code></pre>
+
+<p>上面这两个函数需要传一个函数 this，如果向上面一样函数不关心传入的 this 值，但你需要一个占位符，用 null 似乎是一个合理的选择。</p>
+
+<p><strong>Note</strong>： ES6 中有 <code>...</code> 操作符将会让数组作为函数的参数，在不用<code>apply</code>的情况下。像 <code>foo(...[1,2])</code>，相当于 <code>foo(1,2)</code> – 避免了用 <code>this</code> 如果是不必要的。不幸的是，不能用 ES6 句法代替局部调用，所以在使用<code>bind(..)</code>时仍然需要注意。</p>
+
+<p>但是当你用 null 在不考虑 this 的值得时候可能会有危险，当你使用第三方库时，可能里面用到了 this，默认绑定意味着它可能在不经意间引用全局对象（在浏览器窗口）。</p>
+
+<p>显然，这种缺陷会产生很多难以诊断 / 追踪的 bug。</p>
+
+
+
+<h5 id="safer-this"><strong>Safer <code>this</code></strong></h5>
+
+<p>用更安全的方式，中间有一段没翻译… <br>
+Whatever you call it, the easiest way to set it up as <strong>totally empty</strong> is Object.create(null) (see Chapter 5). Object.create(null) is similar to { }, but without the delegation to Object.prototype, so it’s “more empty” than just { }.</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(a,b)</span> {</span>
+    console.log( <span class="hljs-string">"a:"</span> + a + <span class="hljs-string">", b:"</span> + b );
+}
+
+<span class="hljs-comment">// our DMZ empty object</span>
+<span class="hljs-keyword">var</span> ø = <span class="hljs-built_in">Object</span>.create( <span class="hljs-literal">null</span> );
+
+<span class="hljs-comment">// spreading out array as parameters</span>
+foo.apply( ø, [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>] ); <span class="hljs-comment">// a:2, b:3</span>
+
+<span class="hljs-comment">// currying with `bind(..)`</span>
+<span class="hljs-keyword">var</span> bar = foo.bind( ø, <span class="hljs-number">2</span> );
+bar( <span class="hljs-number">3</span> ); <span class="hljs-comment">// a:2, b:3</span></code></pre>
+
+<p>Not only functionally “safer”, there’s a sort of stylistic benefit to ø, in that it semantically conveys “I want the this to be empty” a little more clearly than null might. But again, name your DMZ object whatever you prefer.</p>
+
+
+
+<h5 id="indirection"><strong>Indirection</strong></h5>
+
+<p>Another thing to be aware of is you can (intentionally or not!) create “indirect references” to functions, and in those cases, when that function reference is invoked, the default binding rule also applies. <br>
+你可以创建”间接引用”的函数，但是在调用这些函数时，默认绑定的规则应用在了上面。 <br>
+最常见的方式之一，间接引用在一种任务中发生</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>{</span>
+    console.log(<span class="hljs-keyword">this</span>.a);
+}
+<span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">var</span> o = {a: <span class="hljs-number">3</span>, foo: foo};
+<span class="hljs-keyword">var</span> p = {a: <span class="hljs-number">4</span>};
+
+o.foo();             <span class="hljs-comment">// 3</span>
+(p.foo = o.foo)();   <span class="hljs-comment">// 2</span></code></pre>
+
+<p>在上面的例子中，有效的调用是 <code>foo()</code> ，不是别的。</p>
+
+<p>The result value of the assignment expression p.foo = o.foo is a reference to just the underlying function object. As such, the effective call-site is just foo(), not p.foo() or o.foo() as you might expect. Per the rules above, the default binding rule applies.</p>
+
+<p>它是表达式并没有执行函数，因为它们引用的都是 foo() ，所以执行了 foo()。</p>
+
+<p><a href="http://stackoverflow.com/questions/28609179/indirect-references-to-functions-in-javascript">解释代码最后一句</a> <br>
+<strong>one</strong>:  the function isn’t getting called during the assignment. you are using the function as a variable. so after this operation p.foo and o.foo both reference the defined method foo() in the global scope. The assignment doesn’t actually call the method. Assignments return the value being assigned so you can do c = (a = b) and everything will equal c. Since the thing being assigned is the foo function, that is what gets called at the end.</p>
+
+<p>最后一句话的作用只是让 p.foo 和 o.foo 都引用 foo() 在全局的作用域内，所以最后被调用的是 foo()</p>
+
+<p><strong>another</strong>: p.foo = o.foo : this is assigning the variable from right to left. Just like var a = “something”; so this means that now, p.foo equals o.foo, and since o.foo equals foo, we are now saying p.foo = foo, in other words this: (p.foo = o.foo)(); is the same as (foo)() which then runs the foo function.</p>
+
+<h5 id="softening-binding"><strong>Softening Binding</strong></h5>
+
+<p>因为 <em>hard-binding</em> 降低了绑定的灵活性，防止手动覆盖隐式绑定，甚至后来的显示绑定。</p></div></body>
+</html>
