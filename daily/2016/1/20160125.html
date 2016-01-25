@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Title</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160125 <strong>ajax</strong> &amp;&amp; <strong>[].slice.call(fnArgs)</strong> &amp;&amp; <strong>concat</strong>&amp;&amp;数组的一些操作</p>
+</blockquote>
+
+<h3 id="slicecallfnargs"><code>[].slice.call(fnArgs)</code></h3>
+
+<p>调用 slice() 时，this 值为 []，相当于隐式绑定。 <br>
+调用 call()时，显示绑定 this 为 fnArgs  <br>
+所以最后 slice() 调用的 this 值为 fnArgs <br>
+fnArgs 是一个类似数组的对象，slice 会假设它是一个数组，并做它的事情。（相当于将对象转化为数组复制一份出来）</p>
+
+<p><strong>Note</strong> too here that although this is semantically equivalent to saying <code>Array.prototype.slice.call(...)</code>, it actually instantiates an array object ([]) only to access its prototype slice method. That is a wasted instantiation. Saying <code>Array.prototype.slice.call(...)</code> instead is cleaner, although you add several characters to your JS if you’re counting</p>
+
+<p>注意虽然它语义上相当于 <code>Array.prototype.slice.call(...)</code> 实际上它实例化一个数组对象 ( [] ) 来访问它原型链上的 slice 方法，这是一个浪费的实例化。所以，用 <code>Array.prototype.slice.call(...)</code> 是更加简单的，尽管你在数你写的 JS 代码时会多几个字符。（From <a href="http://stackoverflow.com/questions/2125714/explanation-of-slice-call-in-javascript?lq=1">starkoverflow: Explanation of [].slice.call in javascript?</a>）</p>
+
+<p>关于 <code>Array.prototype.slice.call(...)</code> 的用法。<a href="http://stackoverflow.com/questions/7056925/how-does-array-prototype-slice-call-work?lq=1">starkoverflow: how does Array.prototype.slice.call() work?</a></p>
+
+<p><code>Array.prototype.slice.call(...)</code> 用法解释：</p>
+
+<p>So why use <code>Array.prototype</code>? The <code>Array</code> is the object which we create new arrays from (<code>new Array()</code>), and these new arrays are passed methods and properties, like slice. These methods are stored in the <code>[Class].prototype</code> object. So, for efficiency sake, instead of accessing the slice method by (<code>new Array()).slice.call()</code> or <code>[].slice.call()</code>, we just get it straight from the prototype. This is so we don’t have to initialise a new array. <br>
+为什么使用 <code>Array.prototype</code>？<code>Array</code>是一个对象，用来通过<code>new Array()</code>创建新的数组，然后这些新数组传递属性和方法，就像是 slice，这些方法储存在<code>[Class].prototype</code>中，所以，为了效率，不用(<code>new Array()).slice.call()</code> 或者 <code>[].slice.call()</code>访问新方法，而是直接从原型链访问。这样我们不用再初始化一个新数组。</p>
+
+<blockquote>
+  <p>me:想起来在定义一个数组时，用 <code>var aTest = []</code> 比 <code>var aTest = new Array();</code> 更合适，这时候并没有必要用数组对象。</p>
+</blockquote>
+
+<p>But why do we have to do this in the first place? Well, as you said, it converts an arguments object into an Array instance. The reason why we use slice, however, is more of a “hack” than anything. The slice method will take a, you guessed it, slice of an array and return that slice as a new array. Passing no arguments to it (besides the arguments object as its context) causes the slice method to take a complete chunk of the passed “array” (in this case, the arguments object) and return it as a new array. <br>
+不给 slice 传递参数，用来复制一个数组。</p>
+
+<h3 id="arrayprototypeslice">Array.prototype.slice()</h3>
+
+<p>slice() 把数组中的一部分浅复制存入一个新的数组对象中，并返回这个新的数组。 <br>
+slice(begin, [end]) 默认从 0 开始，提取到末尾。[begin, end) <br>
+slice() 不改变原数组，只会返包含原数组拷贝部分的一个新数组。</p>
+
+<h3 id="arrayprototypeconcat">Array.prototype.concat()</h3>
+
+<p>将传入的数组或非数组值与原数组合并,组成一个新的数组并返回. <br>
+array.concat(value1, value2, …, valueN) <br>
+只会产生新数组，之前的数组都不会被修改。</p>
+
+<h3 id="数组的一些操作">数组的一些操作</h3>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> fruits = [<span class="hljs-string">"Apple"</span>, <span class="hljs-string">"Banana"</span>];</code></pre>
+
+<p>1.循环遍历一个数组 </p>
+
+<pre class="prettyprint"><code class="language-javascript hljs ">fruits.foreach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(item, index, array)</span>{</span>
+console.log(item, index);
+})</code></pre>
+
+<p>2.添加到数组的末尾</p>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> newLength = fruits.push(<span class="hljs-string">"Orange"</span>);</code></pre>
+
+<p>3.删除数组末尾的</p>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> last = fruits.pop();</code></pre>
+
+<p>4.删除数组前面的 </p>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> first = fruits.unshift()</code></pre>
+
+<p>5.添加到数组的前面</p>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> newLength = fruits.shift(<span class="hljs-string">"Strawberry"</span>);</code></pre>
+
+<p>6.找到某个元素在数组中的索引</p>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> pos = fruits.indexOf(<span class="hljs-string">"Banana"</span>);</code></pre>
+
+<p>7.通过索引位置删除元素</p>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> removeItem = fruits.splice(pos, <span class="hljs-number">1</span>);</code></pre>
+
+<p>8.复制一个数组</p>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> shallowCopy = fruits.slice();</code></pre>
+
+<h3 id="ajax">ajax</h3>
+
+<p>AJAX = 异步 JavaScript 和 XML。 <br>
+通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。 <br>
+传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页。</p>
+
+<p><strong>Google Suggest</strong> <br>
+在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。 <br>
+Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当您在谷歌的搜索框输入关键字时，JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。</p>
+
+<p><a href="http://api.jquery.com/jquery.ajax/">jQuery ajax</a></p></div></body>
+</html>
