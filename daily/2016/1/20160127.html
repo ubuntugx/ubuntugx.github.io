@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160127</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160127 <strong>cshtml</strong> &amp;&amp; <strong>http 状态码</strong></p>
+</blockquote>
+
+<h3 id="cshtml">cshtml</h3>
+
+<ul>
+<li>Razor code blocks are enclosed in @{ … }   代码必须包裹在 @{ … }</li>
+<li>Inline expressions (variables and functions) start with @  内联表达式(变量或函数)，以 @ 开始</li>
+<li>Code statements end with semicolon  代码语句以分号结束</li>
+<li>Variables are declared with the var keyword 变量声明以 var 开始</li>
+<li>Strings are enclosed with quotation marks  字符串用引号括起来</li>
+<li>C# code is case sensitive C# 的代码是区分大小写的</li>
+<li>C# files have the extension .cshtml  以 .cshtml 结尾</li>
+</ul>
+
+<h3 id="http-状态码">http 状态码</h3>
+
+<ul>
+<li>1xx - 消息（服务器端已接收）</li>
+<li>2xx - 成功（请求已成功被服务器接收、理解、并接受） <br>
+<ol><li>200 OK：请求已成功，请求所希望的响应头或数据体将随此响应返回</li></ol></li>
+<li>3xx - 重定向 <br>
+<ol><li>301 Moved Permanently（永久重定向）：被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个URI之一。</li>
+<li>302 Found（临时重定向）：请求的资源现在临时从不同的URI响应请求。</li>
+<li>304 Not Modified（未修改 / http 缓存）：如果客户端发送了一个带条件的GET请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码</li></ol></li>
+<li>4xx - 客户端错误 <br>
+<ol><li>403 Forbidden：服务器已经理解请求，但是拒绝执行它。</li>
+<li>404 Not Found：请求失败，请求所希望得到的资源未被在服务器上发现。</li></ol></li>
+<li>5xx - 服务器错误 <br>
+<ol><li>500 Internal Server Error（内部服务器错误）：服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。</li></ol></li>
+</ul></div></body>
+</html>
