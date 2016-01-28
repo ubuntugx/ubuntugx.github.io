@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160128</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160128 <strong>TypeScript 中 any 类型</strong>&amp;&amp;<strong>TypeScript 访问数组</strong>&amp;&amp;<strong>网页的 url 提取等号前后的两项</strong></p>
+</blockquote>
+
+<h3 id="typescript-中-any-类型">TypeScript 中 any 类型</h3>
+
+<p>TypeScript 中如果将变量类型定义为 any，则后面可以给变量赋值，但是变量的类型不会因此改变。所以变量加 . 也不会出现任何的方法。所以在程序里将它定义为泛型</p>
+
+
+
+<pre class="prettyprint"><code class="language-typescript hljs cs"><span class="hljs-keyword">var</span> ddl = {
+        MaterialType: &lt;IDDL&gt;<span class="hljs-keyword">null</span>,   
+        SalesType: &lt;IDDL&gt;<span class="hljs-keyword">null</span>,
+        ManufactureType: &lt;IDDL&gt;<span class="hljs-keyword">null</span>,
+        Formulation: &lt;IDDL&gt;<span class="hljs-keyword">null</span>,
+        MedicareProperty: &lt;IDDL&gt;<span class="hljs-keyword">null</span>
+    };</code></pre>
+
+<h3 id="typescript-访问数组">TypeScript 访问数组</h3>
+
+<p>像定义用参数类型访问的情况</p>
+
+
+
+<pre class="prettyprint"><code class="language-typescript hljs cs"><span class="hljs-keyword">var</span> obj = {
+    name: <span class="hljs-string">"zhaqngsan"</span>,
+    age: <span class="hljs-number">100</span>
+}
+<span class="hljs-keyword">var</span> a = <span class="hljs-string">"name"</span>;<span class="hljs-comment">//"age"</span>
+<span class="hljs-comment">// 这里直接 obj[a] 并不能识别出它是什么类型的，所以无法对应相应的方法</span>
+<span class="hljs-comment">// 所以要通过前面加泛型的转换方式告诉他是什么类型的</span>
+(&lt;<span class="hljs-keyword">string</span>&gt;obj[a])</code></pre>
+
+<p>程序里面写到</p>
+
+
+
+<pre class="prettyprint"><code class="language-typescript hljs cs"><span class="hljs-keyword">var</span> val: number = parseInt((&lt;IDDL&gt;ddl[ddlName]).<span class="hljs-keyword">value</span>());</code></pre>
+
+
+
+<h3 id="网页的-url-提取等号前后的两项">网页的 url 提取等号前后的两项</h3>
+
+<p>网页的 url 中可能会很多种情况</p>
+
+<pre class="prettyprint"><code class="language-javascript hljs ">id=a34166fc-<span class="hljs-number">411</span>a-cb18-c74e-<span class="hljs-number">08</span>d326032ae0&amp;&amp;&amp;name==<span class="hljs-number">111</span>&amp;gg=<span class="hljs-number">1</span>&amp;gg=<span class="hljs-number">2</span>&amp;=kkk&amp;=&amp;</code></pre>
+
+<p>因为 url 可以由用户自己修改，可能会有很多种情况。 <br>
+这时就需要判断前面和后面的项是不是必须的（前面是必须的后面不是） <br>
+可以先用一个正则表达式过滤掉无用的字符</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/([^?&amp;=]+)=([^?&amp;=]*)/g</span>;</code></pre>
+
+<p>[]：匹配其中任何一个字符 <br>
+[]中的 ^ 不再是一行字符串的开始，而是“ 非 ”的意思。就是不包含其中任何一个字符。</p></div></body>
+</html>
