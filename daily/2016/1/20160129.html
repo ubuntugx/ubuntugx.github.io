@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160129</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160129 <strong>url 的组成</strong> &amp;&amp; <strong>在 url 中获取键值对组成的对象</strong></p>
+</blockquote>
+
+<p><strong>昨天的一点感想：</strong></p>
+
+<blockquote>
+  <p>终于知道我和老大的差距在哪了，不光是经验的问题，老大研究东西非常的深入，给我讲解时也能从最基本的原理开始讲起，经常性的写 demo ，还能联系多种语言。 <br>
+  我在学的时候也许也能往深处查一些，但是查的深度始终不够，对查到的东西经常没有自己尝试过，很多东西遇到了然后就略过了，没有深入的去查，时间很够，时间总是有的，少玩一点，多用时间深入的查些东西就好了。以后遇到什么东西看看有哪些相关的知识点，都去了解一下。靠以后真的会派上用场的。</p>
+</blockquote>
+
+
+
+<h3 id="url-的组成">url 的组成</h3>
+
+<p>相关资料：<a href="https://en.wikipedia.org/wiki/Uniform_Resource_Locator">wikipedia</a> &amp;&amp; <a href="https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E7%AC%A6">维基百科</a> <br>
+URL( Uniform Resource Locator )( 被非正式的称为网址 ) <br>
+统一资源定位符的标准格式如下：协议类型://服务器地址（必要时需加上端口号）/路径/文件名 <br>
+超文本传输协议（HTTP）的统一资源定位符将从因特网获取信息的五个基本元素包括在一个简单的地址中： <br>
+1. 传送协议 <br>
+2. 服务器（通常为域名，有时为IP地址） <br>
+3. 端口号（以数字方式表示，若为HTTP的预设值“:80”可省略） <br>
+4. 路径（以“/”字元区别路径中的每一个目录名称） <br>
+5. 查询（GET模式的表单参数，以“?”字元为起点，每个参数以“&amp;”隔开，再以“=”分开参数名称与资料，通常以UTF8的URL编码，避开字元冲突的问题）</p>
+
+<p>其中： <br>
+1. http，是协议； <br>
+2. zh.wikipedia.org，是服务器； <br>
+3. 80，是服务器上的网络端口号； <br>
+4. /w/index.php，是路径； <br>
+5. ?title=Special:%E9%9A%8F%E6%9C%BA%E9%A1%B5%E9%9D%A2&amp;printable=yes，是询问。</p>
+
+<p>大多数网页浏览器不要求用户输入网页中“http://”的部分，因为绝大多数网页内容是超文本传输协议文件。同样，“80”是超文本传输协议文件的常用端口号，因此一般也不必写明。一般来说用户只要键入统一资源定位符的一部分（zh.wikipedia.org/wiki/Special:%E9%9A%8F%E6%9C%BA%E9%A1%B5%E9%9D%A2）就可以了。</p>
+
+<p>英文维基百科上的解释 <br>
+URLs occur most commonly to reference web pages (http), but are also used for file transfer (ftp), email (mailto), database access (JDBC), and many other applications. <br>
+url 最常引用的地方是 web 界面( http )，但也用于文件传输( ftp )，电子邮件( mailto )，数据库访问( JDBC ) 和许多其他的应用程序。</p>
+
+<p>Most web browsers display the URL of a web page above the page in an address bar. A typical URL could have the form <a href="http://www.example.com/index.html">http://www.example.com/index.html</a>, which indicates a protocol (http), a hostname (www.example.com), and a file name (index.html). <br>
+大多数浏览器在页面的地址栏上显示一个页面，一个典型的 URL： <a href="http://www.example.com/index.html">http://www.example.com/index.html</a>，包含一个协议( http ) 主机名( www.example.com ) 文件名( index.html )</p>
+
+<p>Every HTTP URL conforms to the syntax of a generic URI. A generic URI is of the form: <br>
+每个HTTP URL符合语法的一个通用的URI。 一个通用的URI的形式:  <br>
+<code>scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]</code> <br>
+<code>协议:[//[用户名:密码@]主机名[:端口号]][/]文件路径[?查询][#锚点]</code> <br>
+下面就要获取 ? 后面的内容</p>
+
+<h3 id="在-url-中获取键值对组成的对象">在 url 中获取键值对组成的对象</h3>
+
+<p>事情从一个项目里的函数开始… <br>
+需要实现的功能是，将网页的 url 中的键值取出来放入一个对象中，用数组访问的方式来取相应键对应的值</p>
+
+
+
+<pre class="prettyprint"><code class="language-typescript hljs scala">export function getQueryObject&lt;T&gt;(url?: string, isTypeConvert?: boolean): T;
+export function getQueryObject(url?: string, isTypeConvert: boolean = <span class="hljs-keyword">false</span>): any {
+    url = url == <span class="hljs-keyword">null</span> ? window.location.href : url;
+    <span class="hljs-keyword">var</span> search: string = url.substring(url.lastIndexOf(<span class="hljs-string">"?"</span>) + <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">var</span> obj = {};
+    <span class="hljs-keyword">var</span> reg = /([^?&amp;=]+)=([^?&amp;=]*)/g;
+
+    search.replace(reg, function (rs, $<span class="hljs-number">1</span>, $<span class="hljs-number">2</span>) {
+        <span class="hljs-keyword">var</span> name = decodeURIComponent($<span class="hljs-number">1</span>);
+        <span class="hljs-keyword">var</span> <span class="hljs-keyword">val</span> = decodeURIComponent($<span class="hljs-number">2</span>);
+
+        <span class="hljs-keyword">if</span> (isTypeConvert) {
+            <span class="hljs-keyword">if</span> ($.trim(<span class="hljs-keyword">val</span>).toLowerCase() === <span class="hljs-keyword">true</span>.toString() || $.trim(<span class="hljs-keyword">val</span>).toLowerCase() === <span class="hljs-keyword">false</span>.toString()) {
+                <span class="hljs-keyword">val</span> = MainPage.getBoolByStr(<span class="hljs-keyword">val</span>);
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ($.isNumeric(<span class="hljs-keyword">val</span>)) {
+                <span class="hljs-keyword">val</span> = (&lt;any&gt;Number(<span class="hljs-keyword">val</span>));
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">val</span> = String(<span class="hljs-keyword">val</span>);
+            }
+        }
+        obj[name] = <span class="hljs-keyword">val</span>;
+
+        <span class="hljs-keyword">return</span> rs;
+    })
+
+    <span class="hljs-keyword">return</span> obj;
+}
+
+<span class="hljs-javadoc">/**
+ * 
+ * <span class="hljs-javadoctag">@param</span> {string} name 查询参数名
+ * <span class="hljs-javadoctag">@returns</span>
+ */</span>
+export function getQueryByName(name: string, isTypeConvert: boolean = <span class="hljs-keyword">false</span>): string {
+    <span class="hljs-keyword">return</span> MainPage.getQueryObject(<span class="hljs-keyword">null</span>, isTypeConvert)[name];
+}</code></pre>
+
+<ol>
+<li>考虑最正常的情况，用户正确方式输入几个键值对</li>
+</ol>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-comment">// https://www.google.com.hk?name="zhangsan"&amp;age=100</span>
+<span class="hljs-comment">// 提取 url 中的键值对放入对象中</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getQueryObject</span><span class="hljs-params">(url?: string)</span> {</span>
+    <span class="hljs-comment">// window.location.href 就是当前地址栏的 url</span>
+    <span class="hljs-comment">// window.location 表示文档当前地址的相关信息</span>
+    <span class="hljs-comment">// MDN 上打印 window.location 中的一部分信息</span>
+    <span class="hljs-comment">// host: "developer.mozilla.org"</span>
+    <span class="hljs-comment">// hostname: "developer.mozilla.org"</span>
+    <span class="hljs-comment">// href: "https://developer.mozilla.org/zh-CN/docs/Web/API/Window/location"</span>
+    <span class="hljs-comment">// origin: "https://developer.mozilla.org"</span>
+    <span class="hljs-comment">// pathname: "/zh-CN/docs/Web/API/Window/location"</span>
+    <span class="hljs-comment">// port: ""</span>
+    <span class="hljs-comment">// protocol: "https:"</span>
+    <span class="hljs-comment">// search: ""</span>
+    <span class="hljs-comment">// 其中 search 代表查询字符串，但是在这里直接用 search 获取到 ? 后面的内容是不可以的</span>
+    <span class="hljs-comment">// 因为项目中的 url 是 http://localhost:29027/?/Product/ProductEdit?id=52584292-09be-cb56-dd04-08d3278deee6</span>
+    <span class="hljs-comment">// search 获取到了第一个问号后面的内容 ?/Product/ProductEdit?id=52584292-09be-cb56-dd04-08d3278deee6 额...</span>
+    url === <span class="hljs-literal">null</span> ? window.location.href : url;
+    <span class="hljs-comment">// 所以要自己获取最后一个 ? 后面的内容</span>
+    <span class="hljs-comment">// 先获取 url 中最后一个 ? 的位置</span>
+    <span class="hljs-comment">// 然后从它后面一位开始截到末尾</span>
+    <span class="hljs-comment">// substring(indexA, [indexB]); (起始位置index, [结束位置index])</span>
+    <span class="hljs-comment">// 还有 str.substr(start[, length]) 从指定位置开始截取一定长度的字符</span>
+    <span class="hljs-keyword">var</span> getSearch: string = url.substring(url.lastIndexOf(<span class="hljs-string">'?'</span>) + <span class="hljs-number">1</span>);  <span class="hljs-comment">// 存放后面的整个查询字符串</span>
+    <span class="hljs-comment">// 先想一点正则表达式的内容</span>
+    <span class="hljs-comment">// 匹配字符串开头的 ^ 写在外面是匹配字符串开头，默认情况下是单行模式，</span>
+    <span class="hljs-comment">// 如果在匹配 // 后面加上 m 则为多行模式（^ 和 $ 可以工作在每一行的开始和结束，行是由 \n 和 \r 分割的，而不只是整个输入字符串的最开始和最末尾处）</span>
+    <span class="hljs-comment">// 另外的知识 \r 是回车符, \n 是换行符，windows 系统中，每行结尾是&lt;回车&gt;&lt;换行&gt;， Mac 系统中，每行结尾是 &lt;回车&gt;，所以在两个系统中转移文件时，可能格式会有差距。</span>
+    <span class="hljs-comment">// [...] 是字符集合，需要匹配其中的任意一个字符，也可以用连字符 - 匹配一个范围</span>
+    <span class="hljs-comment">// [^...] 一个反义的字符集，匹配任意不在括号中的字符，同样可以使用连字符（^ 在 [] 中不再是字符串开始，而是反义的意思）</span>
+    <span class="hljs-comment">// 还有一些常识:  .( 小数点 ): 匹配任意单个字符，但是换行符（包括 \n \r \u2028 或 \u2029）除外。</span>
+    <span class="hljs-comment">// \s: 匹配任意空白符，包括空格、制表符、换页符、换行符和其他 Unicode 空格</span>
+    <span class="hljs-comment">// \: 将特殊字符转化为字面意思，就像 \\b 用来匹配 \b </span>
+    <span class="hljs-comment">// 下面开始拆分 ? 后的字符串: id=52584292&amp;name=zhangsan&amp;password=111</span>
+    <span class="hljs-comment">// 想要得到的结果 var obj = {</span>
+    <span class="hljs-comment">//                       id: 52584292,</span>
+    <span class="hljs-comment">//                       name: zhangsan</span>
+    <span class="hljs-comment">//                   }</span>
+    <span class="hljs-comment">// 找键值对我的思路是用 &amp; 分隔在通过 = 来确定键与值，然而这种方法有等号或者别的符号时还需要再加判断</span>
+    <span class="hljs-comment">// 如果判断的过程中就把</span>
+}</code></pre></div></body>
+</html>
