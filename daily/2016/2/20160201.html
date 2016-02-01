@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160201</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160201 <strong>String.prototype.replace()</strong> &amp;&amp; <strong>Boolean.prototype.toString()</strong> &amp;&amp; <strong>js 中判断为 false</strong></p>
+</blockquote>
+
+<h3 id="replace">replace</h3>
+
+<blockquote>
+  <p>sting.replace( regexp | substr, newSubstr | function[, flags] )</p>
+</blockquote>
+
+
+
+<h4 id="使用字符串作为参数">使用字符串作为参数</h4>
+
+<p>替换字符串可以插入下面的特殊变量名： <br>
+- $$:  插入一个 $ <br>
+- $&amp;:  插入匹配的字符串 <br>
+-  $`: 插入当前匹配的字符串左边的内容 <br>
+- $’: 插入当前匹配的字符串右边的内容 <br>
+- $n or $nn 加入第一个参数是 RegExp 对象，并且 n 或 nn 是十进制的数字，那么插入第 n 个括号匹配的字符串。 <br>
+eg: <code>"hello world".replace("wo","$'");  // "hello rldrld"</code></p>
+
+<h4 id="指定一个函数作为参数">指定一个函数作为参数</h4>
+
+<p>你可以指定一个函数作为第二个参数。在这种情况下，当匹配执行后， 该函数就会执行。 函数的返回值作为替换字符串。 (注意:  上面提到的特殊替换参数在这里不能被使用。) <br>
+另外要注意的是， 如果第一个参数是正则表达式， 并且其为全局匹配模式， 那么这个方法将被多次调用， 每次匹配都会被调用。</p>
+
+<ul>
+<li>match: 匹配的子串。（对应于上述的$&amp;。）</li>
+<li>p1, p2, …: 假如replace()方法的第一个参数是一个RegExp 对象，则代表第n个括号匹配的字符串。（对应于上述的$1，$2等。）</li>
+<li>offset: 匹配到的子字符串在原字符串中的偏移量。（比如，如果原字符串是“abcd”，匹配到的子字符串时“bc”，那么这个参数将时1）</li>
+<li>string: 被匹配的原字符串。</li>
+</ul>
+
+<p>(精确的参数个数依赖于replace()的第一个参数是否是一个正则表达式对象， 以及这个正则表达式中指定了多少个括号子串。)</p>
+
+<p>项目中用到的代码</p>
+
+
+
+<pre class="prettyprint"><code class="language-typescript hljs actionscript">export <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getQueryObject</span><span class="hljs-params">(url?: string, isTypeConvert: boolean = false)</span><span class="hljs-type">: any</span> {</span>
+    url = url == <span class="hljs-literal">null</span> ? window.location.href : url;
+    <span class="hljs-keyword">var</span> search: string = url.substring(url.lastIndexOf(<span class="hljs-string">"?"</span>) + <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">var</span> obj = {};
+    <span class="hljs-keyword">var</span> reg = /([^?&amp;=]+)=([^?&amp;=]*)/g;
+
+    search.replace(reg, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(rs, $1, $2)</span> {</span>
+        <span class="hljs-keyword">var</span> name = decodeURIComponent($<span class="hljs-number">1</span>);
+        <span class="hljs-keyword">var</span> val = decodeURIComponent($<span class="hljs-number">2</span>);
+
+        obj[name] = val;
+        <span class="hljs-keyword">return</span> rs;
+    })
+    <span class="hljs-keyword">return</span> obj;
+}</code></pre>
+
+<p>对于取出 url 中的键值对，这样还不够，这样出来的键与值都是字符串，有可能需要<code>"age" : 123</code> 这样的结果 <br>
+所以在需要时进行结果类型的转换</p>
+
+
+
+<pre class="prettyprint"><code class="language-typestript hljs scala"><span class="hljs-keyword">var</span> <span class="hljs-keyword">val</span> = <span class="hljs-string">"something"</span>;
+<span class="hljs-keyword">if</span>(typeConvert){
+    <span class="hljs-keyword">if</span>(/<span class="hljs-keyword">true</span>|<span class="hljs-keyword">false</span>/.test($.trim(<span class="hljs-keyword">val</span>).toLowerCase())){
+        <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">val</span> === <span class="hljs-string">'true'</span>;  <span class="hljs-comment">// 自己写的...</span>
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>($.isNumeric(<span class="hljs-keyword">val</span>)){
+        value = (&lt;any&gt;Number(<span class="hljs-keyword">val</span>))
+    }<span class="hljs-keyword">else</span>{
+        value = String(<span class="hljs-keyword">val</span>);  <span class="hljs-comment">// 为了 undefined null NaN 那些</span>
+    }
+}</code></pre>
+
+<h3 id="booleanprototypetostring">Boolean.prototype.toString()</h3>
+
+<blockquote>
+  <p>bool.toString()</p>
+</blockquote>
+
+<p>当一个布尔对象作为文本值或进行字符串连接时，JavaScript 会自动调用其 toString 方法。  <br>
+eg: <code>true.toString();  // "true"</code></p>
+
+<h3 id="js-中判断为-false">js 中判断为 false</h3>
+
+<p>JavaScript 中下面的 6 种会被判断为 false <br>
+<code>0 null "" false undefined NaN</code> <br>
+用 &amp;&amp; 和 || 的时候要注意。 </p></div></body>
+</html>
