@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160202</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160202 <strong>URL编码</strong> &amp;&amp; <strong>生成随机字符串</strong> &amp;&amp; <strong>parseInt(string, radix)</strong> &amp;&amp; <strong>addEventListener 和 attachEvent</strong></p>
+</blockquote>
+
+<h3 id="url编码">URL编码</h3>
+
+<p>百分号编码(Percent-encoding), 也称作URL编码(URL encoding), 是特定上下文的统一资源定位符 (URL)的编码机制. 实际上也适用于统一资源标志符(URI)的编码。也用于为”application/x-www-form-urlencoded” MIME准备数据, 因为它用于通过HTTP的请求操作(request)提交HTML表单数据。 <br>
+对 url 进行 encode 将编码变为 url 编码，已符合 url 规范。 <br>
+url 中未保留字符都要进行 url 编码，如果保留字符用于其他目的，也要进行 url 编码。 <br>
+保留字符有：<code>!  *   '   (   )   ;   :   @   &amp;   =   +   $  ,   /   ?   #   [   ]</code></p>
+
+<h3 id="生成随机字符串">生成随机字符串</h3>
+
+
+
+<h4 id="我写的">我写的：</h4>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getRandom</span><span class="hljs-params">(count)</span> {</span>
+  <span class="hljs-keyword">var</span> str = <span class="hljs-built_in">Math</span>.random().toString(<span class="hljs-number">36</span>).substring(<span class="hljs-number">2</span>, <span class="hljs-number">2</span> + count);
+  console.log(str);
+}
+getRandom(<span class="hljs-number">8</span>);</code></pre>
+
+<p>1.用 <code>Math.random</code> 生成 [0, 1) 之间的随机数 <br>
+2.将随机数转换为字符串， 用 0-9 和 a-z 编码，注意 <code>toString()</code> 里的数字就像是代表进制，2 就是用 0 和 1 编码，8就是用 0-7 编码，16就是用 0-9 和 a-f 编码，这里 36 就是用 0-9 和 a-z 编码，就是要让生成的字符串中包含数字和所有的小写字母。从而生成可能带有所有字母的随机数。 <br>
+3.将生成的随机字符串截取指定位数，从第二位 ( 小数点后面一位开始截取 ) ，截取输入的位数</p>
+
+<p>可能出现的问题：用 <code>toString()</code> 生成的数字小数部分位数比想要截的位数还少，最后默认截到末尾，比想要的位数少。</p>
+
+
+
+<h4 id="更好的方法">更好的方法：</h4>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getRandom</span><span class="hljs-params">(count)</span> {</span>
+  <span class="hljs-keyword">var</span> str = <span class="hljs-string">""</span>;
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;i &lt; count;i++){
+    str += <span class="hljs-built_in">Math</span>.random().toString(<span class="hljs-number">36</span>).charAt(<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random()*<span class="hljs-number">5</span>+<span class="hljs-number">2</span>))
+  }
+  console.log(str);
+}
+getRandom(<span class="hljs-number">8</span>);</code></pre>
+
+<p>1.前两步不变 <br>
+2.最外层加一个循环，每次截取一个字符，截取随机位置的字符，这里是在 [2, 7) 中间随机选一个位置截取字符，不知道为什么是 [2, 7) …，会不会连第 6 位也没有…</p>
+
+<h4 id="老大写的">老大写的：</h4>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">export <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getRandomStr</span><span class="hljs-params">(count: number = 8)</span>: <span class="hljs-title">string</span> {</span>
+        <span class="hljs-keyword">var</span> str: string = <span class="hljs-string">""</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) {
+            str += (<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">10</span>).toString(<span class="hljs-number">36</span>).charAt(<span class="hljs-built_in">parseInt</span>(((<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">5</span>) + <span class="hljs-number">2</span>).toString()));
+        }
+        <span class="hljs-keyword">return</span> str;
+    };</code></pre>
+
+<p>不知道为什么先转换为字符串再用 <code>parseInt()</code> 取整…</p>
+
+<h3 id="parseintstring-radix">parseInt(string, radix)</h3>
+
+<p>将字符串转换为整数。 <br>
+默认转换为 10 进制数，指定的 radix 规定把字符串看做多少进制的，然后转换为 10 进制整数。</p>
+
+<p>可以用正则表达式解析一个数是不是整型</p>
+
+<pre class="prettyprint"><code class="language-javascript hljs ">filterInt = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(value)</span> {</span>
+  <span class="hljs-keyword">if</span>(<span class="hljs-regexp">/^(\-|\+)?([0-9]+|Infinity)$/</span>.test(value))
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(value);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">NaN</span>;
+}
+
+console.log(filterInt(<span class="hljs-string">'421'</span>));               <span class="hljs-comment">// 421</span>
+console.log(filterInt(<span class="hljs-string">'-421'</span>));              <span class="hljs-comment">// -421</span>
+console.log(filterInt(<span class="hljs-string">'+421'</span>));              <span class="hljs-comment">// 421</span>
+console.log(filterInt(<span class="hljs-string">'Infinity'</span>));          <span class="hljs-comment">// Infinity</span>
+console.log(filterInt(<span class="hljs-string">'421e+0'</span>));            <span class="hljs-comment">// NaN</span>
+console.log(filterInt(<span class="hljs-string">'421hop'</span>));            <span class="hljs-comment">// NaN</span>
+console.log(filterInt(<span class="hljs-string">'hop1.61803398875'</span>));  <span class="hljs-comment">// NaN</span>
+console.log(filterInt(<span class="hljs-string">'1.61803398875'</span>));     <span class="hljs-comment">// NaN</span></code></pre>
+
+<h3 id="addeventlistener-和-attachevent">addEventListener 和 attachEvent</h3>
+
+<p>老大写的：</p>
+
+<pre class="prettyprint"><code class="language-typescript hljs coffeescript">/**
+  * 兼容IE的原生添加事件方法
+  * <span class="hljs-property">@param</span> {EventTarget} element DOM对象
+  * <span class="hljs-property">@param</span> {string} eventType 事件名称
+  * <span class="hljs-property">@param</span> {Function} listener 事件响应函数
+  * <span class="hljs-property">@param</span> {boolean} useCapture 是否为捕获模式，默认为<span class="hljs-literal">false</span>
+  */
+  <span class="hljs-reserved">export</span> <span class="hljs-reserved">function</span> addEvent<span class="hljs-function"><span class="hljs-params">(element: EventTarget, eventType: string, listener: (e?: Event) =&gt; any, useCapture: boolean = <span class="hljs-literal">false</span>)</span> {
+    <span class="hljs-title">var</span> <span class="hljs-title">w3cType</span>: <span class="hljs-title">string</span> = <span class="hljs-title">eventType</span>.<span class="hljs-title">replace</span><span class="hljs-params">(<span class="hljs-regexp">/^on/i</span>, <span class="hljs-string">""</span>)</span>;
+    <span class="hljs-title">var</span> <span class="hljs-title">ieType</span>: <span class="hljs-title">string</span> = "<span class="hljs-title">on</span>" + <span class="hljs-title">w3cType</span>;
+    <span class="hljs-title">if</span> <span class="hljs-params">(<span class="hljs-built_in">document</span>[<span class="hljs-string">"addEventListener"</span>] != <span class="hljs-literal">undefined</span>)</span> {
+       // <span class="hljs-title">addEventListener</span> 用于 <span class="hljs-title">w3c</span> 中添加方法，可以设置捕获和冒泡模式，方法之前不用加 <span class="hljs-title">on</span>
+       <span class="hljs-title">element</span>.<span class="hljs-title">addEventListener</span><span class="hljs-params">(w3cType, listener, useCapture)</span>;
+    } <span class="hljs-title">else</span> {
+       // <span class="hljs-title">attactEvent</span> 用于在 <span class="hljs-title">ie</span> 中添加方法，需要加 <span class="hljs-title">on</span>
+       <span class="hljs-params">(&lt;any&gt;element)</span>.<span class="hljs-title">attachEvent</span><span class="hljs-params">(ieType, listener)</span>;
+    }
+}</span></code></pre>
+
+<p>我写的：</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addEvent</span><span class="hljs-params">(element, eventType, listener, userCapture)</span> {</span>
+    <span class="hljs-comment">// 正则表达式 i 的意思是 忽略大小写</span>
+    <span class="hljs-keyword">var</span> w3cType = eventType.repalce(<span class="hljs-regexp">/^on/i</span>,<span class="hljs-string">""</span>);
+    <span class="hljs-keyword">var</span> ieType = <span class="hljs-string">"on"</span> + eventType;
+    <span class="hljs-keyword">if</span> (document[<span class="hljs-string">"addEventListener"</span>] != <span class="hljs-literal">undefined</span>) {
+        element.addEventListener(w3cType, listener, userCapture);
+    } <span class="hljs-keyword">else</span> {
+        element.attachEvent(ieType, listener);
+    }
+}</code></pre></div></body>
+</html>
