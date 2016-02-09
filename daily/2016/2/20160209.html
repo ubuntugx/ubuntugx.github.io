@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160209</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160209 <strong>SVG</strong></p>
+</blockquote>
+
+<h3 id="svg">SVG</h3>
+
+<p>SVG ( 可缩放矢量图形 Scalable Vector Graphics ) 是基于 XML ( 可扩展的标识语言 Extensible Markup Language ) 支持交互和动画的二维图像格式。 <br>
+SVG 在 XML 中被定义。</p>
+
+
+
+<pre class="prettyprint"><code class="language-html hljs "><span class="hljs-tag">&lt;<span class="hljs-title">svg</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://www.w3.org/2000/svg"</span> <span class="hljs-attribute">version</span>=<span class="hljs-value">"1.1"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">rect</span> <span class="hljs-attribute">x</span>=<span class="hljs-value">"25"</span> <span class="hljs-attribute">y</span>=<span class="hljs-value">"25"</span> <span class="hljs-attribute">width</span>=<span class="hljs-value">"200"</span> <span class="hljs-attribute">height</span>=<span class="hljs-value">"200"</span> <span class="hljs-attribute">fill</span>=<span class="hljs-value">"lime"</span> <span class="hljs-attribute">stroke-width</span>=<span class="hljs-value">"4"</span> <span class="hljs-attribute">stroke</span>=<span class="hljs-value">"pink"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">circle</span> <span class="hljs-attribute">cx</span>=<span class="hljs-value">"125"</span> <span class="hljs-attribute">cy</span>=<span class="hljs-value">"125"</span> <span class="hljs-attribute">r</span>=<span class="hljs-value">"75"</span> <span class="hljs-attribute">fill</span>=<span class="hljs-value">"orange"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">polyline</span> <span class="hljs-attribute">points</span>=<span class="hljs-value">"50,150 50,200 200,200 200,100"</span> <span class="hljs-attribute">stroke</span>=<span class="hljs-value">"red"</span> <span class="hljs-attribute">stroke-width</span>=<span class="hljs-value">"4"</span> <span class="hljs-attribute">fill</span>=<span class="hljs-value">"none"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">line</span> <span class="hljs-attribute">x1</span>=<span class="hljs-value">"50"</span> <span class="hljs-attribute">y1</span>=<span class="hljs-value">"50"</span> <span class="hljs-attribute">x2</span>=<span class="hljs-value">"200"</span> <span class="hljs-attribute">y2</span>=<span class="hljs-value">"200"</span> <span class="hljs-attribute">stroke</span>=<span class="hljs-value">"blue"</span> <span class="hljs-attribute">stroke-width</span>=<span class="hljs-value">"4"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">svg</span>&gt;</span></code></pre>
+
+<p>用 circle 时 The cx and cy attributes define the x and y coordinates of the center of the circle. If cx and cy are omitted, the circle’s center is set to (0, 0)，cx 和 cy 定义了圆心的坐标，默认为 (0, 0)</p>
+
+<blockquote>
+  <p>Since SVG is written in XML, all elements must be properly closed! <br>
+   所有元素必须被正确的关闭</p>
+</blockquote>
+
+
+
+<h4 id="path">path</h4>
+
+<p>可绘制贝塞尔曲线等</p></div></body>
+</html>
