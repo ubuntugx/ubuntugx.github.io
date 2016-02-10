@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160210</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160210 <strong>css 布局</strong></p>
+</blockquote>
+
+<h3 id="css-布局">css 布局</h3>
+
+
+
+<pre class="prettyprint"><code class="language-css hljs "><span class="hljs-comment">/* 父 div */</span>
+<span class="hljs-id">#toolbar</span> <span class="hljs-class">.menu</span> <span class="hljs-class">.menu-item</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">border-radius</span>:<span class="hljs-value"> <span class="hljs-number">6</span>px</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-webkit-transition</span>:<span class="hljs-value"> all .<span class="hljs-number">3</span>s</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">transition</span>:<span class="hljs-value"> all .<span class="hljs-number">3</span>s</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">60</span>px</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">60</span>px</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">cursor</span>:<span class="hljs-value"> pointer</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">text-align</span>:<span class="hljs-value"> center</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">float</span>:<span class="hljs-value"> left</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">8</span>px <span class="hljs-number">8</span>px <span class="hljs-number">0</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> relative</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">8</span>px</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">background-color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#eee</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">box-shadow</span>:<span class="hljs-value"> <span class="hljs-number">0</span> <span class="hljs-number">1</span>px <span class="hljs-number">3</span>px <span class="hljs-number">0</span> <span class="hljs-hexcolor">#000</span>,inset <span class="hljs-number">0</span> -<span class="hljs-number">2</span>px <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-function">rgba(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,.<span class="hljs-number">3</span>)</span>,inset <span class="hljs-number">0</span> -<span class="hljs-number">1</span>px <span class="hljs-number">1</span>px <span class="hljs-number">2</span>px <span class="hljs-function">rgba(<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,.<span class="hljs-number">35</span>)</span></span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-comment">/* 子 div */</span>
+<span class="hljs-id">#toolbar</span> <span class="hljs-class">.menu</span> <span class="hljs-class">.menu-item</span> <span class="hljs-tag">div</span><span class="hljs-pseudo">:first-child</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> relative</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">100</span>%</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-webkit-transform</span>:<span class="hljs-value"> <span class="hljs-function">scale(.<span class="hljs-number">6</span>)</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-transform</span>:<span class="hljs-value"> <span class="hljs-function">scale(.<span class="hljs-number">6</span>)</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">transform</span>:<span class="hljs-value"> <span class="hljs-function">scale(.<span class="hljs-number">6</span>)</span></span></span>;
+<span class="hljs-rule">}</span></span></code></pre>
+
+<p>相当于按钮中间有一个图标</p>
+
+<blockquote>
+  <p>canvas 响应式画板 图标按钮</p>
+</blockquote></div></body>
+</html>
