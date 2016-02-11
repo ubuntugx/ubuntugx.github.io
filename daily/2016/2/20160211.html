@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160211</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160211 <strong>CSS3 2D Transforms</strong> &amp;&amp; <strong>CSS Selectors[attribute]</strong></p>
+</blockquote>
+
+<h3 id="css3-2d-transforms">CSS3 2D Transforms</h3>
+
+<p><a href="http://www.w3schools.com/css/css3_2dtransforms.asp">w3schools</a> <br>
+CSS3 transforms allow you to translate, rotate, scale, and skew elements. <br>
+CSS3 2D Transforms</p>
+
+<ul>
+<li>translate()  移动</li>
+<li>rotate()  旋转</li>
+<li>scale()  缩放(width, height)</li>
+<li>skewX() 沿 x 轴旋转</li>
+<li>skewY() 沿 y 轴旋转</li>
+<li>matrix() 将几种旋转整合起来 <code>matrix(scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY())</code></li>
+</ul>
+
+
+
+<h3 id="css-selectorsattribute">CSS Selectors[attribute]</h3>
+
+<p>参见 <a href="https://css-tricks.com/almanac/selectors/a/attribute/">css-trick</a> &amp;&amp; <a href="http://www.w3schools.com/cssref/css_selectors.asp">w3schools</a></p>
+
+<pre class="prettyprint"><code class="language-css hljs "><span class="hljs-attr_selector">[data-value]</span> <span class="hljs-rules">{
+  <span class="hljs-comment">/* Attribute exists */</span>
+  <span class="hljs-comment">/* 包含这个属性 */</span>
+<span class="hljs-rule">}</span></span>
+
+<span class="hljs-attr_selector">[data-value="foo"]</span> <span class="hljs-rules">{
+  <span class="hljs-comment">/* Attribute has this exact value */</span>
+  <span class="hljs-comment">/* 属性有这个确定的值 */</span>
+<span class="hljs-rule">}</span></span>
+
+<span class="hljs-attr_selector">[data-value*="foo"]</span> <span class="hljs-rules">{
+  <span class="hljs-comment">/* Attribute value contains this value somewhere in it */</span>
+  <span class="hljs-comment">/* 属性的值包含这个字符串 */</span>
+<span class="hljs-rule">}</span></span>
+
+<span class="hljs-attr_selector">[data-value~="foo"]</span> <span class="hljs-rules">{
+  <span class="hljs-comment">/* Attribute has this value in a space-separated list somewhere */</span>
+  <span class="hljs-comment">/* 值在一组以空格分隔的属性值之中，或者是单独的一个值 */</span>
+<span class="hljs-rule">}</span></span>
+
+<span class="hljs-attr_selector">[data-value^="foo"]</span> <span class="hljs-rules">{
+  <span class="hljs-comment">/* Attribute value starts with this */</span>
+  <span class="hljs-comment">/* 属性的值由这个字符串开始，区分大小写 */</span>
+<span class="hljs-rule">}</span></span>
+
+<span class="hljs-attr_selector">[data-value=|"foo"]</span> <span class="hljs-rules">{
+  <span class="hljs-comment">/* Attribute value has this in a dash-separated list somewhere */</span>
+  <span class="hljs-comment">/* 匹配破折号前面的字符串或唯一值 value|=1999 匹配 1999-2000 */</span>
+<span class="hljs-rule">}</span></span>
+
+<span class="hljs-attr_selector">[data-value$="foo"]</span> <span class="hljs-rules">{
+  <span class="hljs-comment">/* Attribute value ends with this */</span>
+  <span class="hljs-comment">/* 属性的值由这个字符串结尾，区分大小写 */</span></span></code></pre></div></body>
+</html>
