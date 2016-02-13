@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160213</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160213 jQuery hover() 和 mouseover()</p>
+</blockquote>
+
+<h3 id="jquery-hover-和-mouseover">jQuery hover() 和 mouseover()</h3>
+
+<blockquote>
+  <p><a href="http://www.zhangxinxu.com/wordpress/2010/07/jquery-%E9%BC%A0%E6%A0%87%E7%BB%8F%E8%BF%87hover%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86/">张鑫旭老师</a>：jQuery的hover方法是有别于mouseover与mouseout方法，例如，鼠标移动到div内部的一个的图片上，如果是使用mouseover与mouseout方法，当鼠标“悬停”在图片上时会触发mouseout事件，这是不合理的。而jQuery的hover方法则修正了这个问题。</p>
+</blockquote>
+
+
+
+<h4 id="mouseover">mouseover</h4>
+
+<p><a href="https://api.jquery.com/mouseover/">jQuery API</a></p>
+
+<p>Bind an event handler to the “mouseover” JavaScript event, or trigger that event on an element.  <br>
+绑定 mouseover 事件，或者触发事件。</p>
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-comment">// 调用时参数有事件处理程序 function</span>
+.on(<span class="hljs-string">"mouseover"</span>, hander)
+<span class="hljs-comment">// 调用时不带参数</span>
+.trigger(<span class="hljs-string">"mouseover"</span>)</code></pre>
+
+<p>当鼠标指针进入时触发。</p>
+
+
+
+<h4 id="hover">hover</h4>
+
+<p><a href="https://api.jquery.com/hover/">jQuery API</a> <br>
+Bind one or two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements. <br>
+在鼠标进入和离开元素时被执行，写两个函数分别处理鼠标进入和离开时的事件。或者一个函数同时处理进入和离开时的实践。</p>
+
+<h4 id="区别">区别：</h4>
+
+<p>Calling <code>$(selector).hover(handlerIn, handlerOut)</code> is shorthand for: <code>$(selector).mouseenter(handlerIn).mouseleave(handlerOut);</code></p>
+
+<p>mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element. <br>
+<code>mouseover</code> 在进入子元素时也会被触发，而 <code>mouseenter</code> 只会在进入当前元素时被触发。jQuery API 中有 Demo</p>
+
+<p>Because of this, .mouseover() is not the same as .hover(), for the same reason .mouseover() is not the same as .mouseenter().</p></div></body>
+</html>
