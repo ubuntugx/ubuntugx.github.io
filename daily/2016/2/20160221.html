@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160220</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160221 <strong>ajax</strong></p>
+</blockquote>
+
+<h3 id="ajax">ajax</h3>
+
+<p>ajax( asynchronous JavaScript and XML )：异步的 JavaScript 和 XML。 <br>
+<em>from w3schools：</em></p>
+
+<ul>
+<li>AJAX is a technique for creating fast and dynamic web pages.（AJAX 是一种迅速创建动态网页的技术）</li>
+<li>AJAX allows web pages to be updated asynchronously by exchanging small amounts of data with the server behind the scenes. This means that it is possible to update parts of a web page, without reloading the whole page.（AJAX 允许在后台和服务器异步加载少量数据，这意味着可能更新部分网页，无需加载整个页面）</li>
+<li>Classic web pages, (which do not use AJAX) must reload the entire page if the content should change.（传统的网页如果内容变化必须重新加载整个页面）</li>
+</ul>
+
+<p>AJAX is based on internet standards, and uses a combination of:</p>
+
+<ul>
+<li>XMLHttpRequest object (to retrieve data from a web server，从 Web 服务器检索数据)</li>
+<li>JavaScript/DOM (to display/use the data，展示 / 使用数据)</li>
+</ul>
+
+<p><em>from Wikipedia：</em> <br>
+传统的 Web 应用允许用户端填写表单，当提交表单时就向 Web 服务器发送一个请求。服务器接收并处理传来的表单，然后返回一个网页，但这个做法浪费了许多带宽，因为前后两页大部分 HTML 代码都是相同的。由于每次应用的沟通都需要向服务器发送请求，应用的回应时间依赖于服务器的回应时间。这导致了用户界面的回应比本机应用慢得多。</p>
+
+<p>与此不同，ajax 仅向服务器发送并取回必须的数据，并在客户端用 JavaScript 来处理来自服务器端的回应。因为服务器和浏览器之间的数据交换大量减少，服务器回应的更快了。</p>
+
+<p><strong>优点</strong>：</p>
+
+<ol>
+<li>局部刷新网页（再不更新整个页面的情况下维护数据）</li>
+<li>异步刷新（下面的 HTML 代码会继续解析执行）？</li>
+</ol>
+
+<p><strong>缺点</strong>：</p>
+
+<ol>
+<li>不支持浏览器的后退功能，在动态更新页面的情况下，用户无法回到前一个页面状态，这是因为浏览器仅能记下历史记录中的静态页面。一个被完整读入的页面与一个已经被动态修改过的页面之间的差别非常微妙；用户通常都希望单击后退按钮，就能够取消他们的前一次操作，但是在Ajax应用程序中，却无法这样做。不过开发者已想出了种种办法来解决这个问题，当中大多数都是在用户单击后退按钮访问历史记录时，通过创建或使用一个隐藏的IFRAME来重现页面上的变更。（例如，当用户在Google Maps中单击后退时，它在一个隐藏的IFRAME中进行搜索，然后将搜索结果反映到Ajax元素上，以便将应用程序状态恢复到当时的状态。）项目中用 history 的新方法改变历史记录的列表来实现后退功能。</li>
+<li>一个相关的观点认为，使用动态页面更新使得用户难于将某个特定的状态保存到收藏夹中。该问题的解决方案也已出现，大部分都使用URL片断标识符（通常被称为锚点，即URL中#后面的部分）来保持追踪，允许用户回到指定的某个应用程序状态。（许多浏览器允许JavaScript动态更新锚点，这使得Ajax应用程序能够在更新显示内容的同时更新锚点。）这些解决方案也同时解决了许多关于不支持后退按钮的争论。</li>
+<li>进行Ajax开发时，网络延迟——即用户发出请求到服务器发出响应之间的间隔——需要慎重考虑。如果不给予用户明确的回应[4]，没有恰当的预读数据[5]，或者对XMLHttpRequest的不恰当处理[6]，都会使用户感到厌烦[7]。通常的解决方案是，使用一个可视化的组件来告诉用户系统正在进行后台操作并且正在读取数据和内容。</li>
+</ol></div></body>
+</html>
