@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160222</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160222 <strong>jQuery get</strong> &amp;&amp; <strong>setIntereval() 和 bind()</strong> &amp;&amp; <strong>CopyLeft</strong></p>
+</blockquote>
+
+<h3 id="jquery-get">jQuery get</h3>
+
+<p><a href="https://api.jquery.com/get/">API</a></p>
+
+<p>用来获取元素列表中的第几个元素，如果没有参数则返回全部元素，从 0 开始</p>
+
+<blockquote>
+  <p>刚刚看了老大写的找工作的记事，努力一下两年的工作经验就应该到他的水平了…加油！ <br>
+  很多函数查 API 的时候都没有仔细的看，现在遇到不会的用法就要看透彻了，最好能写一篇博客整理一下什么的。</p>
+</blockquote>
+
+<h3 id="setintereval-和-bind">setIntereval() 和 bind()</h3>
+
+<h4 id="setinterval-里的-this-问题">setInterval() 里的 this 问题</h4>
+
+<p>setInterval 的作用: 周期性的调用一段函数或执行一段代码。</p>
+
+
+
+<pre class="prettyprint"><code class="language-javasdcript hljs r">var intervalID = window.setInterval(func, delay[, param1, param2, <span class="hljs-keyword">...</span>]);
+var intervalID = window.setInterval(code, delay);</code></pre>
+
+<ul>
+<li>intervalID 是这个重复操作的唯一标识符，可以作为参数传给 clearInterval()</li>
+<li>func 是想要重复调用的函数</li>
+<li>code 是另一种语法的应用是由一段字符串构成的代码（<strong>不推荐</strong>，原因见下）</li>
+<li>delay 是每次执行延迟的毫秒数，函数每次调用会在延迟之后发生，和 setTimeOut 一样，实际延迟的时间可能会稍长一点 </li>
+</ul>
+
+<p>基本用法：</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-keyword">var</span> intervalID = setInterval(animate, <span class="hljs-number">1000</span>)</code></pre>
+
+<p>但是 this 在 function 中调用时，因为是普通方式调用，所以在非严格模式下指向 global object 不正确 <br>
+这时候可以用 bind </p>
+
+<h3 id="copyleft">CopyLeft</h3>
+
+<p>著佐权，相对于 CopyRight 的版权来讲，它允许使用者自由使用，只要同样开源就可以</p></div></body>
+</html>
