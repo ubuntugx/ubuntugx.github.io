@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20160228</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><blockquote>
+  <p>20160228 <strong>RequireJS</strong></p>
+</blockquote>
+
+<h3 id="requirejs">RequireJS</h3>
+
+<p>RequireJS 是 JavaScript 文件和模块加载程序，优化了浏览器使用，但它可以用于其他的 JavaScript 环境，像 Rhino 和 Node。使用像 RequireJS 这样的模块化脚本加载程序将提升你的代码的速度和质量。</p>
+
+
+
+<pre class="prettyprint"><code class="language-html hljs "><span class="hljs-comment">&lt;!-- data-main 属性说明在加载 require.js 后加载 myScript.js --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">data-main</span>=<span class="hljs-value">"scripts/myScript.js"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"scripts/require.js"</span> <span class="hljs-attribute">async</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span></code></pre>
+
+<p>刚刚写加载 Require.js，然后在官方教程看到： <br>
+You could also place the script tag end of the  section if you do not want the loading of the require.js script to block rendering. For browsers that support it, you could also add an async attribute to the script tag. <br>
+可以将加载放到 body 里，如果不想让 Require.js 阻塞渲染的话，想看看具体的渲染机制，然后也可以用 async 属性在支持的浏览器中。</p>
+
+<p>接着去查了 async 属性： <br>
+<img src="https://html.spec.whatwg.org/images/asyncdefer.svg" alt="This is all summarized in the following schematic diagram" title=""> <br>
+parser: 解析器；fetch: 获取；execution: 执行 <br>
+async：浏览器兼容的话，异步执行脚本，对内联脚本没有影响（脚本没有 src 属性） <br>
+见 <a href="https://github.com/ubuntugx/Demo/blob/master/jsModuleDemo/scripts/moduleDemo.js">github</a></p></div></body>
+</html>
