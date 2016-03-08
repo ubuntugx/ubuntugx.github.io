@@ -39,7 +39,7 @@
     box-shadow: 0 1px 3px 0 #000,inset 0 -2px 0 0 rgba(0,0,0,.3);
 }
 
-#toolbar .menu .menu-item.modal-indicator[style*="#000"]{
+#toolbar .menu .menu-item.modal-indicator[style*="(0, 0, 0)"]{
     box-shadow: 0 1px 3px 0 #000,inset 0 -2px 0 0 rgba(0,0,0,.3),inset 0 -1px 1px 2px rgba(255,255,255,.35);
 }
 
@@ -123,8 +123,12 @@
 }
 
 #toolbar .menu .sub-menu .menu-item{
-    padding: 9px;
-    margin: 0;
+     padding: 9px;
+     margin: 0;
+}
+
+#toolbar .menu .sub-menu .menu-item:hover{
+    background-color: #000;
 }
 
 #toolbar .menu .colors .menu-item .color-icon{
@@ -179,4 +183,37 @@
     #toolbar{
         width: 56px;
     }
+}
+
+#content {
+    position: absolute;
+    top: 0;
+    left: 74px;
+    right: 0;
+    bottom: 0;
+    font-size: 14px;
+    overflow: hidden;
+    color: #000;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    /* 观察者距z=0平面的距离 */
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+}
+
+#content .canvas-wrapper{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+#content .canvas-wrapper canvas{
+    position: absolute;
+    left: 0;
+    top: 0;
 }
