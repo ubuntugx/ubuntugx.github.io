@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>20160411</title>
+  <link rel="stylesheet" href="http://app.classeur.io/base-min.css" />
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+
+<body>
+  <div class="export-container"><p><code>undefined</code> 和数字进行四则运算，返回结果为 <code>NaN</code></p>
+<h4 id="解构赋值">解构赋值</h4>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">var</span> <span class="token punctuation">{</span>
+  StyleSheet<span class="token punctuation">,</span>
+  Text<span class="token punctuation">,</span>
+  View
+<span class="token punctuation">}</span> <span class="token operator">=</span> React<span class="token punctuation">;</span>
+</code></pre>
+<p>这句代码是ES6 中新增的解构(Destructuring)赋值语句。准许你获取对象的多个属性并且使用一条语句将它们赋给多个变量。</p>
+<p>上面的代码等价于：</p>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">var</span> StyleSheet <span class="token operator">=</span> React<span class="token punctuation">.</span>StyleSheet<span class="token punctuation">;</span>
+<span class="token keyword">var</span> Text <span class="token operator">=</span> React<span class="token punctuation">.</span>Text<span class="token punctuation">;</span>
+<span class="token keyword">var</span> View <span class="token operator">=</span> React<span class="token punctuation">.</span>View<span class="token punctuation">;</span>
+</code></pre>
+<p>再看几个例子，以前，为变量赋值，只能直接指定值:</p>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> c <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+</code></pre>
+<p>而ES6 允许这样写：</p>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">var</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="sass-和-scss">Sass 和 SCSS</h4>
+<p>它们是 SASS 的两种语法。<br>
+Sass 的写法像 python 似的，用缩进来表示代码的包含关系。<br>
+SCSS 更贴近于平时的写法，用大括号 { } 包括样式。<br>
+参见: <a href="http://www.sitepoint.com/whats-difference-sass-scss/">http://www.sitepoint.com/whats-difference-sass-scss/</a></p>
+<h4 id="es6-遍历数组">ES6 遍历数组</h4>
+<ol>
+<li><code>for...of</code> 循环读取键值(具体值)，只会返回具有数字索引的属性</li>
+<li><code>for...in</code> 循环读取键名(索引)</li>
+<li><code>foreach</code> 同时得到键名和键值<br>
+（对于数组，键名就是索引值；对于 Set ，键名和键值相同，对于 Map，它的 <code>iterator</code> 接口，默认调用的就是 <code>entris</code> 方法）</li>
+</ol></div>
+</body>
+
+</html>
