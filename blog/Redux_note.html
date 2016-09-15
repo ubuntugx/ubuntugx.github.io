@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redux - 学习笔记</title>
+  <link rel="stylesheet" href="http://app.classeur.io/base-min.css" />
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+
+<body>
+  <div class="export-container"><h1 id="redux-学习笔记">Redux 学习笔记</h1>
+<ul>
+<li>Redux 可以控制数据流动，和 React，Angular，Vue 等框架配合，清晰的管理数据流。</li>
+<li>Redux 由三部分组成：store，action，reducer</li>
+<li>数据流动的例子：onClick -&gt; dispatch 一个 action -&gt; 根据 action type 执行 reducer -&gt; 更新 store，更新 store 后并没有引起 view 层变化，真正引起变化不是 redux 做的。</li>
+</ul>
+<h3 id="createstorereducer-initialstate">createStore(reducer, initialState)</h3>
+<p>createStore 作用为创建一个 store，参数（总的 reducer，初始的状态树）<br>
+返回了 4 个方法挂在了 store 上</p>
+<h4 id="dispatch">dispatch</h4>
+<p>主要有两个作用：</p>
+<ol>
+<li>执行相应的 reducer</li>
+</ol>
+<pre class=" language-javascript"><code class="prism  language-javascript"> currentState <span class="token operator">=</span> <span class="token function">currentReducer</span><span class="token punctuation">(</span>currentState<span class="token punctuation">,</span> action<span class="token punctuation">)</span>
+</code></pre>
+<p>因为 store 只有一个，所以这里 currentState 为整个 store tree。<br>
+相应的 currentReducer 为根 reducer。</p>
+<ol start="2">
+<li>执行 subscribe 里注册的方法</li>
+</ol>
+<pre class=" language-javascript"><code class="prism  language-javascript">  <span class="token keyword">var</span> listeners <span class="token operator">=</span> currentListeners <span class="token operator">=</span> nextListeners
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> listeners<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    listeners<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>在执行 subscribe 方法时，默认将 listen 函数放到了一个数组里，这里遍历这个数组，分别执行这些方法。</p>
+<h4 id="getstate">getState</h4>
+<p>作用：返回整个 state 树。</p>
+<h4 id="subscribe">subscribe</h4>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">function</span> <span class="token function">subscribe</span><span class="token punctuation">(</span>listener<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    nextListeners<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>listener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>作用：注册监听事件，返回 unsubscribe。</p>
+<h4 id="replacereducer">replaceReducer</h4>
+<p>作用：替换 reducer，重新初始化 store 结构。</p>
+<p>createStore 里注册完这些函数后执行了 <code>dispatch({ type: ActionTypes.INIT })</code> 初始化了 store tree，将每一个 store 分支下的 state 赋成初始值</p>
+<h3 id="combinereducerreducer">combineReducer(reducer)</h3>
+<p>两个作用：</p>
+<ol>
+<li>找到对应的 state 分支</li>
+<li>将改变后的 state 合并回树里</li>
+</ol>
+<p>传入的 reducer 是键值对的形式，首先用 <code>Object.keys</code> 取出所有的 key，筛选出所有符合条件的 reducer (值为一个函数)，然后遍历符合条件的 key，取出对应的 key 和 reducer，执行这个 reducer，会返回当前分支下新的 state，判断当前分支下新的 state 是不是和原来的 state 引用相同，因为 reducer 中对于 state 的改变，会重新生成一个对象，不会与原来的对象引用相同。每次 dispatch 新的 action，都会遍历所有的 reducer，找到相应的方法，替换掉 store tree 上对应的 state，更新整个 store tree。</p>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">var</span> nextState <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> finalReducerKeys<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> key <span class="token operator">=</span> finalReducerKeys<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+  <span class="token keyword">var</span> reducer <span class="token operator">=</span> finalReducers<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+  <span class="token keyword">var</span> previousStateForKey <span class="token operator">=</span> state<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+  <span class="token keyword">var</span> nextStateForKey <span class="token operator">=</span> <span class="token function">reducer</span><span class="token punctuation">(</span>previousStateForKey<span class="token punctuation">,</span> action<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> nextStateForKey <span class="token operator">===</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> errorMessage <span class="token operator">=</span> <span class="token function">getUndefinedStateErrorMessage</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> action<span class="token punctuation">)</span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span>errorMessage<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  nextState<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> nextStateForKey
+  hasChanged <span class="token operator">=</span> hasChanged <span class="token operator">||</span> nextStateForKey <span class="token operator">!==</span> previousStateForKey
+<span class="token punctuation">}</span>
+<span class="token keyword">return</span> hasChanged <span class="token operator">?</span> nextState <span class="token punctuation">:</span> state
+</code></pre>
+<p>所以 combineReducer 还是遍历了所有的 reducer，更新了整个 store tree，因为在 createStore 的 dispatch 里需要返回整个的 state。作用是不用将每个页面对不同 action 的处理都写到一个文件再传到 createStore 里，可以不用页面写在不同的文件中，由它来判断改变更新。</p>
+<blockquote>
+<p>dispatch(action) 中执行的是 combineReducer(rootState, action)，然后进入 combineReducer 遍历所有的 reducer，分别执行，最终更新整个 store tree。</p>
+</blockquote></div>
+</body>
+
+</html>

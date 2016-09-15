@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>react-redux 学习笔记</title>
+  <link rel="stylesheet" href="http://app.classeur.io/base-min.css" />
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+
+<body>
+  <div class="export-container"><h1 id="react-redux-学习笔记">react-redux 学习笔记</h1>
+<ul>
+<li>react 是 view 层的一个框架，负责展示数据；redux 控制数据流动，把数据存在唯一的 store 里，通过 action 来触发事件，reducer 来根据事件处理数据。</li>
+<li>redux 在通过 reducer 变更完 store tree 后就止步了，它并不能将每次变更之后的 state 及时显示到页面上，所以，为了让组件能够接收到 store，每次 state 更新后及时显示到页面上，我们需要有本文介绍的 react-redux。</li>
+<li>react-redux 由两部分构成：Provider 和 connect，Provider 负责将 store 传递给内部所有组件，connect 负责注册监听器，在每一次状态变更之后把新的状态和 action 等作为属性挂到容器组件的 this.props 下。</li>
+</ul>
+<h3 id="provider">Provider</h3>
+<p>作用：将 store 通过 context 的方式传递给所有子组件。</p>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">Provider</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+  <span class="token function">getChildContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span> store<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>store <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">constructor</span><span class="token punctuation">(</span>props<span class="token punctuation">,</span> context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>props<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>store <span class="token operator">=</span> props<span class="token punctuation">.</span>store
+  <span class="token punctuation">}</span>
+
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Children<span class="token punctuation">.</span><span class="token function">only</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>children<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Provider 包裹在组件的最外层，接收一个 store tree，首先在 constructor 里把接收到的属性存到 this.store 里，在 getChildContext 里把 store return 出来，这样包在它里面的组件都可以通过 context 取到 store，将 store 传给了所有的子组件。render 中 Children.only 表示只 render 其中第一个子组件，并且要求组件的第一级子组件只有一个。</p>
+<h3 id="connect">connect</h3>
+<p>作用：在每一次 state 变化之后，用新的 store tree 重新渲染组件。<br>
+connect 函数接收 4 个参数：</p>
+<h4 id="mapstatetoprops">mapStateToProps</h4>
+<p>参数为整个 store tree，返回值为需要 merge 进 props 的 state。</p>
+<h4 id="mapdispatchtoprops">mapDispatchToProps</h4>
+<p>参数为整个 store.dispatch()，返回值为需要 merge 进 props 的 action。</p>
+<h4 id="mergeprops">mergeProps</h4>
+<p>将前面两个函数的返回值，加上自定义的属性，合并到一起，挂到容器组件的 this props 上。<br>
+**注意：**如果写了第三个参数，前两个参数返回的值将不会直接被挂到 this.props 上，所以第三个参数需要返回正确的值。</p>
+<h4 id="options">options</h4>
+<p>是否开启优化，默认值为 true。</p>
+<p>connect 在容器组件中的用法：</p>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token keyword">function</span> <span class="token function">mapStateToProps</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">const</span> <span class="token punctuation">{</span> isFetching<span class="token punctuation">,</span> objectTypes <span class="token punctuation">}</span> <span class="token operator">=</span> state<span class="token punctuation">.</span>rootData<span class="token punctuation">.</span>objectGroup <span class="token operator">||</span> <span class="token punctuation">{</span>
+		isFetching<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+		objectTypes<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token punctuation">{</span> isFetching<span class="token punctuation">,</span> objectTypes <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">mapDispatchToProps</span><span class="token punctuation">(</span>dispatch<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> actionCreators <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> objectsTypeActionCreators<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token function">bindActionCreators</span><span class="token punctuation">(</span>actionCreators<span class="token punctuation">,</span> dispatch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">connect</span><span class="token punctuation">(</span>mapStateToProps<span class="token punctuation">,</span> mapDispatchToProps<span class="token punctuation">)</span><span class="token punctuation">(</span>CRMPage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>从 connect 的用法可以看出，这里 connect 接收了两个参数，分别处理 state 和 action，最终返回一个组件。最终 export 出去的不是最初定义的 React 组件，是用 connect 包裹之后的组件。所以 connect 做的事主要有：</p>
+<ol>
+<li>返回一个 React 组件，将函数传入的参数（state，action）放入 this.props 下。</li>
+<li>在组件结构加载完成后注册监听器，在组件卸载时注销监听器。监听器的作用是捕捉每一次 state 的更新。</li>
+</ol>
+<p>具体实现是</p>
+<ol>
+<li>
+<p>在 constructor 取得当前的 store 树，可以通过 this.props.store 和 this.context.store 两种方式获取，其中第二种方式是从 Provider 的 getChildContext() 传进来的。</p>
+</li>
+<li>
+<p>在 render 里使用 React 的 <a href="https://facebook.github.io/react/docs/top-level-api.html">createElement</a>方法生成新的组件，并将传入的 state 和 action 合并到 props 上。</p>
+</li>
+</ol>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>renderedElement <span class="token operator">=</span> <span class="token function">createElement</span><span class="token punctuation">(</span>WrappedComponent<span class="token punctuation">,</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>mergedProps <span class="token comment" spellcheck="true">//merge stateProps, dispatchProps, props</span>
+  <span class="token punctuation">)</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>renderedElement<span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+</code></pre>
+<p>最后返回的时候用<code>hoistNonReactStatic</code>将原来组件中的元素拷贝到目标组件。</p>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token function">hoistNonReactStatic</span><span class="token punctuation">(</span>targetComponent<span class="token punctuation">,</span> sourceComponent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ol start="3">
+<li>在 componentDidMount 中使用 store 的 subscribe 方法注册监听事件，以便在 dispatch 之后调用，componentWillUnmount 执行 unsubcribe 事件，注销监听器。</li>
+</ol>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token function">trySubscribe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>shouldSubscribe <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>unsubscribe<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>unsubscribe <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>store<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">tryUnsubscribe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>unsubscribe<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">unsubscribe</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>unsubscribe <span class="token operator">=</span> <span class="token keyword">null</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>这样，在每次 dispatch(action) 之后会执行 <code>handleChange</code>，在 <code>handleChange</code> 函数内部，会执行 setState 更新 store tree。</p>
+<blockquote>
+<p>所以每次 dispatch(action) 之后，执行对应的 reducer，然后执行相应的订阅的函数。在 reducer 里把 store 更新，在监听函数里执行 setState，更新 React 组件。</p>
+</blockquote></div>
+</body>
+
+</html>
